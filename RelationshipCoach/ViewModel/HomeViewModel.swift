@@ -27,25 +27,9 @@ struct HomeSection {
 
 class HomeViewModel: ObservableObject {
     @Published var sections: [HomeSection] = []
-    @Published var routes: [HomeViewRoute] = []
-    
-    var cancellables = Set<AnyCancellable>()
-    let itemTapped = PassthroughSubject<(Int, Int), Never>()
     
     init() {
         prepareSections()
-        handleEvents()
-    }
-    
-    func handleEvents() {
-        itemTapped.sink { [weak self] sectionIndex, itemIndex in
-            guard let self = self else { return }
-            
-            let section = sections[sectionIndex]
-            if section.type == .story {
-                routes.append(.story)
-            }
-        }.store(in: &cancellables)
     }
     
 }

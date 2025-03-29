@@ -8,16 +8,15 @@
 import SwiftUI
 import AVKit
 
-enum HomeViewRoute: Hashable {
-    case story
-}
+
 
 struct HomeView: View {
     
+    @EnvironmentObject var routeManager: RouteManager
     @ObservedObject var viewModel: HomeViewModel = .init()
     
     var body: some View {
-        NavigationStack(path: $viewModel.routes) {
+        NavigationStack(path: $routeManager.routes) {
             ScrollView {
                 VStack(spacing: 0) {
                         if let videoPath = Bundle.main.url(forResource: "homevideo", withExtension: "mp4") {
@@ -26,8 +25,8 @@ struct HomeView: View {
                                 .clipped()
                         }
                     
-                    ForEach(0..<viewModel.sections.count, id: \.self) { index in
-                        let section = viewModel.sections[index]
+                    ForEach(0..<viewModel.sections.count, id: \.self) { sectionIndex in
+                        let section = viewModel.sections[sectionIndex]
                         ForEach(0..<section.items.count, id: \.self) { itemIndex in
                             let item = section.items[itemIndex]
                             HStack {
@@ -45,7 +44,14 @@ struct HomeView: View {
                             .padding(.vertical, 18)
                             .padding(.horizontal, 8)
                             .onTapGesture {
-                                viewModel.itemTapped.send((index, itemIndex))
+                                let section = viewModel.sections[sectionIndex]
+                                if section.type == .story {
+                                    routeManager.routes.append(.story)
+                                }
+                                
+                                if section.type == .preference {
+                                    routeManager.routes.append(.preference)
+                                }
                             }
                         }
                         
@@ -55,10 +61,20 @@ struct HomeView: View {
                     }
                 }
             }
-            .navigationDestination(for: HomeViewRoute.self) { route in
+            .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .story:
                     StoryView()
+                case .preference:
+                    PreferencesView()
+                case .coach:
+                    Text("Coach")
+                case .privacyPolicy:
+                    Text("privacyPolicy")
+                case .termsAndConditions:
+                    Text("termsAndConditions")
+                case .changeGender:
+                    Text("changeGender")
                 }
             }
         }

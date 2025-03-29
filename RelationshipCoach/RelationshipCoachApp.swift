@@ -7,11 +7,25 @@
 
 import SwiftUI
 
+enum Route: Hashable {
+    case story
+    case preference
+    case coach
+    case privacyPolicy
+    case termsAndConditions
+    case changeGender
+}
+
+class RouteManager: ObservableObject {
+    @Published var routes: [Route] = []
+}
+
 @main
 struct RelationshipCoachApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
+                .environmentObject(RouteManager())
         }
     }
 }
