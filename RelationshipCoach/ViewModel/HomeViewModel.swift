@@ -8,9 +8,24 @@
 import Foundation
 import Combine
 
-struct HomeSectionItem {
-    let icon: String
-    let title: String
+enum HomeSectionItemType {
+    case storyType(StoryType)
+    case becomeRelationshipCoach
+    case miracleMomentsVideoSeries
+    case relationshipMomentsAudio
+    case instagram(String)
+    case preference
+    case share
+}
+
+enum StoryType {
+    case hisFault
+    case herFault
+    case myFault
+    case toxic
+    case giving
+    case receiving
+    case sweet
 }
 
 enum HomeSectionType {
@@ -22,58 +37,146 @@ enum HomeSectionType {
 
 struct HomeSection {
     let type: HomeSectionType
-    let items: [HomeSectionItem]
+    let items: [HomeSectionItemType]
 }
 
 class HomeViewModel: ObservableObject {
     @Published var sections: [HomeSection] = []
     
+    
     init() {
-        prepareSections()
     }
     
 }
 
+extension Gender {
+    var items: [HomeSectionItemType] {
+        switch self {
+        case .male:
+            return [
+                .storyType(.herFault),
+                .storyType(.myFault),
+                .storyType(.toxic),
+                .storyType(.giving),
+                .storyType(.sweet),
+            ]
+        case .female:
+            return [
+                .storyType(.hisFault),
+                .storyType(.myFault),
+                .storyType(.toxic),
+                .storyType(.receiving),
+                .storyType(.sweet)
+            ]
+        }
+    }
+}
+
 extension HomeViewModel {
-    func prepareSections() {
+    func prepareSections(for gender: Gender) {
         sections = [
             .init(
                 type: .story,
-                items: [
-                    .init(icon: "ic_male",
-                          title: "His Fault Love Chat"),
-                    .init(icon: "ic_female",
-                          title: "My Fault Love Chat"),
-                    .init(icon: "ic_gift",
-                          title: "Toxic Chat"),
-                    .init(icon: "ic_sms",
-                          title: "Receiving Talk"),
-                    .init(icon: "ic_gift",
-                          title: "Sweet Talk"),
-                    .init(icon: "ic_share",
-                          title: "Share"),
-                ]
+                items: gender.items + [.share]
             ),
             .init(
                 type: .web,
                 items: [
-                    .init(icon: "ic_cart", title: "BECOME A RELATIONSHIP COACH"),
-                    .init(icon: "ic_cart", title: "MIRACLE MOMENTS VIDEO SERIES"),
-                    .init(icon: "ic_cart", title: "RELATIONSHIP MOMENTS AUDIOS - ALL")
+                    .becomeRelationshipCoach,
+                    .miracleMomentsVideoSeries,
+                    .relationshipMomentsAudio
                 ]
             ),
             .init(
                 type: .instagram,
                 items: [
-                    .init(icon: "ic_instagram", title: "Instagram")
+                    .instagram("")
                 ]
             ),
             .init(
                 type: .preference,
                 items: [
-                    .init(icon: "ic_settings", title: "Preferences")
+                    .preference
                 ]
             )
         ]
+    }
+}
+
+extension StoryType {
+    var icon: String {
+        switch self {
+        case .hisFault:
+            return "ic_male"
+        case .herFault:
+            return "ic_male"
+        case .myFault:
+            return "ic_female"
+        case .toxic:
+            return "ic_flask"
+        case .giving:
+            return "ic_sms"
+        case .receiving:
+            return "ic_sms"
+        case .sweet:
+            return "ic_gift"
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .hisFault:
+            "His Fault Love Chat"
+        case .herFault:
+            "Her Fault Love Chat"
+        case .myFault:
+            "My Fault Love Chat"
+        case .toxic:
+            "Toxic Chat"
+        case .giving:
+            "Giving Talk"
+        case .receiving:
+            "Receiving Talk"
+        case .sweet:
+            "Sweet Talk"
+        }
+    }
+}
+
+extension HomeSectionItemType {
+    var icon: String {
+        switch self {
+        case .storyType(let storyType):
+            return storyType.icon
+        case .becomeRelationshipCoach,
+             .miracleMomentsVideoSeries,
+             .relationshipMomentsAudio:
+            return "ic_cart"
+        case .instagram(let string):
+            return "ic_instagram"
+        case .preference:
+            return "ic_settings"
+        case .share:
+            return "ic_share"
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .storyType(let storyType):
+            return storyType.title
+        case .becomeRelationshipCoach:
+            return "BECOME A RELATIONSHIP COACH"
+        case .miracleMomentsVideoSeries:
+            return "MIRACLE MOMENTS VIDEO SERIES"
+        case .relationshipMomentsAudio:
+            return "RELATIONSHIP MOMENTS AUDIOS - ALL"
+        case .instagram(let string):
+            return "Instagram"
+        case .preference:
+            return "Preferences"
+        case .share:
+            return "Share"
+        }
     }
 }

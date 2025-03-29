@@ -14,7 +14,7 @@ struct HomeView: View {
     
     @EnvironmentObject var routeManager: RouteManager
     @ObservedObject var viewModel: HomeViewModel = .init()
-    @AppStorage("gender") var gender: Gender?
+    @AppStorage("gender") var gender: Gender = .female
     
     var body: some View {
         NavigationStack(path: $routeManager.routes) {
@@ -63,6 +63,9 @@ struct HomeView: View {
                 }
             }
             .background(Color.backgroundColor)
+            .onAppear {
+                viewModel.prepareSections(for: gender)
+            }
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .story:
@@ -74,7 +77,7 @@ struct HomeView: View {
                 case .privacyPolicy:
                     Text("privacyPolicy")
                 case .termsAndConditions:
-                    Text("termsAndConditions")
+                    TermsAndConditionsView()
                 case .changeGender:
                     ChangeGenderView()
                 }
@@ -89,10 +92,10 @@ struct HomeView: View {
 }
 
 extension HomeSectionType {
-    func textColor(for gender: Gender?) -> Color {
+    func textColor(for gender: Gender) -> Color {
         switch self {
         case .story, .instagram, .preference:
-            return gender?.color ?? Color.pink
+            return gender.color
         case .web:
             return Color.textColor
         }
