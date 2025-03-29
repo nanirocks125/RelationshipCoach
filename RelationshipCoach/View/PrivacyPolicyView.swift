@@ -1,5 +1,5 @@
 //
-//  TermsAndConditionsView.swift
+//  PrivacyPolicyView.swift
 //  RelationshipCoach
 //
 //  Created by Manikanta Nandam on 29/03/25.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct TermsAndConditionsView: View {
-    @ObservedObject var viewModel = TermsAndConditionsViewModel()
+struct PrivacyPolicyView: View {
     @AppStorage("gender") var gender: Gender = .female
+    @ObservedObject var viewModel = PrivacyPolicyViewModel()
 
     var body: some View {
         ScrollView {
@@ -29,7 +29,7 @@ struct TermsAndConditionsView: View {
                 }
             }
             .padding()
-            .navigationTitle("Terms and Conditions")
+            .navigationTitle("Privacy Policy")
             .toolbarColorScheme(ColorScheme.dark, for: .navigationBar)
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
@@ -38,5 +38,5 @@ struct TermsAndConditionsView: View {
 }
 
 #Preview {
-    TermsAndConditionsView()
+    PrivacyPolicyView()
 }

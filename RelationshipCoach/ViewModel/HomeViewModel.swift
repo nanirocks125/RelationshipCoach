@@ -18,12 +18,26 @@ enum HomeSectionItemType {
     case share
 }
 
-extension HomeSectionItemType? {
-    var storyType: StoryType? {
+extension HomeSectionItemType {
+    var story: StoryType? {
         if case .storyType(let storyType) = self {
             return storyType
+        } else {
+            return nil
         }
-        return nil
+    }
+    
+    var url: URL? {
+        switch self {
+        case .becomeRelationshipCoach:
+            return URL(string: "https://relationshipcoachllc.com/products/become-a-coach")
+        case .relationshipMomentsAudio:
+            return URL(string: "https://relationshipcoachllc.com/products/relationship-success-action-tips-podcasts-via-our-app")
+        case .miracleMomentsVideoSeries:
+            return URL(string: "https://relationshipcoachllc.com/products/miracle-moments-video-series")
+        default:
+            return nil
+        }
     }
 }
 

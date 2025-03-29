@@ -11,6 +11,15 @@ struct DoItYourSelfView: View {
     @ObservedObject var viewModel = DoItYourSelfViewModel()
     var body: some View {
         Text("DoItYourSelfView")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        print("Add new item")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
     }
 }
 

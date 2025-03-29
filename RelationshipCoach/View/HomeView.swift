@@ -8,10 +8,9 @@
 import SwiftUI
 import AVKit
 
-
-
 struct HomeView: View {
     
+    @Environment(\.openURL) var openURL
     @EnvironmentObject var routeManager: RouteManager
     @ObservedObject var viewModel: HomeViewModel = .init()
     @AppStorage("gender") var gender: Gender = .female
@@ -47,14 +46,23 @@ struct HomeView: View {
                             .onTapGesture {
                                 let section = viewModel.sections[sectionIndex]
                                 if section.type == .story {
-//                                    if let storyType = section.items[itemIndex].storyType {
-//                                        routeManager.routes.append(.story(type: storyType))
-//                                    }
-                                    routeManager.routes.append(.story)
+                                    if let story = item.story {
+                                        routeManager.routes.append(.story(story))
+                                    }
                                 }
                                 
                                 if section.type == .preference {
                                     routeManager.routes.append(.preference)
+                                }
+                                
+                                if section.type == .instagram {
+                                    openInstagramProfile(username: "relationshipcoachllc")
+                                }
+                                
+                                if section.type == .web {
+                                    if let url = item.url {
+                                        openURL(url)
+                                    }
                                 }
                             }
                         }
@@ -71,14 +79,14 @@ struct HomeView: View {
             }
             .navigationDestination(for: Route.self) { route in
                 switch route {
-                case .story:
-                    StoryView(storyType: .herFault)
+                case .story(let story):
+                    StoryView(storyType: story)
                 case .preference:
                     PreferencesView()
                 case .coach:
                     Text("Coach")
                 case .privacyPolicy:
-                    Text("privacyPolicy")
+                    PrivacyPolicyView()
                 case .termsAndConditions:
                     TermsAndConditionsView()
                 case .changeGender:
@@ -97,6 +105,17 @@ struct HomeView: View {
             }
         }
         
+    }
+    
+    func openInstagramProfile(username: String) {
+        let appURL = URL(string: "instagram://user?username=\(username)")!
+        let webURL = URL(string: "https://www.instagram.com/\(username)/")!
+        
+        if UIApplication.shared.canOpenURL(appURL) {
+            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
+        }
     }
 }
 

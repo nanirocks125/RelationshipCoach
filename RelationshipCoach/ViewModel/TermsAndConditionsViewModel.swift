@@ -63,7 +63,62 @@ class TermsAndConditionsViewModel: ObservableObject {
                 items: [
                     "Should one or more provisions of the Terms of Use be determined to be illegal, invalid or unenforceable, such provision or provisions shall be modified to the minimum extent necessary to make it or its application valid and enforceable. If modification of such provision or provisions cannot cure such illegality, invalidity, or unenforceability, the provision or provisions in question shall be severed and the remaining provisions shall be interpreted and, if necessary, modified in a manner that provides for the maximum enforceability and validity of the entire remaining Terms of Use."
                 ]
+            ),
+            .init(
+                section: "Terms of Service:",
+                items: [
+                    "Continuity Programs. In the event that the RC Website or App involves paid membership, said membership is for the selected term and will renew automatically thereafter for successive equivalent terms unless either party elects to terminate such service (which you can do at any time by logging into your RC account and indicating your election to terminate such service). Any renewal of your services with us is subject to our then current terms and conditions and payment of all applicable service fees at the time of renewal."
+                ]
+            ),
+            .init(
+                section: "Third-Party Information.",
+                items: [
+                    "You represent and warrant that you have provided notice to, and obtained consent from, any third party individuals whose personal data you supply to us as part of our services with regard to : (i) the purposes for which such third party’s personal data has been collected; (ii) the intended recipients or categories of recipients of the third party’s personal data; (iii) which parts of the third party’s data are obligatory and which parts, if any, are voluntary; and (iv) how the third party can access and, if necessary, rectify the third party’s personal data. You further agree to provide such notice and obtain such consent with regard to any third party personal data and supply to us in the future. We are not responsible for ay consequences resulting from your failure to provide notice or receive consent from such individuals or for your providing outdated, incomplete or inaccurate information."
+                ]
+            ),
+            .init(
+                section: "Modifications to Agreement.",
+                items: [
+                    "Except as otherwise provided in the Agreement, you agree, during the term of this Agreement, that we may revise the terms and conditions of this Agreement and/or change the services provided under this Agreement at any time. Any such revision or change will be binding and effective ten (10) calendar days after the revised Agreement or change to the service(s) is posted on the RC Website or App. You agree to periodically review our website and App including the current version of the Agreement available on our website, to be aware of any such revisions. If you do not agree with any revision to the Agreement or change to the services, you may terminate this Agreement at any time. Any fees paid by you prior to termination of your Agreement with us are non-refundable, but you will not incur any additional fees. By continuing to use our services ten (10) calendar days after any revision to this Agreement or change in services(s) is posted on our Website or App, you agree to abide by and be bound by any such revision or changes. We are not bound by and you may not rely on any representation concerning this Agreement or our services made by: (i) any agent, representative or employee of any third party that you may use to apply for our services; or (ii) information posted on our Website or App of a general informational nature. No employee, contractor, agent or representative of RC or any partner of RC is authorized to alter or amend the terns and conditions of this Agreement."
+                ]
+            ),
+            .init(
+                section: "Modifications to your account.",
+                items: [
+                    "In order to change any of your account information with us, you must use your account name and the password that you selected when you created your RC account. Please safeguard this information from any unauthorized use. In no event will we be liable for the unauthorized use or misuse of your account name or password. Notices and Announcements. You authorize us to notify you as our customer of information that we deem is of potential interest to you. Notices and announcements may include commercial emails and other notices describing changes, upgrades, new products and services or other information pertaining to services and/or other relevant matters. Contact by RC. You acknowledge that RC may from time to time contact you with special offers, services or promotions by phone, fax, email, push notifications, SMS text message, social media or post mail from associated third parties as determined by RC. Additionally, you acknowledge that RC may contact you for feedback for any Website or App Services to ensure customer satisfaction is being delivered."
+                ]
+            ),
+            .init(
+                section: "Breach.",
+                items: [
+                    "You agree that your failure to abide by any provision of this Agreement, and RC operating rule or policy, or any dispute policy may be considered by us to be a material breach of this Agreement and that we may, in our sole discretion, elect to cancel the service without further notice to you. We will not refund any fees paid by you prior to the termination of your Agreement due to your breach. Any such breach by you will not be deemed to be excused simply because we did to act earlier in response to that, or any other breach, by you."
+                ]
+            ),
+            .init(
+                section: "Representation and Warranties.",
+                items: [
+                    "You represent and warrant that; (i) the information the you or your agent on your behalf provide to us during the registration of RC service(s) is, accurate and complete, and that any future changes to this information will be provided to us in a timely manner; (ii) you have all requisite power an authority to execute this Agreement and to perform your obligations hereunder; and (iii) you are of legal age to enter into this Agreement."
+                ]
+            ),
+            .init(
+                section: "Release.",
+                items: [
+                    "You release RC, our partners, contractors, agents, employees, officers, directors, shareholders, affiliates and assigns from claims, demands and damages (actual and consequential) of every kind and nature, known and unknown, suspects and unsuspected, disclosed and undisclosed, arising out of or in any way connected with our services. Disclaimer. You agree that your use of our service(s) is solely at your own risk. You agree that all of our services are provided on as “as is” and “as available” basis. We expressly disclaim all conditions, warranties and representations of any kind, whether express or implied, including but not limited to the implied conditions and warranties of merchantable quality, fitness for a particular purpose and non-infringement. We make no warranty or representation that our service(s) will meet your requirements or that the service(s) will be uninterrupted, timely, secure, or error free; nor do we make any warranty as to the results that may be obtained from the use of the service(s) or as to the accuracy or reliability of any information obtained through our service(s). You understand and agree that any material and/or data dowloaded or otherwise obtained through the use of our service is done at your own discretion and risk and that you will be solely responsible for any damage to your mobile device or loss of data that results from the download of such material and /or data. We make no warranty or representation regarding any goods or services purchased or obtained through any of our services or any transactions entered into through such services. No advice or information, whether oral or written, obtained by you from us will create any condition or warranty not expressly made herein. To the extent jurisdictions do not allow the exclusion of certain warranties, some of the above exclusions may not apply to you. RC reserves the right to terminate any of its services at any time, with or without notice to you. In the event of such termination, your sold remedy will be to request a refund of any amounts paid to RC for the App. Entirety. You agree that this Agreement and the privacy statement are the complete and exclusive agreement between you and us regarding our services. This Agreement and the privacy statement supersede all prior agreements, representations and understandings, whether established by custom, practice, policy or precedent."
+                ]
+            ),
+            .init(
+                section: "Non-Assignment.",
+                items: [
+                    "Your rights under this Agreement are not assignable. Any attempt by you to assign your rights will render this Agreement voidable at our option. Any attempt by your creditors to obtain an interest in your rights under this Agreement, whether by attachment, garnishment or otherwise will render this Agreement voidable at our option. Agreement to be Bound. By applying for the service(s) of RC or an affiliate through our Website or mobile application process, you acknowledge that you have read and agree to be bound by all terms and conditions of this Agreement an any pertinent rules or policies that are or may be published by RC."
+                ]
+            ),
+            .init(
+                section: "",
+                items: [
+                    "Relationship Coach Camille, 2024"
+                ]
             )
+            
         ]
     }
 }
