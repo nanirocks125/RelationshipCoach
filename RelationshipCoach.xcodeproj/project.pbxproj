@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		535712442D930CD900E1F7C8 /* RelationshipCoachCamille.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationshipCoachCamille.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		535712442D930CD900E1F7C8 /* RelationshipCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationshipCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		535712462D930CD900E1F7C8 /* RelationshipCoachCamille */ = {
+		535712462D930CD900E1F7C8 /* RelationshipCoach */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RelationshipCoachCamille;
+			path = RelationshipCoach;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		5357123B2D930CD900E1F7C8 = {
 			isa = PBXGroup;
 			children = (
-				535712462D930CD900E1F7C8 /* RelationshipCoachCamille */,
+				535712462D930CD900E1F7C8 /* RelationshipCoach */,
 				535712452D930CD900E1F7C8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		535712452D930CD900E1F7C8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				535712442D930CD900E1F7C8 /* RelationshipCoachCamille.app */,
+				535712442D930CD900E1F7C8 /* RelationshipCoach.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		535712432D930CD900E1F7C8 /* RelationshipCoachCamille */ = {
+		535712432D930CD900E1F7C8 /* RelationshipCoach */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 535712522D930CDA00E1F7C8 /* Build configuration list for PBXNativeTarget "RelationshipCoachCamille" */;
+			buildConfigurationList = 535712522D930CDA00E1F7C8 /* Build configuration list for PBXNativeTarget "RelationshipCoach" */;
 			buildPhases = (
 				535712402D930CD900E1F7C8 /* Sources */,
 				535712412D930CD900E1F7C8 /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				535712462D930CD900E1F7C8 /* RelationshipCoachCamille */,
+				535712462D930CD900E1F7C8 /* RelationshipCoach */,
 			);
-			name = RelationshipCoachCamille;
+			name = RelationshipCoach;
 			packageProductDependencies = (
 			);
 			productName = RelationshipCoachCamille;
-			productReference = 535712442D930CD900E1F7C8 /* RelationshipCoachCamille.app */;
+			productReference = 535712442D930CD900E1F7C8 /* RelationshipCoach.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5357123F2D930CD900E1F7C8 /* Build configuration list for PBXProject "RelationshipCoachCamille" */;
+			buildConfigurationList = 5357123F2D930CD900E1F7C8 /* Build configuration list for PBXProject "RelationshipCoach" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				535712432D930CD900E1F7C8 /* RelationshipCoachCamille */,
+				535712432D930CD900E1F7C8 /* RelationshipCoach */,
 			);
 		};
 /* End PBXProject section */
@@ -251,7 +251,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RelationshipCoachCamille/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"RelationshipCoach/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -279,7 +279,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RelationshipCoachCamille/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"RelationshipCoach/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -303,7 +303,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5357123F2D930CD900E1F7C8 /* Build configuration list for PBXProject "RelationshipCoachCamille" */ = {
+		5357123F2D930CD900E1F7C8 /* Build configuration list for PBXProject "RelationshipCoach" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				535712502D930CDA00E1F7C8 /* Debug */,
@@ -312,7 +312,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		535712522D930CDA00E1F7C8 /* Build configuration list for PBXNativeTarget "RelationshipCoachCamille" */ = {
+		535712522D930CDA00E1F7C8 /* Build configuration list for PBXNativeTarget "RelationshipCoach" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				535712532D930CDA00E1F7C8 /* Debug */,

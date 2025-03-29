@@ -1,6 +1,6 @@
 //
-//  RelationshipCoachCamilleApp.swift
-//  RelationshipCoachCamille
+//  RelationshipCoachApp.swift
+//  RelationshipCoach
 //
 //  Created by Manikanta Nandam on 25/03/25.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct RelationshipCoachCamilleApp: App {
+struct RelationshipCoachApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()

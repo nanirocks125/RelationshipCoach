@@ -1,6 +1,6 @@
 //
 //  StoryDetailView.swift
-//  RelationshipCoachCamille
+//  RelationshipCoach
 //
 //  Created by Manikanta Nandam on 25/03/25.
 //
