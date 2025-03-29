@@ -14,6 +14,7 @@ struct HomeView: View {
     
     @EnvironmentObject var routeManager: RouteManager
     @ObservedObject var viewModel: HomeViewModel = .init()
+    @AppStorage("gender") var gender: Gender?
     
     var body: some View {
         NavigationStack(path: $routeManager.routes) {
@@ -36,7 +37,7 @@ struct HomeView: View {
                                     .aspectRatio(contentMode: .fit)
                                 Text(item.title)
                                     .font(.callout)
-                                    .foregroundStyle(section.type.textColor)
+                                    .foregroundStyle(section.type.textColor(for: gender))
                                     .bold()
                                 Spacer()
                                 Image(systemName: "arrow.right")
@@ -61,6 +62,7 @@ struct HomeView: View {
                     }
                 }
             }
+            .background(Color.backgroundColor)
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .story:
@@ -74,7 +76,7 @@ struct HomeView: View {
                 case .termsAndConditions:
                     Text("termsAndConditions")
                 case .changeGender:
-                    Text("changeGender")
+                    ChangeGenderView()
                 }
             }
         }
@@ -87,12 +89,12 @@ struct HomeView: View {
 }
 
 extension HomeSectionType {
-    var textColor: Color {
+    func textColor(for gender: Gender?) -> Color {
         switch self {
         case .story, .instagram, .preference:
-            return .pink
+            return gender?.color ?? Color.pink
         case .web:
-            return .black
+            return Color.textColor
         }
     }
 }
