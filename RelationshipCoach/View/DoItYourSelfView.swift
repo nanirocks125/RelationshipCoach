@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DoItYourSelfView: View {
+    @ObservedObject var viewModel = DoItYourSelfViewModel()
     var body: some View {
         Text("DoItYourSelfView")
     }

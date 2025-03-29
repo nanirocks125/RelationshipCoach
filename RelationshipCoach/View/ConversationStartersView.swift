@@ -8,8 +8,36 @@
 import SwiftUI
 
 struct ConversationStartersView: View {
+    @ObservedObject var viewModel = ConversationStartesViewModel()
+    @AppStorage("gender") var gender: Gender = .female
+
     var body: some View {
-        Text("ConversationStartersView")
+        ScrollView {
+            VStack {
+                ForEach(0..<viewModel.conversationStarters.count, id: \.self) { index in
+                    let starter = viewModel.conversationStarters[index]
+                    Text("\(index+1). \(starter.title)")
+                        .font(.title3)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(8)
+                    Divider()
+                    ForEach(0..<starter.statements.count, id:\.self) { statementIndex in
+                        let statement = starter.statements[statementIndex]
+                        
+                        Text(statement.attributedStringForItems)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(8)
+                            .padding(.trailing, 32)
+                        Divider()
+                    }
+                }
+            }
+            .padding(16)
+            .onAppear {
+                viewModel.prepareData(for: gender)
+            }
+        }
     }
 }
 

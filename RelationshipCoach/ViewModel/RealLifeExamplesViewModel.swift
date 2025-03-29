@@ -35,21 +35,21 @@ extension StoryStatementType {
     }
     var displayString: String {
         switch self {
-        case .heartFeeling(let string):
+        case .heartFeeling:
             return "(heart feeling)"
-        case .bodyFeeling(let string):
+        case .bodyFeeling:
             return "(body feeling)"
-        case .negativeSelfFeeling(let string):
+        case .negativeSelfFeeling:
             return "(negative self-feeling statement)"
-        case .callToAction(let string):
+        case .callToAction:
             return "(call-to-action)"
-        case .clarification(let string):
+        case .clarification:
             return "(clarification)"
-        case .appreciation(let string):
+        case .appreciation:
             return "(appreciation)"
-        case .fact(let string):
+        case .fact:
             return "(fact)"
-        case .none(let string):
+        case .none:
             return ""
         }
     }

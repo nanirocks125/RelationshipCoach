@@ -50,7 +50,10 @@ struct StoryView: View {
     @ObservedObject var viewModel = StoryViewModel()
     @AppStorage("gender") var gender: Gender = .female
     @EnvironmentObject var routeManager: RouteManager
-    
+    @State var storyType: StoryType
+    init(storyType: StoryType) {
+        self.storyType = storyType
+    }
     var body: some View {
         VStack(alignment: .center) {
             ForEach(0..<viewModel.sections.count, id: \.self) { index in
@@ -76,7 +79,29 @@ struct StoryView: View {
             UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
             UINavigationBar.appearance().tintColor = UIColor.white // Affects back button and bar items
         }
+        .navigationTitle(storyType.navigationTitle)
 
+    }
+}
+
+extension StoryType {
+    var navigationTitle: String {
+        switch self {
+        case .hisFault:
+            "His Fault"
+        case .herFault:
+            "Her Falut"
+        case .myFault:
+            "My Falut"
+        case .toxic:
+            "Toxic Chat"
+        case .giving:
+            "Giving Talk"
+        case .receiving:
+            "Receiving Talk"
+        case .sweet:
+            "Sweet Talk"
+        }
     }
 }
 
@@ -98,5 +123,5 @@ extension StorySectionType {
 }
 
 #Preview {
-    StoryView()
+    StoryView(storyType: .herFault)
 }

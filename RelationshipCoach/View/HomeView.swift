@@ -47,6 +47,9 @@ struct HomeView: View {
                             .onTapGesture {
                                 let section = viewModel.sections[sectionIndex]
                                 if section.type == .story {
+//                                    if let storyType = section.items[itemIndex].storyType {
+//                                        routeManager.routes.append(.story(type: storyType))
+//                                    }
                                     routeManager.routes.append(.story)
                                 }
                                 
@@ -69,7 +72,7 @@ struct HomeView: View {
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .story:
-                    StoryView()
+                    StoryView(storyType: .herFault)
                 case .preference:
                     PreferencesView()
                 case .coach:

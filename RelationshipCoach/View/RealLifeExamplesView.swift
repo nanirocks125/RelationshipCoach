@@ -59,13 +59,21 @@ extension StoryStatement {
         
         finalString += header
         
+        finalString += attributedStringForItems
+
+        return finalString
+    }
+    
+    var attributedStringForItems: AttributedString {
+        var finalString = AttributedString("")
+        
         for item in items {
             var description = AttributedString("\(item.description)")
-            header.font = .boldSystemFont(ofSize: 14)
+            description.font = .systemFont(ofSize: 14)
             finalString += description
             
             var itemDisplayString = AttributedString(" \(item.displayString)")
-            itemDisplayString.font = .boldSystemFont(ofSize: 14)
+            itemDisplayString.font = .systemFont(ofSize: 14)
             itemDisplayString.foregroundColor = genderSource.color
             finalString += itemDisplayString
         }

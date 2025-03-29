@@ -18,6 +18,15 @@ enum HomeSectionItemType {
     case share
 }
 
+extension HomeSectionItemType? {
+    var storyType: StoryType? {
+        if case .storyType(let storyType) = self {
+            return storyType
+        }
+        return nil
+    }
+}
+
 enum StoryType {
     case hisFault
     case herFault
