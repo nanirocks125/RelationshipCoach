@@ -80,6 +80,16 @@ struct HomeView: View {
                     TermsAndConditionsView()
                 case .changeGender:
                     ChangeGenderView()
+                case .realLifeExamples:
+                    RealLifeExamplesView()
+                case .steps:
+                    StepsView()
+                case .conversationStarters:
+                    ConversationStartersView()
+                case .coachingTips:
+                    CoachingTipsView()
+                case .doItYourSelf:
+                    DoItYourSelfView()
                 }
             }
         }

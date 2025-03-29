@@ -49,6 +49,7 @@ struct StoryView: View {
     
     @ObservedObject var viewModel = StoryViewModel()
     @AppStorage("gender") var gender: Gender = .female
+    @EnvironmentObject var routeManager: RouteManager
     
     var body: some View {
         VStack(alignment: .center) {
@@ -60,6 +61,9 @@ struct StoryView: View {
                     theme: gender.color
                 )
                 .padding(.vertical, 2)
+                .onTapGesture {
+                    routeManager.routes.append(section.route)
+                }
             }
             Spacer()
         }
@@ -73,6 +77,23 @@ struct StoryView: View {
             UINavigationBar.appearance().tintColor = UIColor.white // Affects back button and bar items
         }
 
+    }
+}
+
+extension StorySectionType {
+    var route: Route {
+        switch self {
+        case .realLifeExamples:
+            return .realLifeExamples
+        case .steps:
+            return .steps
+        case .conversationStarters:
+            return .conversationStarters
+        case .coachingTips:
+            return .coachingTips
+        case .doItYourSelf:
+            return .doItYourSelf
+        }
     }
 }
 
