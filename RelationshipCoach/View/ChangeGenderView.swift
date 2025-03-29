@@ -47,6 +47,7 @@ struct ChangeGenderView: View {
             Spacer()
 
         }
+        .navigationTitle("Change Gender")
     }
 }
 

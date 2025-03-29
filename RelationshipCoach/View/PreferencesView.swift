@@ -16,8 +16,8 @@ struct PreferencesView: View {
                     let section = viewModel.sections[sectionIndex]
                     Text(section.type.title)
                         .frame(maxWidth: .infinity, maxHeight: 40)
-                        .background(.black)
-                        .foregroundStyle(.white)
+                        .background(Color.textColor)
+                        .foregroundStyle(Color.backgroundColor)
                     
                     ForEach(0..<section.preferenceItem.count, id: \.self) { itemIndex in
                         let item = section.preferenceItem[itemIndex]
@@ -25,12 +25,16 @@ struct PreferencesView: View {
                             VStack {
                                 Text(item.type.title)
                                     .frame(maxWidth: .infinity, maxHeight: 40)
-                                    .background(.black)
-                                    .foregroundStyle(.white)
+                                    .background(Color.backgroundColor)
+                                    .foregroundStyle(Color.textColor)
                                 
-                                Divider()
-                                    .frame(height: 1)
-                                    .background(Color.white)
+                                if itemIndex < section.preferenceItem.count - 1 {
+                                    Divider()
+                                        .frame(height: 1)
+                                        .background(Color.textColor)
+                                        .padding(.horizontal)
+                                }
+                                
                             }
                             Image(systemName: "arrow.right")
                         }
@@ -44,6 +48,8 @@ struct PreferencesView: View {
                 }
                 Spacer()
             }
+            .background(Color.backgroundColor)
+            .padding(.vertical)
         .navigationTitle("Preferences")
     }
 }
