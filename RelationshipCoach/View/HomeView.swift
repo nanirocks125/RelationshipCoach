@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 enum HomeViewRoute: Hashable {
     case story
@@ -14,10 +15,17 @@ enum HomeViewRoute: Hashable {
 struct HomeView: View {
     
     @ObservedObject var viewModel: HomeViewModel = .init()
+    
     var body: some View {
         NavigationStack(path: $viewModel.routes) {
             ScrollView {
                 VStack(spacing: 0) {
+                        if let videoPath = Bundle.main.url(forResource: "homevideo", withExtension: "mp4") {
+                            FullFitVideoPlayer(url: videoPath, height: 300)
+                                .frame(height: 300)
+                                .clipped()
+                        }
+                    
                     ForEach(0..<viewModel.sections.count, id: \.self) { index in
                         let section = viewModel.sections[index]
                         ForEach(0..<section.items.count, id: \.self) { itemIndex in
