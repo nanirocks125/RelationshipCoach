@@ -12,23 +12,27 @@ struct RealLifeExamplesView: View {
     @ObservedObject var viewModel = RealLifeExamplesViewModel()
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 0) {
                 ForEach(0..<viewModel.realLifeStories.count, id: \.self) { index in
                     Group {
                         Text("Real Life Example \(index + 1):")
-                            .font(.title)
+                            .font(.title2)
                             .bold()
+                            .padding(.vertical)
                         let story = viewModel.realLifeStories[index]
                         Text(story.title)
                             .foregroundStyle(story.authorGender.color)
+                            .fontWeight(.bold)
+                            .padding(.bottom, 16)
                         ForEach(0..<story.statements.count, id: \.self) { statementIndex in
                             let statement = story.statements[statementIndex]
                             HStack(alignment: .top) {
                                 Circle()
                                     .frame(width: 8, height: 8)
-                                    .padding(.top, 8)
+                                    .padding(.top, 6)
                                 VStack {
                                     Text(statement.attributedString)
+                                        .lineSpacing(4)
                                         
                                     Spacer()
                                 }
@@ -61,9 +65,9 @@ extension StoryStatement {
     var attributedString: AttributedString {
         var finalString = AttributedString("")
         
-        var header = AttributedString("\(genderSource.headerText):")
-        header.foregroundColor = .black
-        header.font = .boldSystemFont(ofSize: 14)
+        var header = AttributedString("\(genderSource.headerText): ")
+        header.foregroundColor = Color.textColor
+        header.font = .systemFont(ofSize: 16, weight: .bold)
         
         finalString += header
         
@@ -74,17 +78,41 @@ extension StoryStatement {
     
     var attributedStringForItems: AttributedString {
         var finalString = AttributedString("")
+        if items.count == 0 {
+            return finalString
+        }
         
-        for item in items {
-            var description = AttributedString("\(item.description)")
-            description.font = .systemFont(ofSize: 14)
+        if items.count > 1 {
+            for index in 0..<items.count {
+                var description: AttributedString
+                if index == 0 {
+                    description = AttributedString("\"\(items[index].description)")
+                } else if index == items.count - 1 {
+                    description = AttributedString(" \(items[index].description)\"")
+                } else {
+                    description = AttributedString(" \(items[index].description)")
+                }
+                description.font = .systemFont(ofSize: 16)
+                finalString += description
+                
+                var itemDisplayString = AttributedString(" \(items[index].displayString)")
+                itemDisplayString.font = .systemFont(ofSize: 16, weight: .bold)
+                itemDisplayString.foregroundColor = genderSource.color
+                finalString += itemDisplayString
+            }
+            
+        } else {
+            var description = AttributedString("\"\(items[0].description)\"")
+            description.font = .systemFont(ofSize: 16)
             finalString += description
             
-            var itemDisplayString = AttributedString(" \(item.displayString)")
-            itemDisplayString.font = .systemFont(ofSize: 14)
+            var itemDisplayString = AttributedString(" \(items[0].displayString)")
+            itemDisplayString.font = .systemFont(ofSize: 16, weight: .bold)
             itemDisplayString.foregroundColor = genderSource.color
             finalString += itemDisplayString
         }
+        
+
 
         return finalString
     }
