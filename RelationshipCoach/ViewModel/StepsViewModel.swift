@@ -8,7 +8,7 @@
 import Foundation
 
 class StepsViewModel: ObservableObject {
-    @Published var header = "He did or said something wring. Memorize the 6 steps below to lovingly call him out:"
+    @Published var header = "He did or said something wrong. Memorize the 6 steps below to lovingly call him out:"
     @Published var steps: [String] = [
         "Heart Feeling/fact",
         "Body Feeling",

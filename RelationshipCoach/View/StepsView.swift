@@ -15,20 +15,25 @@ struct StepsView: View {
             Text(viewModel.header)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 16)
+                .padding(.trailing, 8)
             VStack(alignment: .leading) {
                 ForEach(0..<viewModel.steps.count, id: \.self) { index in
                     let step = viewModel.steps[index]
                     Text("\(index + 1). \(step)")
                         .foregroundStyle(gender.color)
+                        .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 8)
-                    Divider()
-                    
+                    if index < viewModel.steps.count - 1 {
+                        Divider()
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 32)
-            .padding(.top, 32)
+            .padding(16)
+            .background(Color.rowBackgroundColor)
+            .padding(.horizontal, 16)
+            .padding(.top, 16)
             Spacer()
         }
         .padding(.top, 24)
@@ -36,6 +41,7 @@ struct StepsView: View {
             ToolbarItem(placement: .principal) {
                 Text("Steps")
                     .foregroundColor(.white)
+                    .bold()
             }
         }
         .toolbarBackground(gender.color, for: .navigationBar)
