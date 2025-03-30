@@ -35,7 +35,7 @@ extension StorySectionType {
         case .realLifeExamples:
             return "Real life examples you can use."
         case .steps:
-            return "The siz steps yoou can follow."
+            return "The six steps you can follow."
         case .conversationStarters:
             return "More examples of each step."
         case .coachingTips:

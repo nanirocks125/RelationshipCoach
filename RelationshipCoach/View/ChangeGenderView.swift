@@ -16,9 +16,9 @@ extension Gender {
     var color: Color {
         switch self {
         case .male:
-            return Color.blue
+            return Color.maleColor
         case .female:
-            return Color.pink
+            return Color.femaleColor
         }
     }
     

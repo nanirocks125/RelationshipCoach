@@ -27,49 +27,70 @@ struct HomeView: View {
                     
                     ForEach(0..<viewModel.sections.count, id: \.self) { sectionIndex in
                         let section = viewModel.sections[sectionIndex]
-                        ForEach(0..<section.items.count, id: \.self) { itemIndex in
-                            let item = section.items[itemIndex]
-                            HStack {
-                                Image(item.icon)
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .aspectRatio(contentMode: .fit)
-                                Text(item.title)
-                                    .font(.callout)
-                                    .foregroundStyle(section.type.textColor(for: gender))
-                                    .bold()
-                                Spacer()
-                                Image(systemName: "arrow.right")
-                            }
-                            .padding(.vertical, 18)
-                            .padding(.horizontal, 8)
-                            .onTapGesture {
-                                let section = viewModel.sections[sectionIndex]
-                                if section.type == .story {
-                                    if let story = item.story {
-                                        routeManager.routes.append(.story(story))
+                        VStack(spacing: 0) {
+                            ForEach(0..<section.items.count, id: \.self) { itemIndex in
+                                let item = section.items[itemIndex]
+                                
+                                HStack {
+                                    Image(item.icon)
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .aspectRatio(contentMode: .fit)
+                                    VStack {
+                                        Text(item.title)
+                                            .font(.callout)
+                                            .foregroundStyle(section.type.textColor(for: gender))
+                                            .bold()
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                    .frame(height: 50)
+                                    .overlay(
+                                        Rectangle()
+                                            .frame(height: 1) // Border thickness
+                                            .foregroundColor(.white),
+                                        alignment: .bottom
+                                    )
+                                    .background(Color.rowBackgroundColor)
+                                    Spacer()
+                                    Image(systemName: "arrow.right")
+                                        .resizable()
+                                        .frame(width: 14, height: 14)
+                                        .aspectRatio(contentMode: .fit)
+                                }
+                                .frame(height: 50)
+                                .padding(.horizontal, 8)
+                                .onTapGesture {
+                                    let section = viewModel.sections[sectionIndex]
+                                    if section.type == .story {
+                                        if let story = item.story {
+                                            routeManager.routes.append(.story(story))
+                                        }
+                                    }
+                                    
+                                    if section.type == .preference {
+                                        routeManager.routes.append(.preference)
+                                    }
+                                    
+                                    if section.type == .instagram {
+                                        openInstagramProfile(username: "relationshipcoachllc")
+                                    }
+                                    
+                                    if section.type == .web {
+                                        if let url = item.url {
+                                            openURL(url)
+                                        }
                                     }
                                 }
-                                
-                                if section.type == .preference {
-                                    routeManager.routes.append(.preference)
-                                }
-                                
-                                if section.type == .instagram {
-                                    openInstagramProfile(username: "relationshipcoachllc")
-                                }
-                                
-                                if section.type == .web {
-                                    if let url = item.url {
-                                        openURL(url)
-                                    }
-                                }
                             }
+                            
+                            VStack(spacing: 2) {
+                                Divider()
+                                    .background(Color.textColor)
+                                Divider()
+                                    .background(Color.textColor)
+                            }
+                            .padding(.top, 8)
                         }
-                        
-                        Divider()
-                            .padding(.bottom, 3)
-                        Divider()
                     }
                 }
             }

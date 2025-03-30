@@ -20,26 +20,32 @@ struct RelationshipCoachRowView: View {
     
     var body: some View {
         HStack {
-            VStack(alignment: .center) {
+            VStack(alignment: .center, spacing: 8) {
                 Group {
                     Text(title)
                         .font(.title)
                         .foregroundStyle(theme)
                     if let description = description {
                         Text(description)
-                            .font(.footnote)
+                            .font(.system(size: 14))
                             .padding(.vertical, 2)
+                            .foregroundStyle(Color.rowDescriptionColor)
                     }
-                    
-                    Rectangle()
-                        .frame(height: 1)
-                        .background(.white)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding()
-            .background(.gray.opacity(0.2))
+            .padding(8)
+            .overlay(
+                Rectangle()
+                    .frame(height: 1) // Border thickness
+                    .foregroundColor(.white),
+                alignment: .bottom
+            )
+            .background(Color.rowBackgroundColor)
             Image(systemName: "arrow.right")
+                .resizable()
+                .frame(width: 12, height: 12)
+                .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 24)
         }
     }
@@ -71,6 +77,7 @@ struct StoryView: View {
                 }
                 Spacer()
             }
+            .padding(2)
         }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
@@ -78,6 +85,7 @@ struct StoryView: View {
             ToolbarItem(placement: .principal) {
                 Text(storyType.navigationTitle)
                     .foregroundColor(.white)
+                    .bold()
             }
         }
     }
