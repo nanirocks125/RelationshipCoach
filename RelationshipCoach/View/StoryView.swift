@@ -9,11 +9,13 @@ import SwiftUI
 
 struct RelationshipCoachRowView: View {
     let title: String
+    let titleFont: Font
     let description: String?
     let theme: Color
     
-    init(title: String, description: String? = nil, theme: Color) {
+    init(title: String, titleFont: Font = .title, description: String? = nil, theme: Color) {
         self.title = title
+        self.titleFont = titleFont
         self.description = description
         self.theme = theme
     }
@@ -23,7 +25,7 @@ struct RelationshipCoachRowView: View {
             VStack(alignment: .center, spacing: 8) {
                 Group {
                     Text(title)
-                        .font(.title)
+                        .font(titleFont)
                         .foregroundStyle(theme)
                     if let description = description {
                         Text(description)

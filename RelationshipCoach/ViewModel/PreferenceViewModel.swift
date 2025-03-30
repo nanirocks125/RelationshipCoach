@@ -64,14 +64,14 @@ class PreferenceViewModel: ObservableObject {
         .init(type: .coach, preferenceItem: [
             .init(type: .coach)
         ]),
-        .init(type: .coach, preferenceItem: [
+        .init(type: .legal, preferenceItem: [
             .init(type: .privacyPolicy),
             .init(type: .termsAndConditions)
         ]),
-        .init(type: .coach, preferenceItem: [
+        .init(type: .settings, preferenceItem: [
             .init(type: .changeGender)
         ]),
-        .init(type: .coach, preferenceItem: [])
+        .init(type: .copyright, preferenceItem: [])
     ]
     
     init() {

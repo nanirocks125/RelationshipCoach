@@ -17,14 +17,17 @@ struct PreferencesView: View {
                 ForEach(0..<viewModel.sections.count, id: \.self) { sectionIndex in
                     let section = viewModel.sections[sectionIndex]
                     Text(section.type.title)
-                        .frame(maxWidth: .infinity, maxHeight: 40)
-                        .background(Color.textColor)
-                        .foregroundStyle(Color.backgroundColor)
+                        .frame(maxWidth: .infinity, maxHeight: section.maxHeight)
+                        .background(Color(hex: 0xd3cccc, opacity: 1))
+                        .foregroundStyle(Color.textColor)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
                     
                     ForEach(0..<section.preferenceItem.count, id: \.self) { itemIndex in
                         let item = section.preferenceItem[itemIndex]
                         RelationshipCoachRowView(
                             title: item.type.title,
+                            titleFont: .subheadline,
                             theme: Color.textColor
                         )
                             .onTapGesture {
@@ -47,6 +50,17 @@ struct PreferencesView: View {
             }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+    }
+}
+
+extension PreferenceSection {
+    var maxHeight: Double {
+        switch type {
+        case .copyright:
+            return 50
+        default:
+            return 30
+        }
     }
 }
 

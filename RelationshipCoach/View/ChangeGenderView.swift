@@ -41,6 +41,7 @@ struct ChangeGenderView: View {
     var body: some View {
         VStack {
             Text("Select Gender")
+                .padding(.vertical, 16)
             
             ForEach(genders, id: \.self) { gender in
                 Text(gender.rawValue)
