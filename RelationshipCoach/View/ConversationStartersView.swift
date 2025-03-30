@@ -33,11 +33,14 @@ struct ConversationStartersView: View {
                     }
                 }
             }
+            .padding(8)
+            .background(Color.rowBackgroundColor)
             .padding(16)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Coaching Starters")
                         .foregroundColor(.white)
+                        .bold()
                 }
             }
             .toolbarBackground(gender.color, for: .navigationBar)
