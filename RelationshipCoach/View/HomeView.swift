@@ -20,8 +20,8 @@ struct HomeView: View {
             ScrollView {
                 VStack(spacing: 0) {
                         if let videoPath = Bundle.main.url(forResource: "homevideo", withExtension: "mp4") {
-                            FullFitVideoPlayer(url: videoPath, height: 300)
-                                .frame(height: 300)
+                            FullFitVideoPlayer(url: videoPath, height: 240)
+                                .frame(height: 240)
                                 .clipped()
                         }
                     
