@@ -40,15 +40,8 @@ struct PreferencesView: View {
             .background(Color.backgroundColor)
             .padding(.vertical)
         .navigationTitle("Preferences")
-        .toolbarColorScheme(ColorScheme.dark, for: .navigationBar)
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .onAppear {
-            // Ensuring the color persists
-            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-            UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-            UINavigationBar.appearance().tintColor = UIColor.white // Affects back button and bar items
-        }
     }
 }
 

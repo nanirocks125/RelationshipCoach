@@ -41,7 +41,7 @@ extension HomeSectionItemType {
     }
 }
 
-enum StoryType {
+enum StoryType: Codable {
     case hisFault
     case herFault
     case myFault
@@ -127,6 +127,24 @@ extension HomeViewModel {
 }
 
 extension StoryType {
+    var id: String {
+        switch self {
+        case .hisFault:
+            return "hisFault"
+        case .herFault:
+            return "herFault"
+        case .myFault:
+            return "myFault"
+        case .toxic:
+            return "toxic"
+        case .giving:
+            return "giving"
+        case .receiving:
+            return "receiving"
+        case .sweet:
+            return "sweet"
+        }
+    }
     var icon: String {
         switch self {
         case .hisFault:
@@ -175,7 +193,7 @@ extension HomeSectionItemType {
              .miracleMomentsVideoSeries,
              .relationshipMomentsAudio:
             return "ic_cart"
-        case .instagram(let string):
+        case .instagram:
             return "ic_instagram"
         case .preference:
             return "ic_settings"
@@ -194,7 +212,7 @@ extension HomeSectionItemType {
             return "MIRACLE MOMENTS VIDEO SERIES"
         case .relationshipMomentsAudio:
             return "RELATIONSHIP MOMENTS AUDIOS - ALL"
-        case .instagram(let string):
+        case .instagram:
             return "Instagram"
         case .preference:
             return "Preferences"

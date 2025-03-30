@@ -30,7 +30,6 @@ struct TermsAndConditionsView: View {
             }
             .padding()
             .navigationTitle("Terms and Conditions")
-            .toolbarColorScheme(ColorScheme.dark, for: .navigationBar)
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }

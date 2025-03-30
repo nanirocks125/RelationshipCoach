@@ -30,7 +30,6 @@ struct PrivacyPolicyView: View {
             }
             .padding()
             .navigationTitle("Privacy Policy")
-            .toolbarColorScheme(ColorScheme.dark, for: .navigationBar)
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }

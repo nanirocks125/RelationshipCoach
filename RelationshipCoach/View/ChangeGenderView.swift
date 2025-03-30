@@ -21,6 +21,15 @@ extension Gender {
             return Color.pink
         }
     }
+    
+    var id: String {
+        switch self {
+        case .male:
+            return "male"
+        case .female:
+            return "female"
+        }
+    }
 }
 
 struct ChangeGenderView: View {
@@ -48,15 +57,8 @@ struct ChangeGenderView: View {
 
         }
         .navigationTitle("Change Gender")
-        .toolbarColorScheme(ColorScheme.dark, for: .navigationBar)
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .onAppear {
-            // Ensuring the color persists
-            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-            UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-            UINavigationBar.appearance().tintColor = UIColor.white // Affects back button and bar items
-        }
     }
 }
 

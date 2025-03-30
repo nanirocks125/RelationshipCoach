@@ -32,9 +32,9 @@ struct StepsView: View {
             Spacer()
         }
         .padding(.top, 24)
-        
-       
-        
+        .navigationTitle("Steps")
+        .toolbarBackground(gender.color, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
     }
 }
 

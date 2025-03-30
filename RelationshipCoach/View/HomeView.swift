@@ -99,11 +99,16 @@ struct HomeView: View {
                     ConversationStartersView()
                 case .coachingTips:
                     CoachingTipsView()
-                case .doItYourSelf:
-                    DoItYourSelfView()
+                case .doItYourSelf(let story):
+                    DoItYourSelfView(story: story)
+                case .addDoItYourSelfStory(let story):
+                    AddDoItYourSelfStoryView(story: story)
+                case .updateDoItYourSelfStory(let story):
+                    AddDoItYourSelfStoryView(story: story.story, doItYourSelfStory: story)
                 }
             }
         }
+        .accentColor(.white)
         
     }
     
@@ -121,6 +126,7 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environmentObject(RouteManager())
 }
 
 extension HomeSectionType {

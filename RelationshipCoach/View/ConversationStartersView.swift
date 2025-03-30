@@ -34,6 +34,9 @@ struct ConversationStartersView: View {
                 }
             }
             .padding(16)
+            .navigationTitle("Coaching Tips")
+            .toolbarBackground(gender.color, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .onAppear {
                 viewModel.prepareData(for: gender)
             }

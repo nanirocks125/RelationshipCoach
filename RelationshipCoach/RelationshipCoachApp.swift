@@ -13,7 +13,9 @@ enum Route: Hashable {
     case steps
     case conversationStarters
     case coachingTips
-    case doItYourSelf
+    case doItYourSelf(StoryType)
+    case addDoItYourSelfStory(StoryType)
+    case updateDoItYourSelfStory(DoItYourSelfStory)
     case preference
     case coach
     case privacyPolicy
@@ -23,10 +25,18 @@ enum Route: Hashable {
 
 class RouteManager: ObservableObject {
     @Published var routes: [Route] = []
+    
+    func pop() {
+        routes.removeLast()
+    }
 }
 
 @main
 struct RelationshipCoachApp: App {
+    
+    init() {
+    }
+    
     var body: some Scene {
         WindowGroup {
             HomeView()

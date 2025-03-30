@@ -9,4 +9,21 @@ import Foundation
 
 class DoItYourSelfViewModel: ObservableObject {
     
+    @Published var stories: [DoItYourSelfStory] = []
+    let userDefaultsManager = UserDefaultsManager()
+    init() {}
+    
+    
+    func prepareStories(story: StoryType, for gender: Gender) async {
+        let stories = await userDefaultsManager.getStories(for: gender, of: story)
+        await MainActor.run {
+            self.stories = stories
+        }
+    }
+    
+    func deleteStory(story: DoItYourSelfStory, for gender: Gender) async {
+        await userDefaultsManager.deleteStory(for: gender, story: story)
+        await prepareStories(story: story.story, for: gender)
+    }
+    
 }

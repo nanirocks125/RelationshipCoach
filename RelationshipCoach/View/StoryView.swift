@@ -55,32 +55,26 @@ struct StoryView: View {
         self.storyType = storyType
     }
     var body: some View {
-        VStack(alignment: .center) {
-            ForEach(0..<viewModel.sections.count, id: \.self) { index in
-                let section = viewModel.sections[index]
-                RelationshipCoachRowView(
-                    title: section.title,
-                    description: section.description,
-                    theme: gender.color
-                )
-                .padding(.vertical, 2)
-                .onTapGesture {
-                    routeManager.routes.append(section.route)
+        ScrollView {
+            VStack(alignment: .center) {
+                ForEach(0..<viewModel.sections.count, id: \.self) { index in
+                    let section = viewModel.sections[index]
+                    RelationshipCoachRowView(
+                        title: section.title,
+                        description: section.description,
+                        theme: gender.color
+                    )
+                    .padding(.vertical, 2)
+                    .onTapGesture {
+                        routeManager.routes.append(section.route(for: storyType))
+                    }
                 }
+                Spacer()
             }
-            Spacer()
-        }
-        .toolbarColorScheme(ColorScheme.dark, for: .navigationBar)
-        .toolbarBackground(gender.color, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .onAppear {
-            // Ensuring the color persists
-            UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-            UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-            UINavigationBar.appearance().tintColor = UIColor.white // Affects back button and bar items
         }
         .navigationTitle(storyType.navigationTitle)
-
+        .toolbarBackground(gender.color, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
     }
 }
 
@@ -106,7 +100,7 @@ extension StoryType {
 }
 
 extension StorySectionType {
-    var route: Route {
+    func route(for story: StoryType) -> Route {
         switch self {
         case .realLifeExamples:
             return .realLifeExamples
@@ -117,7 +111,7 @@ extension StorySectionType {
         case .coachingTips:
             return .coachingTips
         case .doItYourSelf:
-            return .doItYourSelf
+            return .doItYourSelf(story)
         }
     }
 }
