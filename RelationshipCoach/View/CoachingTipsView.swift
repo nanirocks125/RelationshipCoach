@@ -28,7 +28,6 @@ struct CoachingTipsView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
-                
             }
         }
         .toolbar {

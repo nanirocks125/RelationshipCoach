@@ -23,23 +23,42 @@ struct AddDoItYourSelfStoryView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(0..<viewModel.items.count, id: \.self) { index in
-                    Group {
-                        Text(viewModel.items[index].fromGenderTitle)
-                        TextField("", text: $viewModel.items[index].fromGenderSaid)
-                            .padding(8)
-                            .background(.white.opacity(0.2))
-                            .autocorrectionDisabled(true)
-                        Text(viewModel.items[index].userSaidTitle)
-                        TextField("", text: $viewModel.items[index].userSaid)
-                            .padding(8)
-                            .background(.white.opacity(0.2))
-                            .autocorrectionDisabled(true)
+                Text("\(viewModel.items.count+1) \(story.navigationTitle) \"Love Chat\" messages")
+                    .font(.headline)
+                    .padding(32)
+                    .foregroundStyle(gender.color)
+                VStack(spacing: 0) {
+                    ForEach(0..<viewModel.items.count, id: \.self) { index in
+                        Group {
+                            Text(viewModel.items[index].fromGenderTitle)
+                                .padding(.top, 24)
+                            TextEditor(text: $viewModel.items[index].fromGenderSaid)
+                                .frame(height: 80)
+                                .scrollContentBackground(.hidden)
+                                .autocorrectionDisabled(true)
+                                .accentColor(gender.color)
+                            Divider()
+                            HStack {
+                                Group {
+                                    Text(viewModel.items[index].userSaidTitle)
+                                    Text(viewModel.items[index].type.displayString)
+                                        .foregroundStyle(gender.color)
+                                        .fontWeight(.bold)
+                                }
+                            }.padding(.top, 24)
+                            TextEditor(text: $viewModel.items[index].userSaid)
+                                .frame(height: 80)
+                                .scrollContentBackground(.hidden)
+                                .autocorrectionDisabled(true)
+                                .accentColor(gender.color)
+                            Divider()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
                 }
-                
+                .background(Color.rowBackgroundColor)
+                .padding()
+
                 Button {
                     Task {
                         if let doItYourSelfStory = doItYourSelfStory {

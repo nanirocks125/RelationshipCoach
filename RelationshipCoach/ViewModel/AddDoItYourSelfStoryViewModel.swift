@@ -15,6 +15,23 @@ enum DoItYourSelfStoryFormItemType: Codable {
     case appreciation
 }
 
+extension DoItYourSelfStoryFormItemType {
+    var displayString: String {
+        switch self {
+        case .heartFeelingOrFact:
+            return "(heart feeling/fact)"
+        case .negativeSelfFeelingStatement:
+            return "(negative self-feeling statement)"
+        case .callToAction:
+            return "(call to action)"
+        case .clarification:
+            return "(clarification)"
+        case .appreciation:
+            return "(appreciation)"
+        }
+    }
+}
+
 struct DoItYourSelfStoryFormItem: Codable, Hashable {
     let type: DoItYourSelfStoryFormItemType
     let fromGenderTitle: String

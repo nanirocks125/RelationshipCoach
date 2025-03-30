@@ -18,7 +18,15 @@ struct DoItYourSelfView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text("Stories \(viewModel.stories.count)")
+                if viewModel.stories.isEmpty {
+                    Text("To \"DO IT YOUR SELF\", click the + button on the top right corner.")
+                        .font(.headline)
+                        .foregroundStyle(Color.textColor.opacity(0.5))
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 64)
+                        .multilineTextAlignment(.center)
+                        
+                }
                 ForEach(viewModel.stories, id: \.id) { story in
                     HStack {
                         Text(story.createdAt.formatted())
@@ -56,7 +64,7 @@ struct DoItYourSelfView: View {
                     Button {
                         routeManager.routes.append(.addDoItYourSelfStory(story))
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.circle")
                     }
                 }
             }
@@ -64,6 +72,7 @@ struct DoItYourSelfView: View {
                 ToolbarItem(placement: .principal) {
                     Text("Do it yourself add")
                         .foregroundColor(.white)
+                        .bold()
                 }
             }
             .toolbarBackground(gender.color, for: .navigationBar)
