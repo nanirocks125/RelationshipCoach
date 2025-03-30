@@ -70,7 +70,7 @@ struct AddDoItYourSelfStoryView: View {
                         routeManager.pop()
                     }
                 } label: {
-                    Text("Save")
+                    Text("SAVE")
                         .frame(maxWidth: .infinity)
                         .frame(height: 40)
                         .background(gender.color)
@@ -83,6 +83,7 @@ struct AddDoItYourSelfStoryView: View {
             ToolbarItem(placement: .principal) {
                 Text("Do it yourself")
                     .foregroundColor(.white)
+                    .bold()
             }
         }
         .toolbarBackground(gender.color, for: .navigationBar)

@@ -29,14 +29,21 @@ struct DoItYourSelfView: View {
                 }
                 ForEach(viewModel.stories, id: \.id) { story in
                     HStack {
-                        Text(story.createdAt.formatted())
-                            .foregroundStyle(Color.textColor)
+                        HStack {
+                            Text("Created On:")
+                                .foregroundStyle(Color.black)
+                                .fontWeight(.bold)
+                            Text(story.createdAt.formatted())
+                                .foregroundStyle(Color.black)
+                        }
+                        
                         Spacer()
                         VStack {
                             Image(systemName: "square.and.pencil")
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .foregroundStyle(.blue)
+                                .padding(.vertical)
                                 .onTapGesture {
                                     routeManager.routes.append(.updateDoItYourSelfStory(story))
                                 }
@@ -44,6 +51,7 @@ struct DoItYourSelfView: View {
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .foregroundStyle(.red)
+                                .padding(.bottom)
                                 .onTapGesture {
                                     Task {
                                         await viewModel.deleteStory(story: story, for: gender)
@@ -52,8 +60,9 @@ struct DoItYourSelfView: View {
                         }
                     }
                     .padding()
-                    .cornerRadius(20)
-                    .border(.gray)
+                    .background(Color.white) // Required for shadow visibility
+                    .cornerRadius(10) // Optional for rounded edges
+                    .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5) // Drop shadow
                     .padding()
                     
                 }
