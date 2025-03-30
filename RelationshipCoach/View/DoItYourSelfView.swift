@@ -64,7 +64,6 @@ struct DoItYourSelfView: View {
                     .cornerRadius(10) // Optional for rounded edges
                     .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5) // Drop shadow
                     .padding()
-                    
                 }
             }
         }
