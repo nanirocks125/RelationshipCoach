@@ -30,8 +30,14 @@ struct AddDoItYourSelfStoryView: View {
                 VStack(spacing: 0) {
                     ForEach(0..<viewModel.items.count, id: \.self) { index in
                         Group {
-                            Text(viewModel.items[index].fromGenderTitle)
-                                .padding(.top, 24)
+                            HStack {
+                                Group {
+                                    Text(viewModel.items[index].fromGenderTitle)
+                                    Text(viewModel.items[index].fromGenderItemType.displayString)
+                                        .foregroundStyle(gender.color)
+                                        .fontWeight(.bold)
+                                }
+                            }.padding(.top, 24)
                             TextEditor(text: $viewModel.items[index].fromGenderSaid)
                                 .frame(height: 80)
                                 .scrollContentBackground(.hidden)
@@ -41,7 +47,7 @@ struct AddDoItYourSelfStoryView: View {
                             HStack {
                                 Group {
                                     Text(viewModel.items[index].userSaidTitle)
-                                    Text(viewModel.items[index].type.displayString)
+                                    Text(viewModel.items[index].userGenderItemType.displayString)
                                         .foregroundStyle(gender.color)
                                         .fontWeight(.bold)
                                 }
@@ -89,7 +95,7 @@ struct AddDoItYourSelfStoryView: View {
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {
-            viewModel.prepareForm(story: story, doItYourSelfStory: doItYourSelfStory)
+            viewModel.prepareForm(story: story, doItYourSelfStory: doItYourSelfStory, gender: gender)
         }
     }
 }

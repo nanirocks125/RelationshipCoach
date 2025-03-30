@@ -32,6 +32,8 @@ enum DoItYourSelfStoryFormItemType: Codable {
     // Toxic Chat
     case heartFeeling
     case bodyFeeling
+    case heartFeelings
+    case bodyFeelings
     case givePermission
     case takeYourFeelingsForAWalk
     
@@ -47,6 +49,19 @@ enum DoItYourSelfStoryFormItemType: Codable {
     case senseOfSmell
     case senseOfHearing
     case senseOfSight
+    
+    // Giving Talk
+    case courtHer
+    case respectHer
+    case beOnTime
+    case protectHer
+    case bringGifts
+    case complementHer
+    case sincereInterestInHerFamily
+    case helpAroundTheHouse
+    case spendTimeWithHer
+    
+    case none
 }
 
 
@@ -82,8 +97,12 @@ extension DoItYourSelfStoryFormItemType {
         case .reconnect:
             return "(reconnect)"
         case .heartFeeling:
-            return "(heart feelings)"
+            return "(heart feeling)"
         case .bodyFeeling:
+            return "(body feeling)"
+        case .heartFeelings:
+            return "(heart feelings)"
+        case .bodyFeelings:
             return "(body feelings)"
         case .givePermission:
             return "(give permission)"
@@ -107,16 +126,51 @@ extension DoItYourSelfStoryFormItemType {
             return "(sense of hearing)"
         case .senseOfSight:
             return "(sense of sight)"
+        case .none:
+            return ""
+        case .courtHer:
+            return "(court her)"
+        case .respectHer:
+            return "(respect her)"
+        case .beOnTime:
+            return "(be on time)"
+        case .protectHer:
+            return "(protect her)"
+        case .bringGifts:
+            return "(bring gifts)"
+        case .complementHer:
+            return "(complement her)"
+        case .sincereInterestInHerFamily:
+            return "(sincere interest in her family)"
+        case .helpAroundTheHouse:
+            return "(help around the house)"
+        case .spendTimeWithHer:
+            return "(spend time with her)"
         }
     }
 }
 
 struct DoItYourSelfStoryFormItem: Codable, Hashable {
-    let type: DoItYourSelfStoryFormItemType
+    let fromGenderItemType: DoItYourSelfStoryFormItemType
+    let userGenderItemType: DoItYourSelfStoryFormItemType
     let fromGenderTitle: String
     let userSaidTitle: String
     var fromGenderSaid: String
     var userSaid: String
+    
+    init(fromGenderItemType: DoItYourSelfStoryFormItemType = .none,
+         userGenderItemType: DoItYourSelfStoryFormItemType = .none,
+         fromGenderTitle: String,
+         userSaidTitle: String = "I said:",
+         fromGenderSaid: String = "",
+         userSaid: String = "") {
+        self.fromGenderItemType = fromGenderItemType
+        self.userGenderItemType = userGenderItemType
+        self.fromGenderTitle = fromGenderTitle
+        self.userSaidTitle = userSaidTitle
+        self.fromGenderSaid = fromGenderSaid
+        self.userSaid = userSaid
+    }
 }
 
 struct DoItYourSelfStory: Codable {
@@ -139,12 +193,17 @@ class AddDoItYourSelfStoryViewModel: ObservableObject {
         
     }
     
-    func prepareForm(story: StoryType, doItYourSelfStory: DoItYourSelfStory?) {
+    func prepareForm(story: StoryType, doItYourSelfStory: DoItYourSelfStory?, gender: Gender) {
         self.story = story
         if let doItYourSelfStory = doItYourSelfStory {
             self.items = doItYourSelfStory.items
         } else {
-            self.items = story.items
+            switch gender {
+            case .male:
+                self.items = story.itemsForMale
+            case .female:
+                self.items = story.itemsForFemale
+            }
         }
         
     }
@@ -170,96 +229,274 @@ class AddDoItYourSelfStoryViewModel: ObservableObject {
 
 
 extension StoryType {
-    var items: [DoItYourSelfStoryFormItem] {
+    var itemsForMale: [DoItYourSelfStoryFormItem] {
+        switch self {
+        case .hisFault:
+            return []
+        case .herFault:
+            return herFaultItems
+        case .myFault:
+            return myFaultItemsForMale
+        case .toxic:
+            return toxicChatItemsForMale
+        case .giving:
+            return givingTalkItems
+        case .receiving:
+            return []
+        case .sweet:
+            return sweetTalkItemsForMale
+        }
+    }
+    
+    var herFaultItems: [DoItYourSelfStoryFormItem] {
+        return [
+            .init(
+                userGenderItemType: .heartFeelingOrFact,
+                fromGenderTitle: "She did or said something wrong:"
+            ),
+            .init(
+                userGenderItemType: .negativeSelfFeelingStatement,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .callToAction,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .clarification,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .appreciation,
+                fromGenderTitle: "She said:"
+            )
+        ]
+    }
+    
+    var myFaultItemsForMale: [DoItYourSelfStoryFormItem] {
+        return [
+            .init(
+                userGenderItemType: .admit,
+                fromGenderTitle: "She complained:"
+            ),
+            .init(
+                userGenderItemType: .apologize,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .firstAppreciation,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .commitToChange,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .askForgiveness,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .clarification,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .soothingCycle,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .feelFeltFindingOut,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .secondAppreciation,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .reconnect,
+                fromGenderTitle: "She said:"
+            )
+        ]
+    }
+    
+    var toxicChatItemsForMale: [DoItYourSelfStoryFormItem] {
+        return [
+            .init(
+                userGenderItemType: .admit,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .apologize,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .firstAppreciation,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .commitToChange,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .askForgiveness,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .heartFeeling,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .bodyFeeling,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .negativeSelfFeelingStatement,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .givePermission,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .takeYourFeelingsForAWalk,
+                fromGenderTitle: "She said:"
+            )
+        ]
+    }
+    
+    var givingTalkItems: [DoItYourSelfStoryFormItem] {
+        return [
+            .init(
+                fromGenderItemType: .courtHer,
+                fromGenderTitle: "You and she get to the car door."
+            ),
+            .init(
+                fromGenderItemType: .respectHer,
+                fromGenderTitle: "You see that she did something really brave at work that involved taking up for herself in front of her boss"
+            ),
+            .init(
+                fromGenderItemType: .beOnTime,
+                fromGenderTitle: "You have a choice to finish another project at work or be on time to pick her up."
+            ),
+            .init(
+                fromGenderItemType: .protectHer,
+                fromGenderTitle: "It's cold outside. She doesn't have a coat, but you do."
+            ),
+            .init(
+                fromGenderItemType: .bringGifts,
+                fromGenderTitle: "You know she had a rough day and would like to make her smile"
+            ),
+            .init(
+                fromGenderItemType: .complementHer,
+                fromGenderTitle: "You think she looks beautiful"
+            ),
+            .init(
+                fromGenderItemType: .sincereInterestInHerFamily,
+                fromGenderTitle: "She has an interesting family and you'd like to meet them."
+            ),
+            .init(
+                fromGenderItemType: .helpAroundTheHouse,
+                fromGenderTitle: "She has trouble with her back door not locking properly."
+            ),
+            .init(
+                fromGenderItemType: .spendTimeWithHer,
+                fromGenderTitle: "She is free all day Saturday, but you had planned to go to races with the guys."
+            )
+        ]
+    }
+    
+    var sweetTalkItemsForMale: [DoItYourSelfStoryFormItem] {
+        return [
+            .init(
+                userGenderItemType: .heartFeelings,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .bodyFeelings,
+                fromGenderTitle: "She did:"
+            ),
+            .init(
+                userGenderItemType: .senseOfTouch,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .senseOfTaste,
+                fromGenderTitle: "She did:"
+            ),
+            .init(
+                userGenderItemType: .senseOfSmell,
+                fromGenderTitle: "She said:"
+            ),
+            .init(
+                userGenderItemType: .senseOfHearing,
+                fromGenderTitle: "She did:"
+            ),
+            .init(
+                userGenderItemType: .senseOfSight,
+                fromGenderTitle: "She said:"
+            )
+        ]
+    }
+    
+    var itemsForFemale: [DoItYourSelfStoryFormItem] {
         switch self {
         case .hisFault:
             return hisFaultItems
         case .herFault:
             return []
         case .myFault:
-            return myFaultItems
+            return myFaultItemsForFemale
         case .toxic:
-            return toxicChatItems
+            return toxicChatItemsForFemale
         case .giving:
             return []
         case .receiving:
             return receivingTalkItems
         case .sweet:
-            return sweetTalkItems
+            return sweetTalkItemsForFemale
         }
     }
     
-    var myFaultItems: [DoItYourSelfStoryFormItem] {
+    var myFaultItemsForFemale: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                type: .admit,
-                fromGenderTitle: "He complained:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .admit,
+                fromGenderTitle: "He complained:"
             ),
             .init(
-                type: .apologize,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .apologize,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .firstAppreciation,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .firstAppreciation,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .commitToChange,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .commitToChange,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .askForgiveness,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .askForgiveness,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .clarification,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .clarification,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .soothingCycle,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .soothingCycle,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .feelFeltFindingOut,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .feelFeltFindingOut,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .secondAppreciation,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .secondAppreciation,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .reconnect,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .reconnect,
+                fromGenderTitle: "He said:"
             )
         ]
     }
@@ -267,114 +504,69 @@ extension StoryType {
     var hisFaultItems: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                type: .heartFeelingOrFact,
-                fromGenderTitle: "He did or said something wrong:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .heartFeelingOrFact,
+                fromGenderTitle: "He did or said something wrong:"
             ),
             .init(
-                type: .negativeSelfFeelingStatement,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .negativeSelfFeelingStatement,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .callToAction,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .callToAction,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .clarification,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .clarification,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .appreciation,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .appreciation,
+                fromGenderTitle: "He said:"
             )
         ]
     }
     
-    var toxicChatItems: [DoItYourSelfStoryFormItem] {
+    var toxicChatItemsForFemale: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                type: .admit,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .admit,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .apologize,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .apologize,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .firstAppreciation,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .firstAppreciation,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .commitToChange,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .commitToChange,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .askForgiveness,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .askForgiveness,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .heartFeeling,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .heartFeeling,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .bodyFeeling,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .bodyFeeling,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .negativeSelfFeelingStatement,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .negativeSelfFeelingStatement,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .givePermission,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .givePermission,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .takeYourFeelingsForAWalk,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .takeYourFeelingsForAWalk,
+                fromGenderTitle: "He said:"
             )
         ]
     }
@@ -382,100 +574,61 @@ extension StoryType {
     var receivingTalkItems: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                type: .heartFeeling,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .heartFeeling,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .bodyFeeling,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .bodyFeeling,
+                fromGenderTitle: "He did:"
             ),
             .init(
-                type: .thankYouMessages,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .thankYouMessages,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .appreciationMessages,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .appreciationMessages,
+                fromGenderTitle: "He did:"
             ),
             .init(
-                type: .admirationMessages,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .admirationMessages,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .respectMessages,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .respectMessages,
+                fromGenderTitle: "He did:"
             )
         ]
     }
     
-    var sweetTalkItems: [DoItYourSelfStoryFormItem] {
+    var sweetTalkItemsForFemale: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                type: .heartFeeling,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .heartFeeling,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .bodyFeeling,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .bodyFeeling,
+                fromGenderTitle: "He did:"
             ),
             .init(
-                type: .senseOfTouch,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .senseOfTouch,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .senseOfTaste,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .senseOfTaste,
+                fromGenderTitle: "He did:"
             ),
             .init(
-                type: .senseOfSmell,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .senseOfSmell,
+                fromGenderTitle: "He said:"
             ),
             .init(
-                type: .senseOfHearing,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .senseOfHearing,
+                fromGenderTitle: "He did:"
             ),
             .init(
-                type: .senseOfSight,
-                fromGenderTitle: "He said:",
-                userSaidTitle: "I said:",
-                fromGenderSaid: "",
-                userSaid: ""
+                userGenderItemType: .senseOfSight,
+                fromGenderTitle: "He said:"
             )
         ]
     }

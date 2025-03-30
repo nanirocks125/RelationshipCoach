@@ -101,9 +101,7 @@ extension HomeViewModel {
             .init(
                 type: .story,
                 items: gender.items + [.share]
-            )
-            /*
-            ,
+            ),
             .init(
                 type: .web,
                 items: [
@@ -124,7 +122,6 @@ extension HomeViewModel {
                     .preference
                 ]
             )
-             */
         ]
     }
 }
