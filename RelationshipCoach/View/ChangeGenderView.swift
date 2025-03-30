@@ -56,7 +56,12 @@ struct ChangeGenderView: View {
             Spacer()
 
         }
-        .navigationTitle("Change Gender")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Change Gender")
+                    .foregroundColor(.white)
+            }
+        }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }

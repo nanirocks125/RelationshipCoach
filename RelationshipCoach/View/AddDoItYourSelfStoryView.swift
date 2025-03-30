@@ -60,7 +60,12 @@ struct AddDoItYourSelfStoryView: View {
                 }
             }
         }
-        .navigationTitle("Do it yourself")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Do it yourself")
+                    .foregroundColor(.white)
+            }
+        }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {

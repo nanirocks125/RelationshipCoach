@@ -34,7 +34,12 @@ struct ConversationStartersView: View {
                 }
             }
             .padding(16)
-            .navigationTitle("Coaching Tips")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Coaching Starters")
+                        .foregroundColor(.white)
+                }
+            }
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .onAppear {

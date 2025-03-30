@@ -39,7 +39,12 @@ struct PreferencesView: View {
             }
             .background(Color.backgroundColor)
             .padding(.vertical)
-        .navigationTitle("Preferences")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Preferences")
+                        .foregroundColor(.white)
+                }
+            }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }

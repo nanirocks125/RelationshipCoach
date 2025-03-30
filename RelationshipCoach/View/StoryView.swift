@@ -72,9 +72,14 @@ struct StoryView: View {
                 Spacer()
             }
         }
-        .navigationTitle(storyType.navigationTitle)
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(storyType.navigationTitle)
+                    .foregroundColor(.white)
+            }
+        }
     }
 }
 

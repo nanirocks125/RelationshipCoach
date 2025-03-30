@@ -129,6 +129,12 @@ struct HomeView: View {
         .environmentObject(RouteManager())
 }
 
+func navigationTitleView(_ title: String) -> Text {
+    Text(title)
+        .font(.system(size: 20, weight: .bold, design: .default))
+        .foregroundColor(Color.white)
+}
+
 extension HomeSectionType {
     func textColor(for gender: Gender) -> Color {
         switch self {

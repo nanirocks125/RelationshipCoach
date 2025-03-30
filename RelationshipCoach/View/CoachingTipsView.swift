@@ -31,7 +31,12 @@ struct CoachingTipsView: View {
                 
             }
         }
-        .navigationTitle("Coaching Tips")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Coaching Tips")
+                    .foregroundColor(.white)
+            }
+        }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }

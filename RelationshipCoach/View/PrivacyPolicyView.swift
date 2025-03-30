@@ -29,7 +29,12 @@ struct PrivacyPolicyView: View {
                 }
             }
             .padding()
-            .navigationTitle("Privacy Policy")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Privacy Policy")
+                        .foregroundColor(.white)
+                }
+            }
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }

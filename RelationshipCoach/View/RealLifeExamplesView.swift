@@ -43,9 +43,14 @@ struct RealLifeExamplesView: View {
             }
             .padding()
         }
-        .navigationTitle("Real Life Examples")
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Real Life Examples")
+                    .foregroundColor(.white)
+            }
+        }
         .onAppear {
             viewModel.prepareData(for: gender)
         }

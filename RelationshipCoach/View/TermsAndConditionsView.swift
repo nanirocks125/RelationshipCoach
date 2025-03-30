@@ -29,7 +29,12 @@ struct TermsAndConditionsView: View {
                 }
             }
             .padding()
-            .navigationTitle("Terms and Conditions")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Terms and Conditions")
+                        .foregroundColor(.white)
+                }
+            }
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
         }
