@@ -20,6 +20,16 @@ struct AddDoItYourSelfStoryView: View {
         self.doItYourSelfStory = doItYourSelfStory
     }
     
+    func getAttributedString(title: String, displayString: String) -> AttributedString {
+        var title = AttributedString(title)
+        title.font = .system(size: 16)
+        title.foregroundColor = Color.textColor
+        var displayString = AttributedString(displayString)
+        displayString.font = .system(size: 16, weight: .bold)
+        displayString.foregroundColor = gender.color
+        return title + displayString
+    }
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -29,29 +39,30 @@ struct AddDoItYourSelfStoryView: View {
                     .foregroundStyle(gender.color)
                 VStack(spacing: 0) {
                     ForEach(0..<viewModel.items.count, id: \.self) { index in
+                        let item = viewModel.items[index]
                         Group {
-                            HStack {
-                                Group {
-                                    Text(viewModel.items[index].fromGenderTitle)
-                                    Text(viewModel.items[index].fromGenderItemType.displayString)
-                                        .foregroundStyle(gender.color)
-                                        .fontWeight(.bold)
-                                }
-                            }.padding(.top, 24)
+                            let title = getAttributedString(
+                                title: item.fromGenderTitle,
+                                displayString: item.fromGenderItemType.displayString
+                            )
+                            
+                            Text(title)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, 24)
                             TextEditor(text: $viewModel.items[index].fromGenderSaid)
                                 .frame(height: 80)
                                 .scrollContentBackground(.hidden)
                                 .autocorrectionDisabled(true)
                                 .accentColor(gender.color)
                             Divider()
-                            HStack {
-                                Group {
-                                    Text(viewModel.items[index].userSaidTitle)
-                                    Text(viewModel.items[index].userGenderItemType.displayString)
-                                        .foregroundStyle(gender.color)
-                                        .fontWeight(.bold)
-                                }
-                            }.padding(.top, 24)
+                            let usertitle = getAttributedString(
+                                title: item.userSaidTitle,
+                                displayString: item.userGenderItemType.displayString
+                            )
+                            
+                            Text(usertitle)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, 24)
                             TextEditor(text: $viewModel.items[index].userSaid)
                                 .frame(height: 80)
                                 .scrollContentBackground(.hidden)
