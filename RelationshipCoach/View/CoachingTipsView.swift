@@ -35,6 +35,7 @@ struct CoachingTipsView: View {
             ToolbarItem(placement: .principal) {
                 Text("Coaching Tips")
                     .foregroundColor(.white)
+                    .bold()
             }
         }
         .toolbarBackground(gender.color, for: .navigationBar)
@@ -48,28 +49,28 @@ extension CoachingTipsView {
         var finalString = AttributedString("")
         
         var text1 = AttributedString("Omit the words ")
-        text1.foregroundColor = .black
-        text1.font = .systemFont(ofSize: 14)
+        text1.foregroundColor = Color.textColor
+        text1.font = .systemFont(ofSize: 17)
         finalString += text1
         
         var text2 = AttributedString("You, Because, Hurt")
         text2.foregroundColor = gender.color
-        text2.font = .systemFont(ofSize: 14)
+        text2.font = .systemFont(ofSize: 17, weight: .bold)
         finalString += text2
         
         var text3 = AttributedString(" and ")
-        text3.foregroundColor = .black
-        text3.font = .systemFont(ofSize: 14)
+        text3.foregroundColor = Color.textColor
+        text3.font = .systemFont(ofSize: 17)
         finalString += text3
         
         var text4 = AttributedString("Disappointed")
         text4.foregroundColor = gender.color
-        text4.font = .systemFont(ofSize: 14)
+        text4.font = .systemFont(ofSize: 17, weight: .bold)
         finalString += text4
         
         var text5 = AttributedString(" when you're expressing your feelings about a situation, so he doesn't feel blamed or shamed.")
-        text5.foregroundColor = .black
-        text5.font = .systemFont(ofSize: 14)
+        text5.foregroundColor = Color.textColor
+        text5.font = .systemFont(ofSize: 17)
         finalString += text5
         
         return finalString
@@ -83,13 +84,13 @@ extension CoachingTipsView {
         var finalString = AttributedString("")
         
         var text1 = AttributedString("To do this, figure out the result from the situation; ex: If he ignored you, figure out the result of being ignored. \"I felt alone when that happened\" ")
-        text1.foregroundColor = .black
-        text1.font = .systemFont(ofSize: 14)
+        text1.foregroundColor = Color.textColor
+        text1.font = .systemFont(ofSize: 17)
         finalString += text1
         
         var text2 = AttributedString("(instead of \"you ignored me\")")
         text2.foregroundColor = gender.color
-        text2.font = .systemFont(ofSize: 14)
+        text2.font = .systemFont(ofSize: 17, weight: .bold)
         finalString += text2
         return finalString
     }
