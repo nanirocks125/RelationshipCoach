@@ -69,7 +69,7 @@ extension StoryStatement {
     var attributedString: AttributedString {
         var finalString = AttributedString("")
         
-        var header = AttributedString("\(genderSource.headerText): ")
+        var header = AttributedString("\(genderSource.headerText)")
         header.foregroundColor = Color.textColor
         header.font = .systemFont(ofSize: 16, weight: .bold)
         
@@ -126,9 +126,11 @@ extension Gender {
     var headerText: String {
         switch self {
         case .male:
-            "He Said"
+            "He Said: "
         case .female:
-            "She Said"
+            "She Said: "
+        case .none:
+            ""
         }
     }
 }

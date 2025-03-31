@@ -203,6 +203,8 @@ class AddDoItYourSelfStoryViewModel: ObservableObject {
                 self.items = story.itemsForMale
             case .female:
                 self.items = story.itemsForFemale
+            case .none:
+                self.items = []
             }
         }
         

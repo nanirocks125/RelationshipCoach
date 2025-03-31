@@ -10,6 +10,7 @@ import SwiftUI
 enum Gender: String {
     case male = "MALE"
     case female = "FEMALE"
+    case none = ""
 }
 
 extension Gender {
@@ -19,6 +20,8 @@ extension Gender {
             return Color.maleColor
         case .female:
             return Color.femaleColor
+        case .none:
+            return Color.textColor
         }
     }
     
@@ -28,6 +31,8 @@ extension Gender {
             return "male"
         case .female:
             return "female"
+        case .none:
+            return "none"
         }
     }
 }

@@ -91,6 +91,8 @@ extension Gender {
                 .storyType(.receiving),
                 .storyType(.sweet)
             ]
+        case .none:
+            return []
         }
     }
 }
