@@ -8,7 +8,7 @@
 import Foundation
 
 extension StoryType {
-    var coachingStartersForMale: [StoryType] {
+    var coachingStartersForMale: [ConversationStarter] {
         switch self {
         case .hisFault:
             return []
@@ -1077,6 +1077,683 @@ extension StoryType {
                         genderSource: .male,
                         items: [
                             .none("I am not going to listen to this anymore.")
+                        ]
+                    )
+                ]
+            )
+        ]
+    }
+    
+    var givingTalkConversationStarters: [ConversationStarter] {
+        return [
+            .init(
+                title: "Court Her",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Open the door.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Gently place your hand on her back to guide her into a room.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Treat her the way you would like someone to treat your sister, mom, or grandmother."),
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Stand up when she approaches in a public setting.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Stand up when she leaves the table in a public setting.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Be polite (no curse words)."),
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: " Respect Her",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Take time to get to know her likes and dislikes.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Be patient about getting physical.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Treat her with care and honor her in private.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Treat her with care and honor her in front of others.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Genuinely find good things to like about her family.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Ask her permission before making major decisions.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Make Plans",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Plan dates.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Plan activities that are outside the norm.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Surprise her with a fun activity.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Research before you make a decision on a date.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Take time to call ahead or book reservations online.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Buy tickets for her favorite concert well in advance.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Be On Time",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Arrive to her place on time so she knows that she is important to you.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Leave your house or office early enough to be 5 minutes early to her house.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Set your alarm to notify you when it's time to leave.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Leave work unfinished so you can get to your date on time.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Plan your schedule ahead so that you arrive on time")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Cut something out of your schedule so that you don't run the risk of being late.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Protect Her",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("If it is raining, cover her up with your jacket.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("If you sense someone trying to make fun of her, come to her rescue.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("If her car is not working properly, offer to take her to work")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("If she appears scared, soothe her.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("If she is not strong enough to lift something, do it for her.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("If she is tired, let her rest.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Bring Gifts",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Bring flowers.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Bring her favorite candy.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Blindfold her, then present her with one of her favorite things.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Bring her a special card for no special reason.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Bring her your smile.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Bring her something silly to make her laugh.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Compliment Her",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Tell her she is beautiful.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Tell her she is smart.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Tell her she is sexy.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Tell her she is the best.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Tell her she makes you happy.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Tell her she is charming.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Show sincere interest in her family",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Wonder, don't judge about any issues happening with her family.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Ask her to share her family history with you.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Ask her to share funny stories of her family with you.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Ask her who her favorite family members are.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Ask to meet her family.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Help around the house",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Fix things that break around the house.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Change light bulbs.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Help her with her chores.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Help with the outside.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Help with the vacuuming.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Spend time with her",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Spend time in the morning before you leave for work by getting up earlier.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Spend time talking to her during the day when you aren't looking at your phone so you can give her your full attention.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Spend time looking at her eyes so you can see how she's feeling.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Spend time listening to what's important to her.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Spend time sharing what's important to both of you.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Spend time holding her.")
+                        ]
+                    )
+                ]
+            )
+        ]
+    }
+    
+    var sweetTalkConversationStartersForMale: [ConversationStarter] {
+        return [
+            .init(
+                title: "Heart Feeling",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I am feeling great.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel exhilarated.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I felt luscious."),
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I felt happy.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I felt good.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Body Feeling",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel dizzy.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I'm feeling my stomach fluttering.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I felt my palms sweating.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel my heart pounding.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel my face soften.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I felt my arms loosen.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Sense of Touch",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I felt goosebumps when we held hands.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel your warmth when we touch.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I am feeling a warm sensation when you touch me.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel loved when we touch.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel alive with your touch.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Sense of Taste",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can taste your lips on mine.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can taste the sweetness of your skin.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I taste the beauty of your lips")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I taste the elegance of your neck.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can taste the sweetness of lips.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can taste the essence of who you are.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Sense of Smell",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can smell the night air in your hair.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can smell the fragrance of flowers on your neck.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can sense the smell of orange blossoms just standing next to you")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I like the way you smell.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I smell your sweetness as you hug me.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Sense of Hearing",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I hear the mountain breeze in your waving hair.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I hear the lovely sound of a whippoorwill in your voice.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Your voice sounds so sweet when you sing.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I hear your voice in the breeze.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I hear the longing of my soul to be with you.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I am hearing your sounds of love just by being next to you.")
+                        ]
+                    )
+                ]
+            ),
+            .init(
+                title: "Sense of Sight",
+                statements: [
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I see my future in you.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I see your lovely eyes looking back at me.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I see your beautiful body in the mirror.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I can see your love shining through your eyes.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I see the warmth of your heart.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I see the love inside of you.")
                         ]
                     )
                 ]

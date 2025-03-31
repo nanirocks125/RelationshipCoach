@@ -41,7 +41,7 @@ struct ConversationStartersView: View {
             .padding(16)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Coaching Starters")
+                    Text("Conversation Starters")
                         .foregroundColor(.white)
                         .bold()
                 }
@@ -49,7 +49,7 @@ struct ConversationStartersView: View {
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .onAppear {
-                viewModel.prepareData(for: gender)
+                viewModel.prepareData(for: gender, story: story)
             }
         }
     }
