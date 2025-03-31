@@ -9,7 +9,12 @@ import SwiftUI
 
 struct RealLifeExamplesView: View {
     @AppStorage("gender") var gender: Gender = .female
+    let story: StoryType
     @ObservedObject var viewModel = RealLifeExamplesViewModel()
+    
+    init(story: StoryType) {
+        self.story = story
+    }
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -36,7 +41,6 @@ struct RealLifeExamplesView: View {
                                         
                                     Spacer()
                                 }
-                                
                             }
                         }
                         
@@ -56,7 +60,7 @@ struct RealLifeExamplesView: View {
             }
         }
         .onAppear {
-            viewModel.prepareData(for: gender)
+            viewModel.prepareData(for: gender, story: story)
         }
     }
 }
@@ -130,5 +134,5 @@ extension Gender {
 }
 
 #Preview {
-    RealLifeExamplesView()
+    RealLifeExamplesView(story: .giving)
 }

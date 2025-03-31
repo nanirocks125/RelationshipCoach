@@ -105,15 +105,15 @@ struct HomeView: View {
                 case .preference:
                     PreferencesView()
                 case .coach:
-                    Text("Coach")
+                    AboutCoachView()
                 case .privacyPolicy:
                     PrivacyPolicyView()
                 case .termsAndConditions:
                     TermsAndConditionsView()
                 case .changeGender:
                     ChangeGenderView()
-                case .realLifeExamples:
-                    RealLifeExamplesView()
+                case .realLifeExamples(let story):
+                    RealLifeExamplesView(story: story)
                 case .steps:
                     StepsView()
                 case .conversationStarters:

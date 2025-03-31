@@ -118,7 +118,7 @@ extension StorySectionType {
     func route(for story: StoryType) -> Route {
         switch self {
         case .realLifeExamples:
-            return .realLifeExamples
+            return .realLifeExamples(story)
         case .steps:
             return .steps
         case .conversationStarters:

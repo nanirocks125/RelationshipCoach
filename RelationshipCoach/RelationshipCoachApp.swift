@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Route: Hashable {
     case story(StoryType)
-    case realLifeExamples
+    case realLifeExamples(StoryType)
     case steps
     case conversationStarters
     case coachingTips
