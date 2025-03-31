@@ -10,6 +10,10 @@ import SwiftUI
 struct StepsView: View {
     @ObservedObject var viewModel = StepsViewModel()
     @AppStorage("gender") var gender: Gender = .female
+    let story: StoryType
+    init(story: StoryType) {
+        self.story = story
+    }
     var body: some View {
         VStack {
             Text(viewModel.header)
@@ -18,7 +22,7 @@ struct StepsView: View {
                 .padding(.trailing, 8)
             VStack(alignment: .leading) {
                 ForEach(0..<viewModel.steps.count, id: \.self) { index in
-                    let step = viewModel.steps[index]
+                    let step = viewModel.steps[index].stepDescription
                     Text("\(index + 1). \(step)")
                         .foregroundStyle(gender.color)
                         .fontWeight(.bold)
@@ -46,9 +50,12 @@ struct StepsView: View {
         }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .onAppear {
+            viewModel.prepapreData(for: story, gender: gender)
+        }
     }
 }
 
 #Preview {
-    StepsView()
+    StepsView(story: .herFault)
 }

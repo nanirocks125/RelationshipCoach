@@ -120,11 +120,11 @@ extension StorySectionType {
         case .realLifeExamples:
             return .realLifeExamples(story)
         case .steps:
-            return .steps
+            return .steps(story)
         case .conversationStarters:
-            return .conversationStarters
+            return .conversationStarters(story)
         case .coachingTips:
-            return .coachingTips
+            return .coachingTips(story)
         case .doItYourSelf:
             return .doItYourSelf(story)
         }

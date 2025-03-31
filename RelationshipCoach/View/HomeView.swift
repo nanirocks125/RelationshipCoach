@@ -114,12 +114,12 @@ struct HomeView: View {
                     ChangeGenderView()
                 case .realLifeExamples(let story):
                     RealLifeExamplesView(story: story)
-                case .steps:
-                    StepsView()
-                case .conversationStarters:
-                    ConversationStartersView()
-                case .coachingTips:
-                    CoachingTipsView()
+                case .steps(let story):
+                    StepsView(story: story)
+                case .conversationStarters(let story):
+                    ConversationStartersView(story: story)
+                case .coachingTips(let story):
+                    CoachingTipsView(story: story)
                 case .doItYourSelf(let story):
                     DoItYourSelfView(story: story)
                 case .addDoItYourSelfStory(let story):

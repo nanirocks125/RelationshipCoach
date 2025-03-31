@@ -10,7 +10,10 @@ import SwiftUI
 struct CoachingTipsView: View {
     
     @AppStorage("gender") var gender: Gender = .female
-
+    let story: StoryType
+    init(story: StoryType) {
+        self.story = story
+    }
     
     var body: some View {
         ScrollView {
@@ -120,5 +123,5 @@ extension CoachingTipsView {
 }
 
 #Preview {
-    CoachingTipsView()
+    CoachingTipsView(story: .giving)
 }

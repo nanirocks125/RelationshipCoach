@@ -10,7 +10,10 @@ import SwiftUI
 struct ConversationStartersView: View {
     @ObservedObject var viewModel = ConversationStartesViewModel()
     @AppStorage("gender") var gender: Gender = .female
-
+    let story: StoryType
+    init(story: StoryType) {
+        self.story = story
+    }
     var body: some View {
         ScrollView {
             VStack {
@@ -53,5 +56,5 @@ struct ConversationStartersView: View {
 }
 
 #Preview {
-    ConversationStartersView()
+    ConversationStartersView(story: .giving)
 }

@@ -569,8 +569,5 @@ extension StoryType {
         ]
     }
     
-
-    
-    
 }
 

@@ -61,6 +61,9 @@ enum DoItYourSelfStoryFormItemType: Codable {
     case helpAroundTheHouse
     case spendTimeWithHer
     
+    case makePlans
+    case showSincereInterestInHerFamily
+    
     case none
 }
 
@@ -146,6 +149,10 @@ extension DoItYourSelfStoryFormItemType {
             return "(help around the house)"
         case .spendTimeWithHer:
             return "(spend time with her)"
+        case .makePlans:
+            return "(make plans)"
+        case .showSincereInterestInHerFamily:
+            return "(show sincere interest in her family)"
         }
     }
 }
