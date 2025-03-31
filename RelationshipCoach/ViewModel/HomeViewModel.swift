@@ -41,16 +41,6 @@ extension HomeSectionItemType {
     }
 }
 
-enum StoryType: Codable {
-    case hisFault
-    case herFault
-    case myFault
-    case toxic
-    case giving
-    case receiving
-    case sweet
-}
-
 enum HomeSectionType {
     case story
     case web
