@@ -20,7 +20,7 @@ class ConversationStartesViewModel: ObservableObject {
     }
     
     
-    func prepareData(for gender: Gender) {
+    func prepareData(for gender: Gender, story: StoryType) {
         conversationStarters = [
             .init(
                 title: "Heart Feeling/fact",
