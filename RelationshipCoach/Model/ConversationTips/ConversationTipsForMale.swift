@@ -167,7 +167,7 @@ extension StoryType {
             "Some women have trouble expressing their preferences, and actually, some women haven't had their needs met for so long that they don't even know what their preferences are!"
         }
         var tip5: AttributedString {
-            "You'll also find that women don't believe they're worth the gift of a compliment, nice deed or physical gift."
+            "You'll also find that some women don't believe they're worth the gift of a compliment, nice deed or physical gift."
         }
         
         var tip6: AttributedString {

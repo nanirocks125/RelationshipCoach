@@ -25,7 +25,7 @@ extension DoItYourSelfStoryFormItemType {
         case .apologize:
             return "Apologize"
         case .firstAppreciation:
-            return "First Appreciation"
+            return "Appreciation"
         case .commitToChange:
             return "Commit-to-Change"
         case .askForgiveness:

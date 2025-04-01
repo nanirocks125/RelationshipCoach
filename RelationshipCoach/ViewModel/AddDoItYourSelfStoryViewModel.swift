@@ -86,7 +86,7 @@ extension DoItYourSelfStoryFormItemType {
         case .apologize:
             return "(apologize)"
         case .firstAppreciation:
-            return "(first appreciation)"
+            return "(appreciation)"
         case .commitToChange:
             return "(commit-to-change)"
         case .askForgiveness:
@@ -381,6 +381,10 @@ extension StoryType {
             .init(
                 fromGenderItemType: .respectHer,
                 fromGenderTitle: "You see that she did something really brave at work that involved taking up for herself in front of her boss"
+            ),
+            .init(
+                fromGenderItemType: .makePlans,
+                fromGenderTitle: "It’s Tuesday, and you don’t have any plans for the weekend."
             ),
             .init(
                 fromGenderItemType: .beOnTime,

@@ -369,7 +369,7 @@ extension StoryType {
                 ]
             ),
             .init(
-                title: "First Appreciation",
+                title: "Appreciation",
                 statements: [
                     .init(
                         genderSource: .male,
@@ -1405,6 +1405,12 @@ extension StoryType {
                         items: [
                             .none("Ask to meet her family.")
                         ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("Ask about her family.")
+                        ]
                     )
                 ]
             ),
@@ -1561,6 +1567,12 @@ extension StoryType {
                         genderSource: .male,
                         items: [
                             .none("I felt my arms loosen.")
+                        ]
+                    ),
+                    .init(
+                        genderSource: .male,
+                        items: [
+                            .none("I feel so relaxed being with you.")
                         ]
                     )
                 ]

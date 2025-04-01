@@ -371,7 +371,7 @@ extension StoryType {
                 ]
             ),
             .init(
-                title: "First Appreciation",
+                title: "Appreciation",
                 statements: [
                     .init(
                         genderSource: .female,

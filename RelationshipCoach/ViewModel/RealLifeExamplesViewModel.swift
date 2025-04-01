@@ -116,7 +116,7 @@ extension StoryStatementType {
         case .admit(_):
             return "(admit)"
         case .firstAppreciation(_):
-            return "(first appreciation)"
+            return "(appreciation)"
         case .soothingCycle(_):
             return "(soothing cycle so-you-feel)"
         case .noBlameShameEntitlementOrDefensive(_):
