@@ -24,7 +24,7 @@ struct AddDoItYourSelfStoryView: View {
         var title = AttributedString(title)
         title.font = .system(size: 16)
         title.foregroundColor = Color.textColor
-        var displayString = AttributedString(displayString)
+        var displayString = AttributedString(" \(displayString)")
         displayString.font = .system(size: 16, weight: .bold)
         displayString.foregroundColor = gender.color
         return title + displayString
