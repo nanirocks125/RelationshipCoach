@@ -41,9 +41,9 @@ struct CoachingTipsView: View {
         .onAppear {
             switch gender {
             case .male:
-                self.tips = story.coachingTipsForFemale
-            case .female:
                 self.tips = story.coachingTipsForMale
+            case .female:
+                self.tips = story.coachingTipsForFemale
             case .none:
                 self.tips = []
             }
