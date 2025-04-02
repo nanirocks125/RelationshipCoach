@@ -18,9 +18,14 @@ struct UIPreferenceSelectView: View {
         VStack {
             HStack {
                 Stepper(title, value: $value)
+                    .font(.title3)
+                    .bold()
                 Text("\(value)")
+                    .font(.title)
             }
             Text(description)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Divider()
         }
         
     }
@@ -35,13 +40,13 @@ struct UISettingsPreferenceView: View {
     @AppStorage("uiSettings") var uiSettings: Data?
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack {
             UIPreferenceSelectView(
                 title: "General Text Size",
                 description: "overall text size of the app.",
                 value: $settings.text
             )
-            
+
             UIPreferenceSelectView(
                 title: "Headers on Story Screen",
                 description: "Size of header on story screen option like Real life examples, steps, conversation starters, coaching tips, do it yourself",
@@ -79,6 +84,7 @@ struct UISettingsPreferenceView: View {
         }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .navigationTitle("UI Settings")
     }
 }
 

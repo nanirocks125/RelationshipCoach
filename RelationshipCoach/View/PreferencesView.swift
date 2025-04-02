@@ -17,12 +17,18 @@ struct PreferencesView: View {
             VStack {
                 ForEach(0..<viewModel.sections.count, id: \.self) { sectionIndex in
                     let section = viewModel.sections[sectionIndex]
-                    Text(section.attributedString(for: gender, size: uiManager.settings.text))
-                        .frame(maxWidth: .infinity, maxHeight: section.maxHeight * Double(uiManager.settings.text))
-                        .background(Color(hex: 0xd3cccc, opacity: 1))
-                        .foregroundStyle(Color.textColor)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(nil)
+                    HStack {
+                        Text(section.attributedString(for: gender, size: uiManager.settings.text))
+                            .frame(maxWidth: .infinity)
+                            .background(Color(hex: 0xd3cccc, opacity: 1))
+                            .foregroundStyle(Color.textColor)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(nil)
+                    }
+                    .frame(height: section.maxHeight * Double(uiManager.settings.text))
+                    .background(Color(hex: 0xd3cccc, opacity: 1))
+                    .foregroundStyle(Color.textColor)
+                    
                     
                     ForEach(0..<section.preferenceItem.count, id: \.self) { itemIndex in
                         let item = section.preferenceItem[itemIndex]
@@ -83,9 +89,9 @@ extension PreferenceSection {
     var maxHeight: Double {
         switch type {
         case .copyright:
-            return 4
+            return 5.5
         default:
-            return 1
+            return 2
         }
     }
 }
