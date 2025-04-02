@@ -278,32 +278,8 @@ extension StoryType {
                     .init(
                         genderSource: .female,
                         items: [
-                            .feelFeltFindingOut("I know how you must feel, I've felt pressure at work before, but what I'm finding out")
-                        ]
-                    ),
-                    .init(
-                        genderSource: .male,
-                        items: [
-                            .none("Yes, I'm worried that I might lose my job over this.")
-                        ]
-                    ),
-                    .init(
-                        genderSource: .female,
-                        items: [
-                            .secondClarification("Tell me more.")
-                        ]
-                    ),
-                    .init(
-                        genderSource: .male,
-                        items: [
-                            .none("Well, I'm afraid we'd have to move if I lost my job.")
-                        ]
-                    ),
-                    .init(
-                        genderSource: .female,
-                        items: [
                             .feelFeltFindingOut("I know how you must feel, I've felt pressure at work before, but what I'm finding out"),
-                            .secondAppreciation("is that you are a smart and dependable man and I know you can do it. Thank you for working so hard. I appreciate you.")
+                            .secondAppreciation("is that you are a smart and dependable woman and I know you can do it. Thank you for working so hard. I appreciate you.")
                         ]
                     ),
                     .init(
@@ -317,8 +293,8 @@ extension StoryType {
                         items: [
                             .reconnect("You're welcome. Please sit on the couch with me so I can give you a big hug.")
                         ]
-                    ),
-                  ]),
+                    )
+                  ])
         ]
     }
     
