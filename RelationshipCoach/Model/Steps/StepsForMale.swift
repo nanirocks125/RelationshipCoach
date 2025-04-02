@@ -75,5 +75,24 @@ extension StoryType {
             ]
         }
     }
+    
+    var stepsViewHeaderForMale: String {
+        switch self {
+        case .hisFault:
+            return "" //
+        case .herFault:
+            return "She did or said something wrong. Memorize the 6 steps below to lovingly call him out:"
+        case .myFault:
+            return "I say or do something wrong. Memorize the 10 steps below to lovingly allow him to call me out:"
+        case .toxic:
+            return "I say or do something wrong. Use the 10 my-fault toxic chat messages"
+        case .giving:
+            return "Here are ways for men to give from their heart."
+        case .receiving:
+            return "" //
+        case .sweet:
+            return "When sweet talking, speak from your heart, not your mind. Use the heart/body feelings and five-senses steps below:"
+        }
+    }
 }
 

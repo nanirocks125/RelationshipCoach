@@ -70,5 +70,24 @@ extension StoryType {
             ]
         }
     }
+    
+    var stepsViewHeaderForFemale: String {
+        switch self {
+        case .hisFault:
+            return "He did or said something wrong. Memorize the 6 steps below to lovingly call him out:"
+        case .herFault:
+            return "" //
+        case .myFault:
+            return "I say or do something wrong. Memorize the 10 steps below to lovingly allow him to call me out:"
+        case .toxic:
+            return "I say or do something wrong. Use the 10 my-fault toxic chat messages"
+        case .giving:
+            return ""//
+        case .receiving:
+            return "As a woman, you need to be able to receive a compliment or positive action from a man without discounting his compliment tor action."
+        case .sweet:
+            return "When sweet talking, speak from your heart, not your mind. Use the heart/body feelings and five senses steps below:"
+        }
+    }
 }
 
