@@ -15,28 +15,16 @@ class StepsViewModel: ObservableObject {
         
     }
     
-    func prepapreData(for story: StoryType, gender: Gender) {
-        header = gender.header
+    func prepareData(for story: StoryType, gender: Gender) {
         switch gender {
         case .male:
             steps = story.stepsForMale
+            header = story.stepsViewHeaderForMale
         case .female:
             steps = story.stepsForFemale
+            header = story.stepsViewHeaderForFemale
         case .none:
             steps = []
-        }
-    }
-}
-
-extension Gender {
-    var header: String {
-        switch self {
-        case .male:
-            return "He did or said something wrong. Memorize the 6 steps below to lovingly call him out:"
-        case .female:
-            return "I say or do something wrong. Memorize the 10 steps below to lovingly allow him to call me out:"
-        case .none:
-            return ""
         }
     }
 }

@@ -81,7 +81,7 @@ extension StoryType {
                         genderSource: .male,
                         items: [.heartFeeling("I felt embarrassed and my chest tightened up."),
                                 .negativeSelfFeeling("I don't like that uncomfortable feeling."),
-                                .callToAction("How do you think we can keep this form happening again?")]
+                                .callToAction("How do you think we can keep this from happening again?")]
                     ),
                     .init(
                         genderSource: .female,

@@ -1632,7 +1632,7 @@ extension StoryType {
                     .init(
                         genderSource: .female,
                         items: [
-                            .none("I can taste the sweetness of lips.")
+                            .none("I can taste the sweetness of your lips.")
                         ]
                     ),
                     .init(

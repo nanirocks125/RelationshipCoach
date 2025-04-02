@@ -65,7 +65,7 @@ struct StepsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .onAppear {
-            viewModel.prepapreData(for: story, gender: gender)
+            viewModel.prepareData(for: story, gender: gender)
         }
     }
 }
