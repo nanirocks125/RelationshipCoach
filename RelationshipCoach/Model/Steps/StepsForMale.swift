@@ -83,7 +83,7 @@ extension StoryType {
         case .herFault:
             return "She did or said something wrong. Memorize the 6 steps below to lovingly call him out:"
         case .myFault:
-            return "I say or do something wrong. Memorize the 10 steps below to lovingly allow him to call me out:"
+            return "I say or do something wrong. Memorize the 10 steps below to lovingly allow her to call me out:"
         case .toxic:
             return "I say or do something wrong. Use the 10 my-fault toxic chat messages"
         case .giving:
