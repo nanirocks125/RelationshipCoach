@@ -13,6 +13,7 @@ enum PreferenceSectionType {
     case legal
     case settings
     case copyright
+    case uiSettings
     
     var title: String {
         switch self {
@@ -24,6 +25,8 @@ enum PreferenceSectionType {
             return "User Settings"
         case .copyright:
             return "Copyright @2024. Relationship Coach Camille All Rights Reserved."
+        case .uiSettings:
+            return "UI Settings"
         }
     }
 }
@@ -33,6 +36,7 @@ enum PrefereneItemType {
     case privacyPolicy
     case termsAndConditions
     case changeGender
+    case uiSettings
 }
 
 extension PrefereneItemType {
@@ -46,6 +50,8 @@ extension PrefereneItemType {
             return "Terms and Conditions"
         case .changeGender:
             return "CHANGE GENDER"
+        case .uiSettings:
+            return "Change Font Sizes"
         }
     }
 }
@@ -71,7 +77,10 @@ class PreferenceViewModel: ObservableObject {
         .init(type: .settings, preferenceItem: [
             .init(type: .changeGender)
         ]),
-        .init(type: .copyright, preferenceItem: [])
+        .init(type: .copyright, preferenceItem: []),
+        .init(type: .copyright, preferenceItem: [
+            
+        ])
     ]
     
     init() {
@@ -89,6 +98,8 @@ extension PrefereneItemType {
             return .termsAndConditions
         case .changeGender:
             return .changeGender
+        case .uiSettings:
+            return .uiSettings
         }
     }
 }

@@ -21,6 +21,7 @@ enum Route: Hashable {
     case privacyPolicy
     case termsAndConditions
     case changeGender
+    case uiSettings
 }
 
 class RouteManager: ObservableObject {
@@ -41,6 +42,7 @@ struct RelationshipCoachApp: App {
         WindowGroup {
             HomeView()
                 .environmentObject(RouteManager())
+                .environmentObject(UserSettingsPreferenceManager())
         }
     }
 }

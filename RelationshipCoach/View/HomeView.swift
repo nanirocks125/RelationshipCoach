@@ -12,6 +12,7 @@ struct HomeView: View {
     
     @Environment(\.openURL) var openURL
     @EnvironmentObject var routeManager: RouteManager
+    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
     @ObservedObject var viewModel: HomeViewModel = .init()
     @AppStorage("gender") var gender: Gender = .female
     
@@ -97,6 +98,7 @@ struct HomeView: View {
             .background(Color.backgroundColor)
             .onAppear {
                 viewModel.prepareSections(for: gender)
+                uiManager.updateSettings()
             }
             .navigationDestination(for: Route.self) { route in
                 switch route {
@@ -126,6 +128,8 @@ struct HomeView: View {
                     AddDoItYourSelfStoryView(story: story)
                 case .updateDoItYourSelfStory(let story):
                     AddDoItYourSelfStoryView(story: story.story, doItYourSelfStory: story)
+                case .uiSettings:
+                    UISettingsPreferenceView()
                 }
             }
         }
