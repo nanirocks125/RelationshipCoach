@@ -10,6 +10,7 @@ import SwiftUI
 struct ConversationStartersView: View {
     @ObservedObject var viewModel = ConversationStartesViewModel()
     @AppStorage("gender") var gender: Gender = .female
+    @Environment(\.presentationMode) var presentationMode
     let story: StoryType
     init(story: StoryType) {
         self.story = story
@@ -45,9 +46,21 @@ struct ConversationStartersView: View {
                         .foregroundColor(.white)
                         .bold()
                 }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss() // Go back
+                    }) {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("\(story.navigationTitle)") // Custom text
+                        }
+                    }
+                }
             }
             .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden()
             .onAppear {
                 viewModel.prepareData(for: gender, story: story)
             }

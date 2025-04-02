@@ -11,6 +11,7 @@ struct RealLifeExamplesView: View {
     @AppStorage("gender") var gender: Gender = .female
     let story: StoryType
     @ObservedObject var viewModel = RealLifeExamplesViewModel()
+    @Environment(\.presentationMode) var presentationMode
     
     init(story: StoryType) {
         self.story = story
@@ -53,10 +54,23 @@ struct RealLifeExamplesView: View {
         }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Real Life Examples")
                     .foregroundColor(.white)
+            }
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss() // Go back
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("\(story.navigationTitle)") // Custom text
+                    }
+                }
             }
         }
         .onAppear {
