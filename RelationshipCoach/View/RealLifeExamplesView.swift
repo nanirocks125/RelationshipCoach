@@ -85,7 +85,7 @@ extension StoryStatement {
         
         var header = AttributedString("\(genderSource.headerText)")
         header.foregroundColor = Color.textColor
-        header.font = .systemFont(ofSize: 16, weight: .bold)
+        header.font = .systemFont(ofSize: 17, weight: .bold)
         
         finalString += header
         
@@ -110,22 +110,22 @@ extension StoryStatement {
                 } else {
                     description = AttributedString(" \(items[index].description)")
                 }
-                description.font = .systemFont(ofSize: 16)
+                description.font = .systemFont(ofSize: 17)
                 finalString += description
                 
                 var itemDisplayString = AttributedString(" \(items[index].displayString)")
-                itemDisplayString.font = .systemFont(ofSize: 16, weight: .bold)
+                itemDisplayString.font = .systemFont(ofSize: 17, weight: .bold)
                 itemDisplayString.foregroundColor = genderSource.color
                 finalString += itemDisplayString
             }
             
         } else {
             var description = AttributedString("\"\(items[0].description)\"")
-            description.font = .systemFont(ofSize: 16)
+            description.font = .systemFont(ofSize: 17)
             finalString += description
             
             var itemDisplayString = AttributedString(" \(items[0].displayString)")
-            itemDisplayString.font = .systemFont(ofSize: 16, weight: .bold)
+            itemDisplayString.font = .systemFont(ofSize: 17, weight: .bold)
             itemDisplayString.foregroundColor = genderSource.color
             finalString += itemDisplayString
         }

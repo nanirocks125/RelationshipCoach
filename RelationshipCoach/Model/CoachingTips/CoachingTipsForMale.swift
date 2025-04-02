@@ -138,7 +138,7 @@ extension StoryType {
         }
         
         var tip8: AttributedString {
-            "If she's a women worth keeping, she'll step up to the plate and be respectful and appreciate you for not blaming her, only speaking about your feelings."
+            "If she's a woman worth keeping, she'll step up to the plate and be respectful and appreciate you for not blaming her, only speaking about your feelings."
         }
         var tip9: AttributedString {
             "It's always 100% about you and your feelings. You're the only person who can control you!"
