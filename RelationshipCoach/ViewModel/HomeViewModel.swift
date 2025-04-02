@@ -201,9 +201,9 @@ extension HomeSectionItemType {
         case .becomeRelationshipCoach:
             return "BECOME A RELATIONSHIP COACH"
         case .miracleMomentsVideoSeries:
-            return "MIRACLE MOMENTS VIDEO SERIES"
+            return "SINGLE WOMEN - MIRACLE MOMENTS"
         case .relationshipMomentsAudio:
-            return "RELATIONSHIP MOMENTS AUDIOS - ALL"
+            return "ALL PEOPLE - RELATIONSHIP MOMENTS"
         case .instagram:
             return "Instagram"
         case .preference:
