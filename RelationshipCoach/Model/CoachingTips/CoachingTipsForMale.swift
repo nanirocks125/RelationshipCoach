@@ -9,52 +9,52 @@ import Foundation
 import SwiftUI
 
 extension StoryType {
-    var coachingTipsForMale: [AttributedString] {
+    func coachingTipsForMale(size: Int) -> [AttributedString] {
         switch self {
         case .hisFault:
             return []
         case .herFault:
-            return herFaultCoachingTips //herFaultStories
+            return herFaultCoachingTips(size: size) //herFaultStories
         case .myFault:
-            return myFaultCoachingTipsForMale //myFaultStoriesForMale
+            return myFaultCoachingTipsForMale(size: size) //myFaultStoriesForMale
         case .toxic:
-            return toxicChatCoachingTipsForMale //toxicChatStoriesForMale
+            return toxicChatCoachingTipsForMale(size: size) //toxicChatStoriesForMale
         case .giving:
-            return givingTalkCoachingTips //givingTalkStories
+            return givingTalkCoachingTips(size: size) //givingTalkStories
         case .receiving:
             return []
         case .sweet:
-            return sweetTalkCoachingTipsForMale //sweetTalkStoriesForMale
+            return sweetTalkCoachingTipsForMale(size: size) //sweetTalkStoriesForMale
         }
     }
     
-    var herFaultCoachingTips: [AttributedString] {
+    func herFaultCoachingTips(size: Int) -> [AttributedString] {
         var tip1: AttributedString {
             var finalString = AttributedString("")
             
             var text1 = AttributedString("Omit the words ")
             text1.foregroundColor = Color.textColor
-            text1.font = .systemFont(ofSize: 17)
+            text1.font = .systemFont(ofSize: CGFloat(size))
             finalString += text1
             
             var text2 = AttributedString("You, Because, Hurt")
             text2.foregroundColor = Gender.male.color
-            text2.font = .systemFont(ofSize: 17, weight: .bold)
+            text2.font = .systemFont(ofSize: CGFloat(size), weight: .bold)
             finalString += text2
             
             var text3 = AttributedString(" and ")
             text3.foregroundColor = Color.textColor
-            text3.font = .systemFont(ofSize: 17)
+            text3.font = .systemFont(ofSize: CGFloat(size))
             finalString += text3
             
             var text4 = AttributedString("Disappointed")
             text4.foregroundColor = Gender.male.color
-            text4.font = .systemFont(ofSize: 17, weight: .bold)
+            text4.font = .systemFont(ofSize: CGFloat(size), weight: .bold)
             finalString += text4
             
             var text5 = AttributedString(" when you're expressing your feelings about a situation, so she doesn't feel blamed or shamed.")
             text5.foregroundColor = Color.textColor
-            text5.font = .systemFont(ofSize: 17)
+            text5.font = .systemFont(ofSize: CGFloat(size))
             finalString += text5
             
             return finalString
@@ -69,12 +69,12 @@ extension StoryType {
             
             var text1 = AttributedString("To do this, figure out the result from the situation; ex: If She ignored you, figure out the result of being ignored. \"I felt alone when that happened\" ")
             text1.foregroundColor = Color.textColor
-            text1.font = .systemFont(ofSize: 17)
+            text1.font = .systemFont(ofSize: CGFloat(size))
             finalString += text1
             
             var text2 = AttributedString("(instead of \"you ignored me\")")
             text2.foregroundColor = Gender.male.color
-            text2.font = .systemFont(ofSize: 17, weight: .bold)
+            text2.font = .systemFont(ofSize: CGFloat(size), weight: .bold)
             finalString += text2
             return finalString
         }
@@ -90,7 +90,7 @@ extension StoryType {
         return [tip1, tip2, tip3, tip4, tip5]
     }
     
-    var myFaultCoachingTipsForMale: [AttributedString] {
+    func myFaultCoachingTipsForMale(size: Int) -> [AttributedString] {
         var tip1: AttributedString {
             "Notice that he never blamed her, shamed her, felt entitled or was defensive when He apologized."
         }
@@ -109,7 +109,7 @@ extension StoryType {
         return [tip1, tip2, tip3, tip4]
     }
     
-    var toxicChatCoachingTipsForMale: [AttributedString] {
+    func toxicChatCoachingTipsForMale(size: Int) -> [AttributedString] {
         var tip1: AttributedString {
             "The goal is to only focus on your feelings (self-centered in a good way). You never told her how she should or should not feel, only how YOU felt."
         }
@@ -150,7 +150,7 @@ extension StoryType {
         return [tip1, tip2, tip3, tip4, tip5, tip6, tip7, tip8, tip9, tip10]
     }
     
-    var givingTalkCoachingTips: [AttributedString] {
+    func givingTalkCoachingTips(size: Int) -> [AttributedString] {
         var tip1: AttributedString {
             "Since men are the ones who protect and serve their families, it is only natural that men include the above steps when \"courting\" a woman (whether they're courting their girlfriend or wife)."
         }
@@ -177,7 +177,7 @@ extension StoryType {
         return [tip1, tip2, tip3, tip4, tip5, tip6]
     }
     
-    var sweetTalkCoachingTipsForMale: [AttributedString] {
+    func sweetTalkCoachingTipsForMale(size: Int) -> [AttributedString] {
         
         
         var tip1: AttributedString {

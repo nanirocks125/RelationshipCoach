@@ -11,13 +11,14 @@ struct PreferencesView: View {
     @EnvironmentObject var routeManager: RouteManager
     @ObservedObject var viewModel = PreferenceViewModel()
     @AppStorage("gender") var gender: Gender = .female
-
+    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
+    
     var body: some View {
             VStack {
                 ForEach(0..<viewModel.sections.count, id: \.self) { sectionIndex in
                     let section = viewModel.sections[sectionIndex]
-                    Text(section.attributedString(for: gender))
-                        .frame(maxWidth: .infinity, maxHeight: section.maxHeight)
+                    Text(section.attributedString(for: gender, size: uiManager.settings.text))
+                        .frame(maxWidth: .infinity, maxHeight: section.maxHeight * Double(uiManager.settings.text))
                         .background(Color(hex: 0xd3cccc, opacity: 1))
                         .foregroundStyle(Color.textColor)
                         .multilineTextAlignment(.center)
@@ -27,7 +28,7 @@ struct PreferencesView: View {
                         let item = section.preferenceItem[itemIndex]
                         RelationshipCoachRowView(
                             title: item.type.title,
-                            titleFont: .subheadline,
+                            titleFontSize: uiManager.settings.text.cgFloat,
                             theme: Color.textColor
                         )
                             .onTapGesture {
@@ -46,6 +47,9 @@ struct PreferencesView: View {
                 ToolbarItem(placement: .principal) {
                     Text("Preferences")
                         .foregroundColor(.white)
+                        .onTapGesture(count: 3) {
+                            viewModel.showUISettings.toggle()
+                        }
                 }
             }
         .toolbarBackground(gender.color, for: .navigationBar)
@@ -55,30 +59,33 @@ struct PreferencesView: View {
 
 extension PreferenceSection {
     
-    func attributedString(for gender: Gender) -> AttributedString {
+    func attributedString(for gender: Gender, size: Int) -> AttributedString {
         switch type {
         case .copyright:
             var string = AttributedString(type.title)
+            string.font = .system(size: CGFloat(size))
             if let linkRange = string.range(of: "Relationship Coach Camille") {
                 string[linkRange].link = URL(string: "https://relationshipcoachllc.com/")
                 string[linkRange].foregroundColor = UIColor(gender.color)
                 string[linkRange].underlineColor = UIColor(gender.color)
                 string[linkRange].underlineStyle = .single
-                string[linkRange].font = .system(size: 17, weight: .bold)
+                string[linkRange].font = .system(size: CGFloat(size), weight: .bold)
             }
             
             return string
         default:
-            return AttributedString(type.title)
+            var string = AttributedString(type.title)
+            string.font = .system(size: CGFloat(size))
+            return string
         }
     }
     
     var maxHeight: Double {
         switch type {
         case .copyright:
-            return 50
+            return 4
         default:
-            return 30
+            return 1
         }
     }
 }

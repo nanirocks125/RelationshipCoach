@@ -39,7 +39,7 @@ struct HomeView: View {
                                         .aspectRatio(contentMode: .fit)
                                     VStack {
                                         Text(item.title)
-                                            .font(.callout)
+                                            .font(.system(size: uiManager.settings.homePageItemsDescription.cgFloat))
                                             .foregroundStyle(section.type.textColor(for: gender))
                                             .bold()
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,6 +98,7 @@ struct HomeView: View {
             .background(Color.backgroundColor)
             .onAppear {
                 viewModel.prepareSections(for: gender)
+                print("Updating the fonts")
                 uiManager.updateSettings()
             }
             .navigationDestination(for: Route.self) { route in

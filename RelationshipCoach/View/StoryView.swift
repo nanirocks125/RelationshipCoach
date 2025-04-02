@@ -9,14 +9,20 @@ import SwiftUI
 
 struct RelationshipCoachRowView: View {
     let title: String
-    let titleFont: Font
+    let titleFontSize: CGFloat
     let description: String?
+    let descriptionFontSize: CGFloat
     let theme: Color
-    
-    init(title: String, titleFont: Font = .title, description: String? = nil, theme: Color) {
+
+    init(title: String,
+         titleFontSize: CGFloat,
+         description: String? = nil,
+         descriptionFontSize: CGFloat = 0.0,
+         theme: Color) {
         self.title = title
-        self.titleFont = titleFont
+        self.titleFontSize = titleFontSize
         self.description = description
+        self.descriptionFontSize = descriptionFontSize
         self.theme = theme
     }
     
@@ -25,11 +31,11 @@ struct RelationshipCoachRowView: View {
             VStack(alignment: .center, spacing: 8) {
                 Group {
                     Text(title)
-                        .font(titleFont)
+                        .font(.system(size: titleFontSize))
                         .foregroundStyle(theme)
                     if let description = description {
                         Text(description)
-                            .font(.system(size: 14))
+                            .font(.system(size: descriptionFontSize))
                             .padding(.vertical, 2)
                             .foregroundStyle(Color.rowDescriptionColor)
                     }
@@ -58,6 +64,7 @@ struct StoryView: View {
     @ObservedObject var viewModel = StoryViewModel()
     @AppStorage("gender") var gender: Gender = .female
     @EnvironmentObject var routeManager: RouteManager
+    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
     @State var storyType: StoryType
     init(storyType: StoryType) {
         self.storyType = storyType
@@ -67,9 +74,12 @@ struct StoryView: View {
             VStack(alignment: .center) {
                 ForEach(0..<viewModel.sections.count, id: \.self) { index in
                     let section = viewModel.sections[index]
+                    
                     RelationshipCoachRowView(
                         title: section.title,
+                        titleFontSize: uiManager.settings.storyHeadersOnStoryScreen.cgFloat,
                         description: section.description,
+                        descriptionFontSize: uiManager.settings.storyDescriptionOnStoryScreen.cgFloat,
                         theme: gender.color
                     )
                     .padding(.vertical, 2)

@@ -12,7 +12,8 @@ struct RealLifeExamplesView: View {
     let story: StoryType
     @ObservedObject var viewModel = RealLifeExamplesViewModel()
     @Environment(\.presentationMode) var presentationMode
-    
+    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
+
     init(story: StoryType) {
         self.story = story
     }
@@ -27,8 +28,9 @@ struct RealLifeExamplesView: View {
                             .padding(.vertical)
                         let story = viewModel.realLifeStories[index]
                         Text(story.title)
+                            .font(.system(size: uiManager.settings.text.cgFloat))
                             .foregroundStyle(story.authorGender.color)
-                            .fontWeight(.bold)
+                            .bold()
                             .padding(.bottom, 16)
                         ForEach(0..<story.statements.count, id: \.self) { statementIndex in
                             let statement = story.statements[statementIndex]
@@ -37,7 +39,7 @@ struct RealLifeExamplesView: View {
                                     .frame(width: 8, height: 8)
                                     .padding(.top, 6)
                                 VStack {
-                                    Text(statement.attributedString)
+                                    Text(statement.attributedString(with: uiManager.settings.text))
                                         .lineSpacing(4)
                                         
                                     Spacer()
@@ -80,21 +82,21 @@ struct RealLifeExamplesView: View {
 }
 
 extension StoryStatement {
-    var attributedString: AttributedString {
+    func attributedString(with size: Int) -> AttributedString {
         var finalString = AttributedString("")
         
         var header = AttributedString("\(genderSource.headerText)")
         header.foregroundColor = Color.textColor
-        header.font = .systemFont(ofSize: 17, weight: .bold)
+        header.font = .systemFont(ofSize: CGFloat(size), weight: .bold)
         
         finalString += header
         
-        finalString += attributedStringForItems
+        finalString += attributedStringForItems(with: size)
 
         return finalString
     }
     
-    var attributedStringForItems: AttributedString {
+    func attributedStringForItems(with size: Int) -> AttributedString {
         var finalString = AttributedString("")
         if items.count == 0 {
             return finalString
@@ -110,22 +112,22 @@ extension StoryStatement {
                 } else {
                     description = AttributedString(" \(items[index].description)")
                 }
-                description.font = .systemFont(ofSize: 17)
+                description.font = .systemFont(ofSize: CGFloat(size))
                 finalString += description
                 
                 var itemDisplayString = AttributedString(" \(items[index].displayString)")
-                itemDisplayString.font = .systemFont(ofSize: 17, weight: .bold)
+                itemDisplayString.font = .systemFont(ofSize: CGFloat(size), weight: .bold)
                 itemDisplayString.foregroundColor = genderSource.color
                 finalString += itemDisplayString
             }
             
         } else {
             var description = AttributedString("\"\(items[0].description)\"")
-            description.font = .systemFont(ofSize: 17)
+            description.font = .systemFont(ofSize: CGFloat(size))
             finalString += description
             
             var itemDisplayString = AttributedString(" \(items[0].displayString)")
-            itemDisplayString.font = .systemFont(ofSize: 17, weight: .bold)
+            itemDisplayString.font = .systemFont(ofSize: CGFloat(size), weight: .bold)
             itemDisplayString.foregroundColor = genderSource.color
             finalString += itemDisplayString
         }

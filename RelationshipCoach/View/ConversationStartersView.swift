@@ -11,6 +11,8 @@ struct ConversationStartersView: View {
     @ObservedObject var viewModel = ConversationStartesViewModel()
     @AppStorage("gender") var gender: Gender = .female
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
+
     let story: StoryType
     init(story: StoryType) {
         self.story = story
@@ -21,7 +23,7 @@ struct ConversationStartersView: View {
                 ForEach(0..<viewModel.conversationStarters.count, id: \.self) { index in
                     let starter = viewModel.conversationStarters[index]
                     Text("\(index+1). \(starter.title)")
-                        .font(.title3)
+                        .font(.system(size: uiManager.settings.storyHeadersOnStoryScreen.cgFloat))
                         .bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(8)
@@ -29,7 +31,7 @@ struct ConversationStartersView: View {
                     ForEach(0..<starter.statements.count, id:\.self) { statementIndex in
                         let statement = starter.statements[statementIndex]
                         
-                        Text(statement.attributedStringForItems)
+                        Text(statement.attributedStringForItems(with: uiManager.settings.text))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(8)
                             .padding(.trailing, 32)

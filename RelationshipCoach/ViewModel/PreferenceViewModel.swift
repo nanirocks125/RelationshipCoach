@@ -24,7 +24,7 @@ enum PreferenceSectionType {
         case .settings:
             return "User Settings"
         case .copyright:
-            return "Copyright @2024. Relationship Coach Camille All Rights Reserved."
+            return "Copyright @2024. Relationship Coach Camille. \n All Rights Reserved."
         case .uiSettings:
             return "UI Settings"
         }
@@ -66,24 +66,42 @@ struct PreferenceSection {
 }
 
 class PreferenceViewModel: ObservableObject {
-    @Published var sections: [PreferenceSection] = [
-        .init(type: .coach, preferenceItem: [
-            .init(type: .coach)
-        ]),
-        .init(type: .legal, preferenceItem: [
-            .init(type: .privacyPolicy),
-            .init(type: .termsAndConditions)
-        ]),
-        .init(type: .settings, preferenceItem: [
-            .init(type: .changeGender)
-        ]),
-        .init(type: .copyright, preferenceItem: []),
-        .init(type: .copyright, preferenceItem: [
-            
-        ])
-    ]
+    
+    
+    @Published var sections: [PreferenceSection] = []
+    var showUISettings = false {
+        didSet {
+            prepareSection()
+        }
+    }
     
     init() {
+        prepareSection()
+    }
+    
+    func prepareSection() {
+        var _sections: [PreferenceSection] = [
+            .init(type: .coach, preferenceItem: [
+                .init(type: .coach)
+            ]),
+            .init(type: .legal, preferenceItem: [
+                .init(type: .privacyPolicy),
+                .init(type: .termsAndConditions)
+            ]),
+            .init(type: .settings, preferenceItem: [
+                .init(type: .changeGender)
+            ]),
+            .init(type: .copyright, preferenceItem: [])
+        ]
+        if showUISettings {
+            _sections.append(
+                .init(type: .uiSettings, preferenceItem: [
+                    .init(type: .uiSettings)
+                ])
+            )
+        }
+        
+        self.sections = _sections
     }
 }
 

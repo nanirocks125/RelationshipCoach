@@ -8,7 +8,7 @@
 import Foundation
 
 class UserSettingsPreferenceManager: ObservableObject {
-    var settings: UIPreferences = UIPreferences()
+    @Published var settings: UIPreferences = UIPreferences()
     let userDefaults = UserDefaults.standard
     init() {
         
