@@ -99,9 +99,9 @@ extension StoryType {
         case .hisFault:
             "His Fault"
         case .herFault:
-            "Her Falut"
+            "Her Fault"
         case .myFault:
-            "My Falut"
+            "My Fault"
         case .toxic:
             "Toxic Chat"
         case .giving:
