@@ -126,7 +126,7 @@ extension StoryType {
             "It's important to take a deep breath before entering into a conversation like this."
         }
         var tip5: AttributedString {
-            "When you find yourself in a toxic conversation with a man, notice that you should not use the same steps that you use in other situations."
+            "When you find yourself in a toxic conversation with a woman, notice that you should not use the same steps that you use in other situations."
         }
         
         var tip6: AttributedString {
@@ -134,11 +134,11 @@ extension StoryType {
         }
         
         var tip7: AttributedString {
-            "Once you recognize a toxic man, you can get help or leave the relationship and know that it is in your best interest rather than try to justify it and repeat the toxic cycle over and over again."
+            "Once you recognize a toxic women, you can get help or leave the relationship and know that it is in your best interest rather than try to justify it and repeat the toxic cycle over and over again."
         }
         
         var tip8: AttributedString {
-            "If she's a man worth keeping, she'll step up to the plate and be respectful and appreciate you for not blaming her, only speaking about your feelings."
+            "If she's a women worth keeping, she'll step up to the plate and be respectful and appreciate you for not blaming her, only speaking about your feelings."
         }
         var tip9: AttributedString {
             "It's always 100% about you and your feelings. You're the only person who can control you!"
