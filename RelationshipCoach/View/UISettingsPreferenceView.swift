@@ -84,7 +84,13 @@ struct UISettingsPreferenceView: View {
         }
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
-        .navigationTitle("UI Settings")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("UI Settings")
+                    .foregroundColor(.white)
+                    .bold()
+            }
+        }
     }
 }
 

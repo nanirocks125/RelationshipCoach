@@ -14,7 +14,7 @@ struct UIPreferences: Codable, Equatable {
     var homePageWebLinks: Int = 17
     var homePageArrowSize: Int = 17
     var navigationTitleSize: Int = 17
-    var storyHeadersOnStoryScreen: Int = 17
+    var storyHeadersOnStoryScreen: Int = 32
     var storyDescriptionOnStoryScreen: Int = 17
     
     init() {}
