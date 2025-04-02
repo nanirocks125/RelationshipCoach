@@ -311,8 +311,7 @@ extension StoryType {
                     ),
                     .init(
                         genderSource: .female,
-                        items: [.none("You're never ready when I come to pick you up."),
-                                .admit("You're right."),
+                        items: [.admit("You're right."),
                                 .apologize("I'm sorry."),
                                 .appreciation("Thank you for coming to pick me up."),
                                 .commitToChange("I commit to being ready next time."),

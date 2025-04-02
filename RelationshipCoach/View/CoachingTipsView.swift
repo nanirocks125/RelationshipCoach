@@ -33,14 +33,14 @@ struct CoachingTipsView: View {
             
             Divider()
             
-            Text("3. \"I'm sorry if I hurt your your feelings.\"")
+            Text("3. \"I'm sorry IF I HURT YOUR FEELINGS\"")
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 8)
             
             Divider()
             
-            Text("4. \"I'm sorry that I may have hurt you\"")
+            Text("4. \"I'm sorry THAT I MAY HAVE HURT YOU\"")
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 8)
