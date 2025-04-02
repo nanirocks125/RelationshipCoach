@@ -15,7 +15,8 @@ struct HomeView: View {
     @EnvironmentObject var uiManager: UserSettingsPreferenceManager
     @ObservedObject var viewModel: HomeViewModel = .init()
     @AppStorage("gender") var gender: Gender = .female
-    
+    @State private var isSharing = false
+
     var body: some View {
         NavigationStack(path: $routeManager.routes) {
             ScrollView {
@@ -65,6 +66,8 @@ struct HomeView: View {
                                     if section.type == .story {
                                         if let story = item.story {
                                             routeManager.routes.append(.story(story))
+                                        } else if item.isSharing {
+                                            self.isSharing = true
                                         }
                                     }
                                     
@@ -95,6 +98,10 @@ struct HomeView: View {
                     }
                 }
             }
+            .sheet(isPresented: $isSharing) {
+                ShareSheet(activityItems: [appURL, appImage!])
+            }
+
             .background(Color.backgroundColor)
             .onAppear {
                 viewModel.prepareSections(for: gender)

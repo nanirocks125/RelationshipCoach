@@ -27,6 +27,14 @@ extension HomeSectionItemType {
         }
     }
     
+    var isSharing: Bool {
+        if case .share = self {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     var url: URL? {
         switch self {
         case .becomeRelationshipCoach:
