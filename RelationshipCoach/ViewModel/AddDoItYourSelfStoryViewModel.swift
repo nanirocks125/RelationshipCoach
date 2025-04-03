@@ -92,7 +92,7 @@ extension DoItYourSelfStoryFormItemType {
         case .askForgiveness:
             return "(ask forgiveness)"
         case .soothingCycle:
-            return "(soothing cycle)"
+            return "(soothing cycle so-you-feel)"
         case .feelFeltFindingOut:
             return "(feel-felt finding out)"
         case .secondAppreciation:
@@ -518,6 +518,10 @@ extension StoryType {
         return [
             .init(
                 userGenderItemType: .heartFeelingOrFact,
+                fromGenderTitle: "He did or said something wrong:"
+            ),
+            .init(
+                userGenderItemType: .bodyFeeling,
                 fromGenderTitle: "He did or said something wrong:"
             ),
             .init(

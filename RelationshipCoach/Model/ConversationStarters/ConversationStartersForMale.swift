@@ -1041,7 +1041,7 @@ extension StoryType {
                 ]
             ),
             .init(
-                title: "Take You Feelings for a Walk",
+                title: "Take Your Feelings for a Walk",
                 statements: [
                     .init(
                         genderSource: .male,

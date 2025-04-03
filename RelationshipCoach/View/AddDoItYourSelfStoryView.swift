@@ -12,6 +12,7 @@ struct AddDoItYourSelfStoryView: View {
     @EnvironmentObject var routeManager: RouteManager
     @AppStorage("gender") var gender: Gender = .female
     @EnvironmentObject var uiManager: UserSettingsPreferenceManager
+    @Environment(\.presentationMode) var presentationMode
 
     let story: StoryType
     var doItYourSelfStory: DoItYourSelfStory?
@@ -107,7 +108,20 @@ struct AddDoItYourSelfStoryView: View {
                     .foregroundColor(.white)
                     .bold()
             }
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss() // Go back
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("\(story.navigationTitle)") // Custom text
+                    }
+                }
+            }
         }
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {

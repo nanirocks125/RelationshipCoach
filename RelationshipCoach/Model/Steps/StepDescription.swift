@@ -15,7 +15,7 @@ extension DoItYourSelfStoryFormItemType {
         case .heartFeelingOrFact:
             return "Heart Feeling/Fact"
         case .negativeSelfFeelingStatement:
-            return "Negative Self-Feeling statement"
+            return "Negative Self-Feeling Statement"
         case .callToAction:
             return "Call to Action"
         case .appreciation:
