@@ -264,6 +264,10 @@ extension StoryType {
                 fromGenderTitle: "She did or said something wrong:"
             ),
             .init(
+                userGenderItemType: .bodyFeeling,
+                fromGenderTitle: "She did or said something wrong:"
+            ),
+            .init(
                 userGenderItemType: .negativeSelfFeelingStatement,
                 fromGenderTitle: "She said:"
             ),

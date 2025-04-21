@@ -279,7 +279,7 @@ extension StoryType {
                         genderSource: .female,
                         items: [
                             .feelFeltFindingOut("I know how you must feel, I've felt pressure at work before, but what I'm finding out"),
-                            .secondAppreciation("is that you are a smart and dependable woman and I know you can do it. Thank you for working so hard. I appreciate you.")
+                            .secondAppreciation("is that you are a smart and dependable man and I know you can do it. Thank you for working so hard. I appreciate you.")
                         ]
                     ),
                     .init(

@@ -102,14 +102,14 @@ extension HomeViewModel {
                 type: .story,
                 items: gender.items + [.share]
             ),
-            .init(
-                type: .web,
-                items: [
-                    .becomeRelationshipCoach,
-                    .miracleMomentsVideoSeries,
-                    .relationshipMomentsAudio
-                ]
-            ),
+//            .init(
+//                type: .web,
+//                items: [
+//                    .becomeRelationshipCoach,
+//                    .miracleMomentsVideoSeries,
+//                    .relationshipMomentsAudio
+//                ]
+//            ),
             .init(
                 type: .instagram,
                 items: [
