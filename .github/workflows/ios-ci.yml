@@ -48,11 +48,8 @@ jobs:
       #       -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
 
       # This single action replaces the cache, download, unzip, and path steps
-      - name: Download and set up SonarScanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        run: |
-          curl -O -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-macosx-x86_64.zip
-          unzip sonar-scanner-cli-5.0.1.3006-macosx-x86_64.zip
+      - name: Install SonarScanner via Homebrew
+        run: brew install sonar-scanner
 
       # ADD THIS DEBUGGING STEP
       - name: Verify Directory Contents
