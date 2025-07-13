@@ -26,7 +26,7 @@ jobs:
         run: |
           # The name might be Xcode_16_beta.app or something similar.
           # Replace 'Xcode_16.2.app' with the name you see in the log.
-          sudo xcode-select -s /Applications/Correct_Xcode_Name.app/Contents/Developer
+          sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
       - name: Build and Test
         run: |
