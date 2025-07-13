@@ -88,10 +88,9 @@ extension PreferenceSection {
     }
     
     var maxHeight: Double {
-        switch type {
-        case .copyright:
+        if type == .copyright {
             return 5.5
-        default:
+        } else {
             return 2
         }
     }
