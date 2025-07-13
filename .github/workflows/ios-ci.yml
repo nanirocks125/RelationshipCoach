@@ -176,24 +176,21 @@ jobs:
           sonar.projectKey=nanirocks125_RelationshipCoach
           sonar.projectName=RelationshipCoach
           sonar.projectVersion=1.0
-          
-          # Source code settings - use . as root since we're converting paths to relative
-          sonar.sources=.
-          sonar.inclusions=RelationshipCoach/**/*.swift
-          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**
-          
-          # Test settings
+  
+          # Point directly to the source and test directories
+          sonar.sources=RelationshipCoach
           sonar.tests=RelationshipCoachTests
-          sonar.test.inclusions=**/*Test*.swift,**/*Tests.swift
-          
+  
+          # Exclude non-source files
+          sonar.exclusions=**/Pods/**,**/DerivedData/**
+  
           # Coverage settings
-          sonar.swift.coverage.reportPaths=sonar-generic-coverage.xml
           sonar.coverageReportPaths=sonar-generic-coverage.xml
           
           # Language settings
           sonar.swift.file.suffixes=.swift
           EOF
-
+  
       # Verify SonarCloud configuration
       - name: Verify SonarCloud Setup
         run: |
