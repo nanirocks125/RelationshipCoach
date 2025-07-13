@@ -13,17 +13,20 @@ struct RelationshipCoachRowView: View {
     let description: String?
     let descriptionFontSize: CGFloat
     let theme: Color
+    let icon: String
 
     init(title: String,
          titleFontSize: CGFloat,
          description: String? = nil,
          descriptionFontSize: CGFloat = 0.0,
-         theme: Color) {
+         theme: Color,
+         icon: String) {
         self.title = title
         self.titleFontSize = titleFontSize
         self.description = description
         self.descriptionFontSize = descriptionFontSize
         self.theme = theme
+        self.icon = icon
     }
     
     var body: some View {
@@ -50,7 +53,7 @@ struct RelationshipCoachRowView: View {
                 alignment: .bottom
             )
             .background(Color.rowBackgroundColor)
-            Image(systemName: "arrow.right")
+            Image(systemName: icon)
                 .resizable()
                 .frame(width: 12, height: 12)
                 .aspectRatio(contentMode: .fit)
@@ -66,25 +69,35 @@ struct StoryView: View {
     @EnvironmentObject var routeManager: RouteManager
     @EnvironmentObject var uiManager: UserSettingsPreferenceManager
     @State var storyType: StoryType
+    
+    @State var isPremiumSubscriptionPresenting = false
+    
     init(storyType: StoryType) {
         self.storyType = storyType
     }
     var body: some View {
         ScrollView {
             VStack(alignment: .center) {
-                ForEach(0..<viewModel.sections.count, id: \.self) { index in
-                    let section = viewModel.sections[index]
+                ForEach(0..<viewModel.storySections.count, id: \.self) { index in
+                    let storySection = viewModel.storySections[index]
+                    let section = storySection.type
                     
                     RelationshipCoachRowView(
                         title: section.title,
                         titleFontSize: uiManager.settings.storyHeadersOnStoryScreen.cgFloat,
                         description: section.description,
                         descriptionFontSize: uiManager.settings.storyDescriptionOnStoryScreen.cgFloat,
-                        theme: gender.color
+                        theme: gender.color,
+                        icon: storySection.enabled ? "arrow.right" : "lock.circle"
                     )
                     .padding(.vertical, 2)
                     .onTapGesture {
-                        routeManager.routes.append(section.route(for: storyType))
+                        if storySection.enabled {
+                            routeManager.routes.append(section.route(for: storyType))
+                        } else {
+                            // Purchase Subscription
+                            isPremiumSubscriptionPresenting = true
+                        }
                     }
                 }
                 Spacer()
@@ -99,6 +112,9 @@ struct StoryView: View {
                     .foregroundColor(.white)
                     .bold()
             }
+        }
+        .sheet(isPresented: $isPremiumSubscriptionPresenting) {
+            PurchasePremium()
         }
     }
 }

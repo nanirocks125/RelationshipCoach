@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum StorySectionType {
     case realLifeExamples
@@ -50,12 +51,44 @@ struct StorySecton {
     var type: StorySectionType
 }
 
+struct StorySection: Identifiable {
+    let id: UUID = UUID()
+    let type: StorySectionType
+    let enabled: Bool
+    
+    init(type: StorySectionType, enabled: Bool = true) {
+        self.type = type
+        self.enabled = enabled
+    }
+}
+
+@MainActor
 class StoryViewModel: ObservableObject {
-    @Published var sections: [StorySectionType] = [
-        .realLifeExamples,
-        .steps,
-        .conversationStarters,
-        .coachingTips,
-        .doItYourSelf
-    ]
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private let storeManager = StoreManager()
+    
+    init() {
+        prepareSections(with: false)
+        
+        storeManager.$premiumUser
+            .sink { [weak self] premiumUser in
+                self?.prepareSections(with: premiumUser)
+            }.store(in: &cancellables)
+        
+    }
+    
+    @Published var storySections: [StorySection] = []
+    
+    func prepareSections(with premiumUser: Bool) {
+        storySections = [
+            .init(type: .realLifeExamples),
+            .init(type: .steps),
+            .init(type: .conversationStarters),
+            .init(type: .coachingTips),
+            .init(type: .doItYourSelf, enabled: premiumUser)
+        ]
+    }
+    
 }

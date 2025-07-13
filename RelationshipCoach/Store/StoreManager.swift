@@ -1,15 +1,21 @@
 import Foundation
 import StoreKit
 
+enum RCSubscription {
+    static let premium = "com.relationshipcoach.RelationshipCoachCamille.premiumsubscription"
+}
+
 @MainActor
 class StoreManager: ObservableObject {
 
-    @Published var monthlySubscription: Product?
     @Published var purchasedProductIDs = Set<String>() {
         didSet {
-            if purchasedProductIDs.contains("com.relationshipcoach.RelationshipCoachCamille.premiumsubscription") {
+            print("Purchased productIDs updated \(purchasedProductIDs)")
+            if purchasedProductIDs.contains(RCSubscription.premium) {
+                print("Premium user is true")
                 premiumUser = true
             } else {
+                print("Premium user is true")
                 premiumUser = false
             }
         }
@@ -17,10 +23,13 @@ class StoreManager: ObservableObject {
     
     @Published var premiumUser: Bool = false
 
-    private var productIDs =
-    ["com.relationshipcoach.RelationshipCoachCamille.premiumsubscription"]
+    private var productIDs = [RCSubscription.premium]
 
     init() {
+        refreshData()
+    }
+    
+    func refreshData() {
         Task {
             await requestProducts()
             await updatePurchasedProducts()
@@ -28,15 +37,18 @@ class StoreManager: ObservableObject {
     }
 
     func requestProducts() async {
+        print("Refreshing products")
         do {
             let products = try await Product.products(for: productIDs)
-            monthlySubscription = products.first
         } catch {
             print("Failed to fetch products: \(error)")
         }
     }
 
-    func purchase(_ product: Product) async throws {
+    func purchase(_ product: String) async throws {
+        guard
+            let product = try await Product.products(for: [product]).first
+        else { return }
         let result = try await product.purchase()
 
         switch result {

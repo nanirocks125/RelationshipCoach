@@ -35,7 +35,8 @@ struct PreferencesView: View {
                         RelationshipCoachRowView(
                             title: item.type.title,
                             titleFontSize: uiManager.settings.text.cgFloat,
-                            theme: Color.textColor
+                            theme: Color.textColor,
+                            icon: "arrow.right"
                         )
                             .onTapGesture {
                                 let section = viewModel.sections[sectionIndex]
