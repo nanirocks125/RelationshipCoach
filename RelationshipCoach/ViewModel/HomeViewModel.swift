@@ -56,13 +56,17 @@ enum HomeSectionType {
     case preference
 }
 
-struct HomeSection {
+public struct HomeSection {
     let type: HomeSectionType
     let items: [HomeSectionItemType]
 }
 
-class HomeViewModel: ObservableObject {
-    @Published var sections: [HomeSection] = []
+public class HomeViewModel: ObservableObject {
+    @Published public private(set) var sections: [HomeSection] = []
+    
+    public init() {
+        // Public init to make sure it is accessible for unit tests.
+    }
 }
 
 extension Gender {
