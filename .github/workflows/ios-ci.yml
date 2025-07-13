@@ -128,7 +128,7 @@ jobs:
             .[] | 
             {
               # THIS IS THE ONLY LINE THAT HAS CHANGED
-              path: (.[0].path | sub($pwd + "/"; "")),
+              path: (.[0].path | sub($pwd + "/"; "") | sub("^RelationshipCoach/"; "")),
               lines: ([.[].functions[]] | group_by(.lineNumber) | map({
                 line: .[0].lineNumber,
                 covered: (map(.coveredLines > 0) | any)
