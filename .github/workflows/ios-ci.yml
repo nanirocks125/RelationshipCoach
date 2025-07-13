@@ -18,7 +18,6 @@ jobs:
       - name: Install Tools via Homebrew
         run: |
           brew install sonar-scanner
-          brew install sonar-swift
         
       - name: Checkout code
         uses: actions/checkout@v4
@@ -52,11 +51,60 @@ jobs:
         run: find . -name "*.xcresult" -print
         
 
-      # This step now contains the logic directly, avoiding any download issues.
+      # --- COVERAGE CONVERSION ---
+      - name: Create coverage conversion script
+        run: |
+          cat <<'EOF' > xccov-to-sonarqube-generic.sh
+          #!/bin/bash
+          set -euo pipefail
+          if ! [ -x "$(command -v xccov)" ]; then
+            echo "xccov not found. Please install Xcode."
+            exit 1
+          fi
+          if [ "$#" -ne 1 ]; then
+              echo "Usage: xccov-to-sonarqube-generic.sh <result-bundle-file>"
+              exit 1
+          fi
+          if ! [ -d "$1" ]; then
+              echo "Error: file not found at $1"
+              exit 1
+          fi
+          cat <<HEADER
+          <coverage version="1">
+          HEADER
+          xccov view --report --json "$1" | \
+          jq -r '.targets[] | .files[] | select(.coveredLines > 0) | . as $file | .functions[] | select(.coveredLines > 0) | . as $function | {"file": $file, "function": $function}' | \
+          jq -s 'group_by(.file.path) | .[] | . as $group | {"file": $group[0].file, "functions": ($group | .[] | .function) }' | \
+          jq -r '. as $item | .file as $file | "<file path=\"\($file.path)\">" as $opening_tag | .functions[] as $function | "\t<lineToCover lineNumber=\"\(.lineNumber)\" covered=\"\(.coveredLines > 0)\" name=\"\($function.name)\"/>" as $line | [$opening_tag, $line] | @tsv' | \
+          awk '
+          BEGIN {
+              FS="\t"
+              OFS="\n"
+              path_to_print = ""
+          }
+          {
+              if ($1 != path_to_print) {
+                  if (path_to_print != "") {
+                      print "\t</file>"
+                  }
+                  path_to_print = $1
+                  print path_to_print
+              }
+              print $2
+          }
+          END {
+              print "\t</file>"
+          }
+          '
+          cat <<FOOTER
+          </coverage>
+          FOOTER
+          EOF
+
       - name: Convert coverage report to SonarCloud format
         run: |
-          xccov view --report --json Test.xcresult > xccov.json
-          sonar-swift-xccov-converter xccov.json > sonar-generic-coverage.xml
+          chmod +x xccov-to-sonarqube-generic.sh
+          ./xccov-to-sonarqube-generic.sh Test.xcresult > sonar-generic-coverage.xml
 
 #      - name: Run Xcode Analyzer
 #        run: |
