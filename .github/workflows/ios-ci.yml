@@ -47,7 +47,7 @@ jobs:
 
       # This single action replaces the cache, download, unzip, and path steps
       - name: Set up SonarScanner
-        uses: SonarSource/sonar-scanner-cli-action@v2.2.0
+        uses: SonarSource/sonar-scanner-cli-action@v2
 
       # Step 3: Run the analysis using the CLI
       - name: Run SonarCloud Analysis
