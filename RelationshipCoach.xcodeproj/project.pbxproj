@@ -6,11 +6,27 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		5346C6AA2E23B8B800A1D81D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5357123C2D930CD900E1F7C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 535712432D930CD900E1F7C8;
+			remoteInfo = RelationshipCoach;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		5346C6A62E23B8B800A1D81D /* RelationshipCoachTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelationshipCoachTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		535712442D930CD900E1F7C8 /* RelationshipCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationshipCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		5346C6A72E23B8B800A1D81D /* RelationshipCoachTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RelationshipCoachTests;
+			sourceTree = "<group>";
+		};
 		535712462D930CD900E1F7C8 /* RelationshipCoach */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = RelationshipCoach;
@@ -19,6 +35,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5346C6A32E23B8B800A1D81D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		535712412D930CD900E1F7C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				535712462D930CD900E1F7C8 /* RelationshipCoach */,
+				5346C6A72E23B8B800A1D81D /* RelationshipCoachTests */,
 				535712452D930CD900E1F7C8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				535712442D930CD900E1F7C8 /* RelationshipCoach.app */,
+				5346C6A62E23B8B800A1D81D /* RelationshipCoachTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +73,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5346C6A52E23B8B800A1D81D /* RelationshipCoachTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5346C6AC2E23B8B800A1D81D /* Build configuration list for PBXNativeTarget "RelationshipCoachTests" */;
+			buildPhases = (
+				5346C6A22E23B8B800A1D81D /* Sources */,
+				5346C6A32E23B8B800A1D81D /* Frameworks */,
+				5346C6A42E23B8B800A1D81D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5346C6AB2E23B8B800A1D81D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5346C6A72E23B8B800A1D81D /* RelationshipCoachTests */,
+			);
+			name = RelationshipCoachTests;
+			packageProductDependencies = (
+			);
+			productName = RelationshipCoachTests;
+			productReference = 5346C6A62E23B8B800A1D81D /* RelationshipCoachTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		535712432D930CD900E1F7C8 /* RelationshipCoach */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 535712522D930CDA00E1F7C8 /* Build configuration list for PBXNativeTarget "RelationshipCoach" */;
@@ -77,9 +125,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					5346C6A52E23B8B800A1D81D = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 535712432D930CD900E1F7C8;
+					};
 					535712432D930CD900E1F7C8 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -100,11 +152,19 @@
 			projectRoot = "";
 			targets = (
 				535712432D930CD900E1F7C8 /* RelationshipCoach */,
+				5346C6A52E23B8B800A1D81D /* RelationshipCoachTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5346C6A42E23B8B800A1D81D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		535712422D930CD900E1F7C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +175,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5346C6A22E23B8B800A1D81D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		535712402D930CD900E1F7C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,7 +191,53 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		5346C6AB2E23B8B800A1D81D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 535712432D930CD900E1F7C8 /* RelationshipCoach */;
+			targetProxy = 5346C6AA2E23B8B800A1D81D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		5346C6AD2E23B8B800A1D81D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7K6Z7HB495;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mani.RelationshipCoachTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RelationshipCoach.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RelationshipCoach";
+			};
+			name = Debug;
+		};
+		5346C6AE2E23B8B800A1D81D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7K6Z7HB495;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mani.RelationshipCoachTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RelationshipCoach.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RelationshipCoach";
+			};
+			name = Release;
+		};
 		535712502D930CDA00E1F7C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -317,6 +430,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5346C6AC2E23B8B800A1D81D /* Build configuration list for PBXNativeTarget "RelationshipCoachTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5346C6AD2E23B8B800A1D81D /* Debug */,
+				5346C6AE2E23B8B800A1D81D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5357123F2D930CD900E1F7C8 /* Build configuration list for PBXProject "RelationshipCoach" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
