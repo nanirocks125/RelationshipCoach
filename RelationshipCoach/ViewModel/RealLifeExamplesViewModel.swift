@@ -165,9 +165,6 @@ struct Story {
 
 class RealLifeExamplesViewModel: ObservableObject {
     @Published var realLifeStories: [Story] = []
-    init() {
-        
-    }
     
     func prepareData(for gender: Gender, story: StoryType) {
         switch gender {

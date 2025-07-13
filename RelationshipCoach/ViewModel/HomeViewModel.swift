@@ -63,11 +63,6 @@ struct HomeSection {
 
 class HomeViewModel: ObservableObject {
     @Published var sections: [HomeSection] = []
-    
-    
-    init() {
-    }
-    
 }
 
 extension Gender {

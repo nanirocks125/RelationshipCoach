@@ -11,10 +11,6 @@ class StepsViewModel: ObservableObject {
     @Published var header = ""
     @Published var steps: [DoItYourSelfStoryFormItemType] = []
     
-    init() {
-        
-    }
-    
     func prepareData(for story: StoryType, gender: Gender) {
         switch gender {
         case .male:

@@ -196,9 +196,6 @@ class AddDoItYourSelfStoryViewModel: ObservableObject {
     @Published var items: [DoItYourSelfStoryFormItem] = []
     let userDefaultsManager = UserDefaultsManager()
     var story: StoryType?
-    init() {
-        
-    }
     
     func prepareForm(story: StoryType, doItYourSelfStory: DoItYourSelfStory?, gender: Gender) {
         self.story = story

@@ -11,8 +11,6 @@ class DoItYourSelfViewModel: ObservableObject {
     
     @Published var stories: [DoItYourSelfStory] = []
     let userDefaultsManager = UserDefaultsManager()
-    init() {}
-    
     
     func prepareStories(story: StoryType, for gender: Gender) async {
         let stories = await userDefaultsManager.getStories(for: gender, of: story)

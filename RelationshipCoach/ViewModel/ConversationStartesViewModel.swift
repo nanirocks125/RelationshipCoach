@@ -15,11 +15,6 @@ struct ConversationStarter {
 class ConversationStartesViewModel: ObservableObject {
     @Published var conversationStarters: [ConversationStarter] = []
     
-    init() {
-        
-    }
-    
-    
     func prepareData(for gender: Gender, story: StoryType) {
         switch gender {
         case .male:
