@@ -56,12 +56,12 @@ jobs:
       - name: Install SonarScanner via Homebrew
         run: brew install sonar-scanner
 
-      # ADD THIS DEBUGGING STEP
-      - name: Verify Directory Contents
+      # CRUCIAL DEBUGGING STEP: This proves the report file exists
+      - name: Verify coverage report exists
         run: ls -l
 
-      - name: Add SonarScanner to PATH
-        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-x86_64/bin" >> $GITHUB_PATH
+#      - name: Add SonarScanner to PATH
+#        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-x86_64/bin" >> $GITHUB_PATH
 
       # Step 3: Run the analysis using the CLI
       - name: Run SonarCloud Analysis
