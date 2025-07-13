@@ -180,7 +180,7 @@ jobs:
           # Source code settings - use . as root since we're converting paths to relative
           sonar.sources=.
           sonar.inclusions=RelationshipCoach/**/*.swift
-          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**,**/Tests/**,RelationshipCoachTests/**
+          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**,**/Tests/**
           
           # Test settings
           sonar.tests=RelationshipCoachTests
