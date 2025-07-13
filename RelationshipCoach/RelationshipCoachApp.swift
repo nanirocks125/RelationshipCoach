@@ -35,9 +35,6 @@ class RouteManager: ObservableObject {
 @main
 struct RelationshipCoachApp: App {
     
-    init() {
-    }
-    
     var body: some Scene {
         WindowGroup {
             HomeView()
