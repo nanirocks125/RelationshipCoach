@@ -37,6 +37,7 @@ jobs:
             -scheme "RelationshipCoach" \
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
             -enableCodeCoverage YES
+            -resultBundlePath "Test.xcresult" \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO
     
@@ -71,3 +72,4 @@ jobs:
           sonar-scanner \
             -Dsonar.organization=manikanta-nandam \
             -Dsonar.projectKey=nanirocks125_RelationshipCoach
+            -Dsonar.swift.coverage.reportPaths="Test.xcresult"
