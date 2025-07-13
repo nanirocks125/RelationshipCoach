@@ -10,8 +10,6 @@ import Foundation
 class UserDefaultsManager {
     let userDefaults = UserDefaults.standard
     
-    init() { }
-    
     func getStories(for gender: Gender, of storyType: StoryType) async ->  [DoItYourSelfStory]  {
         let key = "\(gender.id)_\(storyType.id)"
         if let data = UserDefaults.standard.data(forKey: key) {
