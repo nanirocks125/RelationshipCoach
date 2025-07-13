@@ -45,9 +45,9 @@ jobs:
       - name: Find Coverage Report
         run: find . -name "*.xcresult" -print
         
-        # --- NEW STEPS TO CONVERT THE REPORT ---
+        # Download an updated, reliable version of the conversion script
       - name: Download coverage conversion script
-        run: curl -sSLo 'xccov-to-sonarqube-generic.sh' 'https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/xccov-to-sonarqube-generic.sh'
+        run: curl -sSLo 'xccov-to-sonarqube-generic.sh' 'https://gist.githubusercontent.com/Cfee/35794935633a731f9451559556834c3a/raw/xccov-to-sonarqube-generic.sh'
 
       - name: Convert coverage report to SonarCloud format
         run: |
