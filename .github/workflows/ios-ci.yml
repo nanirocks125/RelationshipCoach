@@ -56,6 +56,8 @@ jobs:
           find . -name "*.xcresult" -type d
           echo "=== Check if TestResults.xcresult exists ==="
           ls -la TestResults.xcresult/ || echo "TestResults.xcresult not found"
+          echo "=== Check xcresult contents ==="
+          ls -la TestResults.xcresult/1_Test/action_TestSummaries.plist 2>/dev/null || echo "Test summaries not found"
 
       # Extract coverage data using xccov
       - name: Extract Coverage Data
@@ -68,6 +70,17 @@ jobs:
           xccov view --report --json TestResults.xcresult > coverage-report.json
           echo "=== Coverage report generated ==="
           ls -la coverage-report.json
+          
+          echo "=== First few lines of coverage report ==="
+          head -50 coverage-report.json || echo "Could not read coverage report"
+          
+          echo "=== Checking if coverage report has data ==="
+          if [ -s coverage-report.json ]; then
+            echo "Coverage report has data ($(wc -l < coverage-report.json) lines)"
+            jq '.targets | length' coverage-report.json || echo "Could not parse JSON"
+          else
+            echo "Coverage report is empty!"
+          fi
 
       # Create improved coverage conversion script
       - name: Create Coverage Conversion Script
@@ -133,11 +146,23 @@ jobs:
       # Convert coverage report to SonarCloud format
       - name: Convert Coverage Report
         run: |
+          echo "=== Converting coverage report ==="
           ./xccov-to-sonarqube-generic.sh coverage-report.json
+          
           echo "=== Generated SonarQube coverage file ==="
           ls -la sonar-generic-coverage.xml
-          echo "=== Sample of coverage file (first 20 lines) ==="
-          head -20 sonar-generic-coverage.xml || echo "Coverage file is empty or malformed"
+          
+          echo "=== Coverage file stats ==="
+          wc -l sonar-generic-coverage.xml || echo "Coverage file not found"
+          
+          echo "=== Sample of coverage file (first 30 lines) ==="
+          head -30 sonar-generic-coverage.xml || echo "Coverage file is empty or malformed"
+          
+          echo "=== Count of lineToCover entries ==="
+          grep -c "lineToCover" sonar-generic-coverage.xml || echo "No lineToCover entries found"
+          
+          echo "=== Count of covered='true' entries ==="
+          grep -c 'covered="true"' sonar-generic-coverage.xml || echo "No covered lines found"
 
       # Create sonar-project.properties file
       - name: Create SonarCloud Configuration
@@ -150,9 +175,13 @@ jobs:
           sonar.projectVersion=1.0
           
           # Source code settings
-          sonar.sources=.
-          sonar.inclusions=**/*.swift,**/*.m,**/*.h
-          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**
+          sonar.sources=RelationshipCoach
+          sonar.inclusions=**/*.swift
+          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**,**/Tests/**
+          
+          # Test settings
+          sonar.tests=RelationshipCoachTests
+          sonar.test.inclusions=**/*Test*.swift,**/*Tests.swift
           
           # Coverage settings
           sonar.swift.coverage.reportPaths=sonar-generic-coverage.xml
