@@ -105,13 +105,10 @@ jobs:
               exit 1
           fi
 
-          # Get the current working directory to make paths relative
-          current_dir=$(pwd)
-          
           echo "Converting coverage report to SonarQube format..."
           echo "<coverage version=\"1\">" > sonar-generic-coverage.xml
 
-          # Process the coverage data and convert absolute paths to relative
+          # Process the coverage data
           jq -r '
             .targets[]? | 
             select(.files) | 
@@ -123,12 +120,11 @@ jobs:
             } |
             select(.functions | length > 0)
           ' "$coverage_json" | \
-          jq -s --arg pwd "$current_dir" '
+          jq -s '
             group_by(.path) | 
             .[] | 
             {
-              # THIS IS THE ONLY LINE THAT HAS CHANGED
-              path: (.[0].path | sub($pwd + "/"; "") | sub("^RelationshipCoach/"; "")),
+              path: .[0].path,
               lines: ([.[].functions[]] | group_by(.lineNumber) | map({
                 line: .[0].lineNumber,
                 covered: (map(.coveredLines > 0) | any)
@@ -146,7 +142,7 @@ jobs:
           EOF
 
           chmod +x xccov-to-sonarqube-generic.sh
-          
+
       # Convert coverage report to SonarCloud format
       - name: Convert Coverage Report
         run: |
@@ -177,21 +173,24 @@ jobs:
           sonar.projectKey=nanirocks125_RelationshipCoach
           sonar.projectName=RelationshipCoach
           sonar.projectVersion=1.0
-  
-          # Point directly to the source and test directories
+          
+          # Source code settings
           sonar.sources=RelationshipCoach
+          sonar.inclusions=**/*.swift
+          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**,**/Tests/**
+          
+          # Test settings
           sonar.tests=RelationshipCoachTests
-  
-          # Exclude non-source files
-          sonar.exclusions=**/Pods/**,**/DerivedData/**
-  
+          sonar.test.inclusions=**/*Test*.swift,**/*Tests.swift
+          
           # Coverage settings
+          sonar.swift.coverage.reportPaths=sonar-generic-coverage.xml
           sonar.coverageReportPaths=sonar-generic-coverage.xml
           
           # Language settings
           sonar.swift.file.suffixes=.swift
           EOF
-  
+
       # Verify SonarCloud configuration
       - name: Verify SonarCloud Setup
         run: |
