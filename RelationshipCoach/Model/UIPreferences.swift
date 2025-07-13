@@ -16,6 +16,4 @@ struct UIPreferences: Codable, Equatable {
     var navigationTitleSize: Int = 17
     var storyHeadersOnStoryScreen: Int = 32
     var storyDescriptionOnStoryScreen: Int = 17
-    
-    init() {}
 }
