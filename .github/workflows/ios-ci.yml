@@ -44,6 +44,15 @@ jobs:
         # ADD THIS DEBUGGING STEP
       - name: Find Coverage Report
         run: find . -name "*.xcresult" -print
+        
+        # --- NEW STEPS TO CONVERT THE REPORT ---
+      - name: Download coverage conversion script
+        run: curl -sSLo 'xccov-to-sonarqube-generic.sh' 'https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/xccov-to-sonarqube-generic.sh'
+
+      - name: Convert coverage report to SonarCloud format
+        run: |
+          chmod +x xccov-to-sonarqube-generic.sh
+          ./xccov-to-sonarqube-generic.sh Test.xcresult > sonar-generic-coverage.xml
 
 #      - name: Run Xcode Analyzer
 #        run: |
@@ -72,4 +81,4 @@ jobs:
           sonar-scanner \
             -Dsonar.organization=manikanta-nandam \
             -Dsonar.projectKey=nanirocks125_RelationshipCoach \
-            -Dsonar.swift.coverage.reportPaths="Test.xcresult"
+            -Dsonar.swift.coverage.reportPaths="sonar-generic-coverage.xml"
