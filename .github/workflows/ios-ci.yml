@@ -36,3 +36,10 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO
+
+      - name: Run Xcode Analyzer
+        run: |
+          xcodebuild analyze \
+            -project RelationshipCoach.xcodeproj \
+            -scheme "RelationshipCoach" \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
