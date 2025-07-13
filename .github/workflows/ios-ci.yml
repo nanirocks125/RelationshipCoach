@@ -52,54 +52,49 @@ jobs:
         run: find . -name "*.xcresult" -print
         
 
-      # --- COVERAGE CONVERSION ---
-      - name: Create coverage conversion script
+      # This step creates the UPDATED conversion script locally on the runner
+      - name: Create Coverage Conversion Script
         run: |
           cat <<'EOF' > xccov-to-sonarqube-generic.sh
           #!/bin/bash
+          #
+          # Convert xccov JSON output to SonarQube Generic Execution format
+          #
+          # Usage:
+          #    xccov-to-sonarqube-generic.sh <xccov-json-file>
+          #
+          # Based on https://github.com/SonarSource/sonar-scanning-examples/blob/master/swift-coverage/xccov-to-sonarqube-generic.sh
+          # with modifications for robustness.
+          #
           set -euo pipefail
-          if ! [ -x "$(command -v xccov)" ]; then
-            echo "xccov not found. Please install Xcode."
+
+          if ! [ -x "$(command -v jq)" ]; then
+            echo "jq not found. Please install."
             exit 1
           fi
+
           if [ "$#" -ne 1 ]; then
-              echo "Usage: xccov-to-sonarqube-generic.sh <result-bundle-file>"
+              echo "Usage: xccov-to-sonarqube-generic.sh <path-to-xcresult-bundle>"
               exit 1
           fi
-          if ! [ -d "$1" ]; then
-              echo "Error: file not found at $1"
+
+          xccov_report_path="$1"
+          if ! [ -d "$xccov_report_path" ]; then
+              echo "Error: xcresult bundle not found at $xccov_report_path"
               exit 1
           fi
-          cat <<HEADER
-          <coverage version="1">
-          HEADER
-          xccov view --report --json "$1" | \
-          jq -r '.targets[] | .files[] | select(.coveredLines > 0) | . as $file | .functions[] | select(.coveredLines > 0) | . as $function | {"file": $file, "function": $function}' | \
-          jq -s 'group_by(.file.path) | .[] | . as $group | {"file": $group[0].file, "functions": ($group | .[] | .function) }' | \
-          jq -r '. as $item | .file as $file | "<file path=\"\($file.path)\">" as $opening_tag | .functions[] as $function | "\t<lineToCover lineNumber=\"\(.lineNumber)\" covered=\"\(.coveredLines > 0)\" name=\"\($function.name)\"/>" as $line | [$opening_tag, $line] | @tsv' | \
-          awk '
-          BEGIN {
-              FS="\t"
-              OFS="\n"
-              path_to_print = ""
-          }
-          {
-              if ($1 != path_to_print) {
-                  if (path_to_print != "") {
-                      print "\t</file>"
-                  }
-                  path_to_print = $1
-                  print path_to_print
-              }
-              print $2
-          }
-          END {
-              print "\t</file>"
-          }
-          '
-          cat <<FOOTER
-          </coverage>
-          FOOTER
+
+          # --- Main conversion logic ---
+          echo "<coverage version=\"1\">"
+          xccov view --report --json "$xccov_report_path" | \
+              jq -r '.targets[].files[] | . as $file | $file.functions[]? | . as $func | {path: $file.path, name: $func.name, line: $func.lineNumber, covered: ($func.coveredLines > 0)}' | \
+              jq -s 'group_by(.path) | .[] | {path: .[0].path, lines: .}' | \
+              jq -r '
+                  "<file path=\"" + .path + "\">",
+                  (.lines[] | "\t<lineToCover lineNumber=\"" + (.line|tostring) + "\" covered=\"" + (.covered|tostring) + "\" />"),
+                  "</file>"
+              '
+          echo "</coverage>"
           EOF
 
       - name: Convert coverage report to SonarCloud format
