@@ -6,33 +6,27 @@
 //
 
 import Testing
-import RelationshipCoach
+@testable import RelationshipCoach // Import your app module as @testable
 
-struct HomeViewModelTests {
-    
-    let sut: HomeViewModel
-    
-    init() {
-        self.sut = HomeViewModel()
-    }
+@Suite("HomeViewModel Tests")
+final class HomeViewModelTests {
 
-    @Test func initialSections() async throws {
-        #expect(sut.sections.count == 0)
-    }
+    let sut = HomeViewModel()
     
-    @Test func sectionsForMale() async throws {
-        sut.prepareSections(for: .male)
-        #expect(sut.sections.count == 3)
-    }
-    
-    @Test func sectionsForFemale() async throws {
-        sut.prepareSections(for: .female)
-        #expect(sut.sections.count == 3)
-    }
-    
-    @Test func sectionsForNoGender() async throws {
-        sut.prepareSections(for: .none)
-        #expect(sut.sections.count == 3)
+    // Test the initial state of the view model.
+    @Test("Initial state has no sections")
+    func test_initialState_hasNoSections() {
+        #expect(sut.sections.isEmpty)
     }
 
+    // 2. Use a parameterized test to avoid repeating the same logic.
+    @Test("Preparing sections for any gender results in 3 sections", arguments: [
+        Gender.male,
+        Gender.female,
+        Gender.none
+    ])
+    func test_prepareSections_populatesSections(gender: Gender) {
+        sut.prepareSections(for: gender)
+        #expect(sut.sections.count == 3)
+    }
 }
