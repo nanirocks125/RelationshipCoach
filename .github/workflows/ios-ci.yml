@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Select Xcode 16
-        run: sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
 
       # 2. Runs the build and unit tests via the xcodebuild command-line tool
       - name: Run tests
