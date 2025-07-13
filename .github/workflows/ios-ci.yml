@@ -83,69 +83,69 @@ jobs:
           fi
 
       # Create improved coverage conversion script
-            - name: Create Coverage Conversion Script
-              run: |
-                cat <<'EOF' > xccov-to-sonarqube-generic.sh
-                #!/bin/bash
-                set -euo pipefail
-      
-                if ! command -v jq &> /dev/null; then
-                  echo "Error: jq not found. Please install jq."
-                  exit 1
-                fi
-      
-                if [ "$#" -ne 1 ]; then
-                    echo "Usage: $0 <coverage-report.json>"
-                    exit 1
-                fi
-      
-                coverage_json="$1"
-                if [ ! -f "$coverage_json" ]; then
-                    echo "Error: Coverage report not found at $coverage_json"
-                    exit 1
-                fi
-      
-                # Get the current working directory to make paths relative
-                current_dir=$(pwd)
-                
-                echo "Converting coverage report to SonarQube format..."
-                echo "<coverage version=\"1\">" > sonar-generic-coverage.xml
-      
-                # Process the coverage data and convert absolute paths to relative
-                jq -r '
-                  .targets[]? | 
-                  select(.files) | 
-                  .files[] | 
-                  select(.path != null and .functions != null) |
-                  {
-                    path: .path,
-                    functions: [.functions[]? | select(.lineNumber != null)]
-                  } |
-                  select(.functions | length > 0)
-                ' "$coverage_json" | \
-                jq -s --arg pwd "$current_dir" '
-                  group_by(.path) | 
-                  .[] | 
-                  {
-                    # THIS IS THE ONLY LINE THAT HAS CHANGED
-                    path: (.[0].path | sub($pwd + "/"; "")),
-                    lines: ([.[].functions[]] | group_by(.lineNumber) | map({
-                      line: .[0].lineNumber,
-                      covered: (map(.coveredLines > 0) | any)
-                    }))
-                  }
-                ' | \
-                jq -r '
-                  "  <file path=\"" + .path + "\">",
-                  (.lines[] | "    <lineToCover lineNumber=\"" + (.line|tostring) + "\" covered=\"" +       (.covered|tostring) + "\" />"),
-                  "  </file>"
-                ' >> sonar-generic-coverage.xml
-      
-                echo "</coverage>" >> sonar-generic-coverage.xml
-                echo "Coverage conversion completed!"
-                EOF
-      
-                chmod +x xccov-to-sonarqube-generic.sh
+      - name: Create Coverage Conversion Script
+        run: |
+          cat <<'EOF' > xccov-to-sonarqube-generic.sh
+          #!/bin/bash
+          set -euo pipefail
+
+          if ! command -v jq &> /dev/null; then
+            echo "Error: jq not found. Please install jq."
+            exit 1
+          fi
+
+          if [ "$#" -ne 1 ]; then
+              echo "Usage: $0 <coverage-report.json>"
+              exit 1
+          fi
+
+          coverage_json="$1"
+          if [ ! -f "$coverage_json" ]; then
+              echo "Error: Coverage report not found at $coverage_json"
+              exit 1
+          fi
+
+          # Get the current working directory to make paths relative
+          current_dir=$(pwd)
+          
+          echo "Converting coverage report to SonarQube format..."
+          echo "<coverage version=\"1\">" > sonar-generic-coverage.xml
+
+          # Process the coverage data and convert absolute paths to relative
+          jq -r '
+            .targets[]? | 
+            select(.files) | 
+            .files[] | 
+            select(.path != null and .functions != null) |
+            {
+              path: .path,
+              functions: [.functions[]? | select(.lineNumber != null)]
+            } |
+            select(.functions | length > 0)
+          ' "$coverage_json" | \
+          jq -s --arg pwd "$current_dir" '
+            group_by(.path) | 
+            .[] | 
+            {
+              # THIS IS THE ONLY LINE THAT HAS CHANGED
+              path: (.[0].path | sub($pwd + "/"; "")),
+              lines: ([.[].functions[]] | group_by(.lineNumber) | map({
+                line: .[0].lineNumber,
+                covered: (map(.coveredLines > 0) | any)
+              }))
+            }
+          ' | \
+          jq -r '
+            "  <file path=\"" + .path + "\">",
+            (.lines[] | "    <lineToCover lineNumber=\"" + (.line|tostring) + "\" covered=\"" + (.covered|tostring) + "\" />"),
+            "  </file>"
+          ' >> sonar-generic-coverage.xml
+
+          echo "</coverage>" >> sonar-generic-coverage.xml
+          echo "Coverage conversion completed!"
+          EOF
+
+          chmod +x xccov-to-sonarqube-generic.sh
           
       # Convert coverage report to SonarCloud format
       - name: Convert Coverage Report
