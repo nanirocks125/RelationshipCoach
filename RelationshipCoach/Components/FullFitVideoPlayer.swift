@@ -33,5 +33,8 @@ struct FullFitVideoPlayer: UIViewControllerRepresentable {
         return controller
     }
     
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // This view controller manages its own state and does not need to be updated
+        // from the SwiftUI environment after it has been created.
+    }
 }
