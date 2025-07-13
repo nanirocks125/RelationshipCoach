@@ -94,7 +94,7 @@ extension Gender {
     }
 }
 
-extension HomeViewModel {
+public extension HomeViewModel {
     func prepareSections(for gender: Gender) {
         sections = [
             .init(
