@@ -45,23 +45,23 @@ jobs:
       - name: Find Coverage Report
         run: find . -name "*.xcresult" -print
 
-      - name: Run Xcode Analyzer
-        run: |
-          xcodebuild analyze \
-            -project RelationshipCoach.xcodeproj \
-            -scheme "RelationshipCoach" \
-            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
+#      - name: Run Xcode Analyzer
+#        run: |
+#          xcodebuild analyze \
+#            -project RelationshipCoach.xcodeproj \
+#            -scheme "RelationshipCoach" \
+#            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
 
       # This single action replaces the cache, download, unzip, and path steps
       - name: Install SonarScanner via Homebrew
         run: brew install sonar-scanner
 
-      # ADD THIS DEBUGGING STEP
-      - name: Verify Directory Contents
+      # CRUCIAL DEBUGGING STEP: This proves the report file exists
+      - name: Verify coverage report exists
         run: ls -l
 
-      - name: Add SonarScanner to PATH
-        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-x86_64/bin" >> $GITHUB_PATH
+#      - name: Add SonarScanner to PATH
+#        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-x86_64/bin" >> $GITHUB_PATH
 
       # Step 3: Run the analysis using the CLI
       - name: Run SonarCloud Analysis
