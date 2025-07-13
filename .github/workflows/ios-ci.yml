@@ -71,5 +71,5 @@ jobs:
         run: |
           sonar-scanner \
             -Dsonar.organization=manikanta-nandam \
-            -Dsonar.projectKey=nanirocks125_RelationshipCoach
+            -Dsonar.projectKey=nanirocks125_RelationshipCoach \
             -Dsonar.swift.coverage.reportPaths="Test.xcresult"
