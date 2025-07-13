@@ -35,7 +35,10 @@ jobs:
           # The name might be Xcode_16_beta.app or something similar.
           # Replace 'Xcode_16.2.app' with the name you see in the log.
           sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
-
+          
+      - name: Add Xcode Toolchain to PATH
+        run: echo "$(xcode-select -p)/usr/bin" >> $GITHUB_PATH
+        
       - name: Build and Test
         run: |
           xcodebuild clean build test \
