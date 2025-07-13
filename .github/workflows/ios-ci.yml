@@ -59,6 +59,7 @@ jobs:
         run: ls -l
 
       - name: Add SonarScanner to PATH
+        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-x86_64/bin" >> $GITHUB_PATH
 
       # Step 3: Run the analysis using the CLI
       - name: Run SonarCloud Analysis
