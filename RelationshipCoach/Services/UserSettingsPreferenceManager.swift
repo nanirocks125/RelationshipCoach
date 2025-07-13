@@ -13,10 +13,9 @@ class UserSettingsPreferenceManager: ObservableObject {
     
     func updateSettings() {
         let data = userDefaults.data(forKey: "uiSettings")
-        if let data = data {
-            if let settings = try? JSONDecoder().decode(UIPreferences.self, from: data) {
+        if let data = data,
+           let settings = try? JSONDecoder().decode(UIPreferences.self, from: data) {
                 self.settings = settings
-            }
         }
     }
 }
