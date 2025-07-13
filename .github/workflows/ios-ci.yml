@@ -14,6 +14,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      # This single action replaces the cache, download, unzip, and path steps
+      - name: Install Tools via Homebrew
+        run: |
+          brew install sonar-scanner
+          brew install jq
+        
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -29,7 +35,10 @@ jobs:
           # The name might be Xcode_16_beta.app or something similar.
           # Replace 'Xcode_16.2.app' with the name you see in the log.
           sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
-
+          
+      - name: Add Xcode Toolchain to PATH
+        run: echo "$(xcode-select -p)/usr/bin" >> $GITHUB_PATH
+        
       - name: Build and Test
         run: |
           xcodebuild clean build test \
@@ -44,6 +53,57 @@ jobs:
         # ADD THIS DEBUGGING STEP
       - name: Find Coverage Report
         run: find . -name "*.xcresult" -print
+        
+
+      # This step creates the UPDATED conversion script locally on the runner
+      - name: Create Coverage Conversion Script
+        run: |
+          cat <<'EOF' > xccov-to-sonarqube-generic.sh
+          #!/bin/bash
+          #
+          # Convert xccov JSON output to SonarQube Generic Execution format
+          #
+          # Usage:
+          #    xccov-to-sonarqube-generic.sh <xccov-json-file>
+          #
+          # Based on https://github.com/SonarSource/sonar-scanning-examples/blob/master/swift-coverage/xccov-to-sonarqube-generic.sh
+          # with modifications for robustness.
+          #
+          set -euo pipefail
+
+          if ! [ -x "$(command -v jq)" ]; then
+            echo "jq not found. Please install."
+            exit 1
+          fi
+
+          if [ "$#" -ne 1 ]; then
+              echo "Usage: xccov-to-sonarqube-generic.sh <path-to-xcresult-bundle>"
+              exit 1
+          fi
+
+          xccov_report_path="$1"
+          if ! [ -d "$xccov_report_path" ]; then
+              echo "Error: xcresult bundle not found at $xccov_report_path"
+              exit 1
+          fi
+
+          # --- Main conversion logic ---
+          echo "<coverage version=\"1\">"
+          xccov view --report --json "$xccov_report_path" | \
+              jq -r '.targets[].files[] | . as $file | $file.functions[]? | . as $func | {path: $file.path, name: $func.name, line: $func.lineNumber, covered: ($func.coveredLines > 0)}' | \
+              jq -s 'group_by(.path) | .[] | {path: .[0].path, lines: .}' | \
+              jq -r '
+                  "<file path=\"" + .path + "\">",
+                  (.lines[] | "\t<lineToCover lineNumber=\"" + (.line|tostring) + "\" covered=\"" + (.covered|tostring) + "\" />"),
+                  "</file>"
+              '
+          echo "</coverage>"
+          EOF
+
+      - name: Convert coverage report to SonarCloud format
+        run: |
+          chmod +x xccov-to-sonarqube-generic.sh
+          ./xccov-to-sonarqube-generic.sh Test.xcresult > sonar-generic-coverage.xml
 
 #      - name: Run Xcode Analyzer
 #        run: |
@@ -52,9 +112,6 @@ jobs:
 #            -scheme "RelationshipCoach" \
 #            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
 
-      # This single action replaces the cache, download, unzip, and path steps
-      - name: Install SonarScanner via Homebrew
-        run: brew install sonar-scanner
 
       # CRUCIAL DEBUGGING STEP: This proves the report file exists
       - name: Verify coverage report exists
@@ -72,4 +129,4 @@ jobs:
           sonar-scanner \
             -Dsonar.organization=manikanta-nandam \
             -Dsonar.projectKey=nanirocks125_RelationshipCoach \
-            -Dsonar.swift.coverage.reportPaths="Test.xcresult"
+            -Dsonar.swift.coverage.reportPaths="sonar-generic-coverage.xml"
