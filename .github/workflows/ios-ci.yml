@@ -20,15 +20,15 @@ jobs:
           fetch-depth: 0 # Required for SonarCloud blame information
 
       # ADD THIS STEP to see what Xcode versions are available
-      - name: List Available Xcode Versions
-        run: ls /Applications | grep Xcode
+      # - name: List Available Xcode Versions
+      #   run: ls /Applications | grep Xcode
 
       # UPDATE THIS STEP with the name you find from the step above
-      - name: Select Xcode
-        run: |
-          # The name might be Xcode_16_beta.app or something similar.
-          # Replace 'Xcode_16.2.app' with the name you see in the log.
-          sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+      # - name: Select Xcode
+      #   run: |
+      #     # The name might be Xcode_16_beta.app or something similar.
+      #     # Replace 'Xcode_16.2.app' with the name you see in the log.
+      #     sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
       # - name: Build and Test
       #   run: |
