@@ -30,6 +30,11 @@ jobs:
           sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
           xcodebuild -version
           
+      - name: Add Xcode Tools to PATH
+        run: |
+          echo "$(xcode-select -p)/usr/bin" >> $GITHUB_PATH
+          echo "$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/bin" >> $GITHUB_PATH
+          
       - name: Build and Test with Coverage
         run: |
           xcodebuild clean build test \
@@ -55,6 +60,10 @@ jobs:
       # Extract coverage data using xccov
       - name: Extract Coverage Data
         run: |
+          echo "=== Verifying xccov is available ==="
+          which xccov || echo "xccov not found in PATH"
+          xccov version || echo "xccov version check failed"
+          
           echo "=== Extracting coverage report ==="
           xccov view --report --json TestResults.xcresult > coverage-report.json
           echo "=== Coverage report generated ==="
