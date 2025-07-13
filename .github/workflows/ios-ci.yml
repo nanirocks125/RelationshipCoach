@@ -51,24 +51,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Step to cache the SonarScanner directory (updated with versioned path)
+      # Step to cache the correct (Intel) SonarScanner directory
       - name: Cache SonarScanner
         id: cache-sonar-scanner
         uses: actions/cache@v4
         with:
-          path: sonar-scanner-5.0.1.3006-macosx-aarch64
+          path: sonar-scanner-5.0.1.3006-macosx-x86_64
           key: sonar-scanner-5.0.1-${{ runner.os }}
       
-      # Download and set up a SPECIFIC version if the cache was not found
+      # Download and set up the Intel (x86_64) version
       - name: Download and set up SonarScanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
-          curl -O -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-macosx-aarch64.zip
-          unzip sonar-scanner-cli-5.0.1.3006-macosx-aarch64.zip
+          curl -O -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-macosx-x86_64.zip
+          unzip sonar-scanner-cli-5.0.1.3006-macosx-x86_64.zip
       
-      # Add the VERSIONED scanner to the system PATH
+      # Add the Intel (x86_64) version of the scanner to the system PATH
       - name: Add SonarScanner to PATH
-        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-aarch64/bin" >> $GITHUB_PATH
+        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-x86_64/bin" >> $GITHUB_PATH
 
       # Step 3: Run the analysis using the CLI
       - name: Run SonarCloud Analysis
