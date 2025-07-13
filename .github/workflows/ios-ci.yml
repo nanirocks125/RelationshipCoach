@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for SonarCloud blame information
 
       # ADD THIS STEP to see what Xcode versions are available
       - name: List Available Xcode Versions
