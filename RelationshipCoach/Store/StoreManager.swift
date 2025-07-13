@@ -39,7 +39,7 @@ class StoreManager: ObservableObject {
     func requestProducts() async {
         print("Refreshing products")
         do {
-            let products = try await Product.products(for: productIDs)
+            _ = try await Product.products(for: productIDs)
         } catch {
             print("Failed to fetch products: \(error)")
         }
