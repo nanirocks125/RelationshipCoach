@@ -14,6 +14,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      # This single action replaces the cache, download, unzip, and path steps
+      - name: Install Tools via Homebrew
+        run: |
+          brew install sonar-scanner
+          brew install sonar-swift
+        
       - name: Checkout code
         uses: actions/checkout@v4
         with:
@@ -45,14 +51,12 @@ jobs:
       - name: Find Coverage Report
         run: find . -name "*.xcresult" -print
         
-        # Download an updated, reliable version of the conversion script
-      - name: Download coverage conversion script
-        run: curl -sSLo 'xccov-to-sonarqube-generic.sh' 'https://gist.githubusercontent.com/Cfee/35794935633a731f9451559556834c3a/raw/xccov-to-sonarqube-generic.sh'
 
+      # This step now contains the logic directly, avoiding any download issues.
       - name: Convert coverage report to SonarCloud format
         run: |
-          chmod +x xccov-to-sonarqube-generic.sh
-          ./xccov-to-sonarqube-generic.sh Test.xcresult > sonar-generic-coverage.xml
+          xccov view --report --json Test.xcresult > xccov.json
+          sonar-swift-xccov-converter xccov.json > sonar-generic-coverage.xml
 
 #      - name: Run Xcode Analyzer
 #        run: |
@@ -61,9 +65,6 @@ jobs:
 #            -scheme "RelationshipCoach" \
 #            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
 
-      # This single action replaces the cache, download, unzip, and path steps
-      - name: Install SonarScanner via Homebrew
-        run: brew install sonar-scanner
 
       # CRUCIAL DEBUGGING STEP: This proves the report file exists
       - name: Verify coverage report exists
