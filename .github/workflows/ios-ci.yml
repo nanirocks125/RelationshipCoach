@@ -48,8 +48,17 @@ jobs:
       #       -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
 
       # This single action replaces the cache, download, unzip, and path steps
-      - name: Set up SonarScanner
-        uses: SonarSource/sonar-scanner-cli-action@v2
+      - name: Download and set up SonarScanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        run: |
+          curl -O -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-macosx-x86_64.zip
+          unzip sonar-scanner-cli-5.0.1.3006-macosx-x86_64.zip
+
+      # ADD THIS DEBUGGING STEP
+      - name: Verify Directory Contents
+        run: ls -l
+
+      - name: Add SonarScanner to PATH
 
       # Step 3: Run the analysis using the CLI
       - name: Run SonarCloud Analysis
