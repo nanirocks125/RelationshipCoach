@@ -43,6 +43,7 @@ struct RelationshipCoachApp: App {
             HomeView()
                 .environmentObject(RouteManager())
                 .environmentObject(UserSettingsPreferenceManager())
+                .environmentObject(StoreManager())
         }
     }
 }
