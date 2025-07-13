@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Gender: String {
+public enum Gender: String {
     case male = "MALE"
     case female = "FEMALE"
     case none = ""
