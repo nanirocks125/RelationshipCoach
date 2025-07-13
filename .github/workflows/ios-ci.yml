@@ -1,0 +1,35 @@
+# Name of your workflow
+name: iOS CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# A workflow is made of one or more jobs
+jobs:
+  # This workflow contains a single job called "test"
+  test:
+    # The name of the job as it appears in the UI
+    name: Build and Test
+
+    # Use a macOS runner for all Apple platform development
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks
+    steps:
+      # 1. Checks out your repository's code so the job can access it
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Runs the build and unit tests via the xcodebuild command-line tool
+      - name: Run tests
+        run: |
+          xcodebuild clean test \
+            -project RelationshipCoach.xcodeproj \
+            -scheme "RelationshipCoach" \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
