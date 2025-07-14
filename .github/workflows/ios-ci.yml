@@ -45,9 +45,9 @@ jobs:
         run: chmod +x ./scripts/xccov-to-sonarqube-generic.sh
         
       - name: Convert to Sonarcube generic
-        run: ./scripts/xccov-to-sonarqube-generic.sh ./build.xcresult > coverage.xml
+        run: ./Scripts/xccov-to-sonarqube-generic.sh ./build.xcresult > coverage.xml
       - name: Push to SonarQube
-        run: sonar-scanner
+        run: sonar-scanner -Dsonar.coverageReportPaths=coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
