@@ -12,7 +12,7 @@ jobs:
     runs-on: macos-latest
 
     env:
-      DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_16.2.app/Contents/Developer
       SONAR_SCANNER_OPTS: "-Dsonar.verbose=true"
 
     steps:
@@ -31,7 +31,7 @@ jobs:
       - name: Run Tests with Coverage
         run: |
           xcodebuild test \
-            -scheme MyApp \
+            -scheme RelationshipCoach \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.4' \
             -enableCodeCoverage YES \
             -resultBundlePath TestResults
@@ -39,7 +39,7 @@ jobs:
       - name: Convert coverage to lcov
         run: |
           gem install slather
-          slather coverage --scheme MyApp --workspace MyApp.xcodeproj --binary-basename MyApp .
+          slather coverage --scheme MyApp --workspace RelationshipCoach.xcodeproj --binary-basename MyApp .
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v4
@@ -58,8 +58,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
-            -Dsonar.organization=<your-org-key> \
-            -Dsonar.projectKey=<your-project-key> \
+            -Dsonar.organization=manikanta-nandam \
+            -Dsonar.projectKey=nanirocks125_RelationshipCoach \
             -Dsonar.sources=. \
             -Dsonar.language=swift \
             -Dsonar.swift.coverage.reportPaths=coverage/lcov.info \
