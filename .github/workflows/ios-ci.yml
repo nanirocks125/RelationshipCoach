@@ -11,7 +11,7 @@ on:
 jobs:
   build-and-test:
     name: Build & Test
-    runs-on: macos-13 # use macos-13 or newer
+    runs-on: macos-15 # use macos-13 or newer
 
     steps:
       - name: Checkout code
