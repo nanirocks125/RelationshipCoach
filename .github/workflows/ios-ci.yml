@@ -37,10 +37,14 @@ jobs:
             -project RelationshipCoach.xcodeproj \
             -scheme "RelationshipCoach" \
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
-            -enableCodeCoverage YES
+            -enableCodeCoverage YES \
+            -resultBundlePath ./build.xcresult
       - name: Convert to Sonarcube generic
         run: ./scripts/xccov-to-sonarqube-generic.sh ./build.xcresult > coverage.xml
       - name: Push to SonarQube
         run: sonar-scanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
+#        run: xcodebuild test -scheme TicTacToe-Package -enableCodeCoverage YES -resultBundlePath ./build.xcresult -destination "platform=macOS,arch=arm64e,variant=macos" -skipPackagePluginValidation
