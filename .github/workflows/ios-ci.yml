@@ -19,62 +19,51 @@ jobs:
         with:
           fetch-depth: 0 # Required for SonarCloud blame information
 
-      - name: Install Tools via Homebrew
-        run: |
-          brew install sonar-scanner
-        
-      # Select Xcode version (use latest available)
+      # ADD THIS STEP to see what Xcode versions are available
+      - name: List Available Xcode Versions
+        run: ls /Applications | grep Xcode
+
+      # UPDATE THIS STEP with the name you find from the step above
       - name: Select Xcode
         run: |
+          # The name might be Xcode_16_beta.app or something similar.
+          # Replace 'Xcode_16.2.app' with the name you see in the log.
           sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
-          xcodebuild -version
-          
-      - name: Add Xcode Tools to PATH
-        run: |
-          echo "$(xcode-select -p)/usr/bin" >> $GITHUB_PATH
-          echo "$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/bin" >> $GITHUB_PATH
-          
-      - name: Build and Test with Coverage
+
+      - name: Build and Test
         run: |
           xcodebuild clean build test \
             -project RelationshipCoach.xcodeproj \
             -scheme "RelationshipCoach" \
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
-            -derivedDataPath Build/
-#            -enableCodeCoverage YES
+            -enableCodeCoverage YES
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
 
-#      # This optional step uploads coverage to Codecov. It can coexist with SonarCloud.
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v4
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          fail_ci_if_error: true # Optional: Fail the build if Codecov upload fails
+      - name: Run Xcode Analyzer
+        run: |
+          xcodebuild analyze \
+            -project RelationshipCoach.xcodeproj \
+            -scheme "RelationshipCoach" \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
 
-#      # The SonarCloud action will use the SONAR_TOKEN from your secrets
-#      # and automatically discover the organization and project key if your
-#      # repository is properly configured on SonarCloud.
-#      - name: SonarCloud Scan
-#        uses: SonarSource/sonarcloud-github-action@v2.2.0
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # This single action replaces the cache, download, unzip, and path steps
+      - name: Install SonarScanner via Homebrew
+        run: brew install sonar-scanner
 
-      # Run the SonarScanner command-line tool directly
-      - name: SonarCloud Scan
+      # ADD THIS DEBUGGING STEP
+      - name: Verify Directory Contents
+        run: ls -l
+
+      - name: Add SonarScanner to PATH
+        run: echo "$(pwd)/sonar-scanner-5.0.1.3006-macosx-x86_64/bin" >> $GITHUB_PATH
+
+      # Step 3: Run the analysis using the CLI
+      - name: Run SonarCloud Analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
         run: |
           sonar-scanner \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.organization="manikanta-nandam" \
-            -Dsonar.projectKey="nanirocks125_RelationshipCoach" \
-            -Dsonar.swift.project=${PWD}/RelationshipCoach.xcodeproj \
-            -Dsonar.swift.target=RelationshipCoach \
-            -Dsonar.sources=RelationshipCoach \
-            -Dsonar.tests=RelationshipCoachTests \
-            -Dsonar.c.file.suffixes=- \
-            -Dsonar.cpp.file.suffixes=- \
-            -Dsonar.objc.file.suffixes=-
+            -Dsonar.organization=manikanta-nandam \
+            -Dsonar.projectKey=nanirocks125_RelationshipCoach
