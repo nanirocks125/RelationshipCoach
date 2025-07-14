@@ -64,9 +64,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
         run: |
           sonar-scanner \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.organization="manikanta-nandam" \
-            -Dsonar.projectKey="nanirocks125_RelationshipCoach" \
-            -Dsonar.cfamily.build-wrapper-output.bypass=true
+            -Dsonar.organization=${{ env.SONAR_ORGANIZATION }} \
+            -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} \
+            -Dsonar.swift.project=${PWD}/RelationshipCoach.xcodeproj \
+            -Dsonar.swift.target=RelationshipCoach \
+            -Dsonar.sources=RelationshipCoach \
+            -Dsonar.tests=RelationshipCoachTests \
+            -Dsonar.c.file.suffixes=- \
+            -Dsonar.cpp.file.suffixes=- \
+            -Dsonar.objc.file.suffixes=-
