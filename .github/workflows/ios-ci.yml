@@ -1,7 +1,6 @@
 # Name of your workflow
 name: iOS CI
 
-# Controls when the workflow will run
 on:
   push:
     branches: [ "main" ]
@@ -12,17 +11,14 @@ jobs:
   build-and-test:
     name: Build and Test
     runs-on: macos-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for SonarCloud blame information
 
-      - name: Install Tools via Homebrew
-        run: |
-          brew install sonar-scanner
-          brew install jq
+      - name: Install sonar-scanner
+        run: brew install sonar-scanner
         
       # Select Xcode version (use latest available)
       - name: Select Xcode
@@ -41,184 +37,19 @@ jobs:
             -project RelationshipCoach.xcodeproj \
             -scheme "RelationshipCoach" \
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
-            -enableCodeCoverage YES 
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-      # Debug: Check what was created
-      - name: Debug - List generated files
-        run: |
-          echo "=== Current directory ==="
-          ls -la
-          echo "=== Looking for xcresult bundles ==="
-          find . -name "*.xcresult" -type d
-          echo "=== Check if TestResults.xcresult exists ==="
-          ls -la TestResults.xcresult/ || echo "TestResults.xcresult not found"
-          echo "=== Check xcresult contents ==="
-          ls -la TestResults.xcresult/1_Test/action_TestSummaries.plist 2>/dev/null || echo "Test summaries not found"
-
-      # Extract coverage data using xccov
-      - name: Extract Coverage Data
-        run: |
-          echo "=== Verifying xccov is available ==="
-          which xccov || echo "xccov not found in PATH"
-          xccov version || echo "xccov version check failed"
+            -enableCodeCoverage YES \
+            -resultBundlePath ./build.xcresult
           
-          echo "=== Extracting coverage report ==="
-          xccov view --report --json TestResults.xcresult > coverage-report.json
-          echo "=== Coverage report generated ==="
-          ls -la coverage-report.json
-          
-          echo "=== First few lines of coverage report ==="
-          head -50 coverage-report.json || echo "Could not read coverage report"
-          
-          echo "=== Checking if coverage report has data ==="
-          if [ -s coverage-report.json ]; then
-            echo "Coverage report has data ($(wc -l < coverage-report.json) lines)"
-            jq '.targets | length' coverage-report.json || echo "Could not parse JSON"
-          else
-            echo "Coverage report is empty!"
-          fi
-
-      # Create improved coverage conversion script
-      - name: Create Coverage Conversion Script
-        run: |
-          cat <<'EOF' > xccov-to-sonarqube-generic.sh
-          #!/bin/bash
-          set -euo pipefail
-
-          if ! command -v jq &> /dev/null; then
-            echo "Error: jq not found. Please install jq."
-            exit 1
-          fi
-
-          if [ "$#" -ne 1 ]; then
-              echo "Usage: $0 <coverage-report.json>"
-              exit 1
-          fi
-
-          coverage_json="$1"
-          if [ ! -f "$coverage_json" ]; then
-              echo "Error: Coverage report not found at $coverage_json"
-              exit 1
-          fi
-
-          echo "Converting coverage report to SonarQube format..."
-          echo "<coverage version=\"1\">" > sonar-generic-coverage.xml
-
-          # Process the coverage data
-          jq -r '
-            .targets[]? | 
-            select(.files) | 
-            .files[] | 
-            select(.path != null and .functions != null) |
-            {
-              path: .path,
-              functions: [.functions[]? | select(.lineNumber != null)]
-            } |
-            select(.functions | length > 0)
-          ' "$coverage_json" | \
-          jq -s '
-            group_by(.path) | 
-            .[] | 
-            {
-              path: .[0].path,
-              lines: ([.[].functions[]] | group_by(.lineNumber) | map({
-                line: .[0].lineNumber,
-                covered: (map(.coveredLines > 0) | any)
-              }))
-            }
-          ' | \
-          jq -r '
-            "  <file path=\"" + .path + "\">",
-            (.lines[] | "    <lineToCover lineNumber=\"" + (.line|tostring) + "\" covered=\"" + (.covered|tostring) + "\" />"),
-            "  </file>"
-          ' >> sonar-generic-coverage.xml
-
-          echo "</coverage>" >> sonar-generic-coverage.xml
-          echo "Coverage conversion completed!"
-          EOF
-
-          chmod +x xccov-to-sonarqube-generic.sh
-
-      # Convert coverage report to SonarCloud format
-      - name: Convert Coverage Report
-        run: |
-          echo "=== Converting coverage report ==="
-          ./xccov-to-sonarqube-generic.sh coverage-report.json
-          
-          echo "=== Generated SonarQube coverage file ==="
-          ls -la sonar-generic-coverage.xml
-          
-          echo "=== Coverage file stats ==="
-          wc -l sonar-generic-coverage.xml || echo "Coverage file not found"
-          
-          echo "=== Sample of coverage file (first 30 lines) ==="
-          head -30 sonar-generic-coverage.xml || echo "Coverage file is empty or malformed"
-          
-          echo "=== Count of lineToCover entries ==="
-          grep -c "lineToCover" sonar-generic-coverage.xml || echo "No lineToCover entries found"
-          
-          echo "=== Count of covered='true' entries ==="
-          grep -c 'covered="true"' sonar-generic-coverage.xml || echo "No covered lines found"
-
-      # Create sonar-project.properties file
-      - name: Create SonarCloud Configuration
-        run: |
-          cat <<EOF > sonar-project.properties
-          # SonarCloud configuration
-          sonar.organization=manikanta-nandam
-          sonar.projectKey=nanirocks125_RelationshipCoach
-          sonar.projectName=RelationshipCoach
-          sonar.projectVersion=1.0
-          
-          # Source code settings
-          sonar.sources=RelationshipCoach
-          sonar.inclusions=**/*.swift
-          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**,**/Tests/**
-          
-          # Test settings
-          sonar.tests=RelationshipCoachTests
-          sonar.test.inclusions=**/*Test*.swift,**/*Tests.swift
-          
-          # Coverage settings
-          sonar.swift.coverage.reportPaths=sonar-generic-coverage.xml
-          sonar.coverageReportPaths=sonar-generic-coverage.xml
-          
-          # Language settings
-          sonar.swift.file.suffixes=.swift
-          EOF
-
-      # Verify SonarCloud configuration
-      - name: Verify SonarCloud Setup
-        run: |
-          echo "=== SonarCloud configuration ==="
-          cat sonar-project.properties
-          echo "=== Checking coverage file size ==="
-          wc -l sonar-generic-coverage.xml || echo "Coverage file not found"
-
-      # Run SonarCloud Analysis
-      - name: Run SonarCloud Analysis
+      # Add this step to grant execute permission
+      - name: Make script executable
+        run: chmod +x ./scripts/xccov-to-sonarqube-generic.sh
+        
+      - name: Convert to Sonarcube generic
+        run: ./Scripts/xccov-to-sonarqube-generic.sh ./build.xcresult > coverage.xml
+      - name: Push to SonarQube
+        run: sonar-scanner -Dsonar.coverageReportPaths=coverage.xml
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.verbose=true
 
-      # Upload artifacts for debugging
-      - name: Upload Coverage Artifacts
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: coverage-reports
-          path: |
-            coverage-report.json
-            sonar-generic-coverage.xml
-            TestResults.xcresult
-          retention-days: 5
+
+#        run: xcodebuild test -scheme TicTacToe-Package -enableCodeCoverage YES -resultBundlePath ./build.xcresult -destination "platform=macOS,arch=arm64e,variant=macos" -skipPackagePluginValidation
