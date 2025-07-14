@@ -21,17 +21,17 @@ jobs:
           # SonarCloud requires the full git history to assign issues correctly.
           fetch-depth: 0
 
-      # The setup-xcode action selects the Xcode version to use.
-      # Using a specific, known-stable version like '15.4' is more reliable.
       - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.2'
 
-      # This action downloads the SonarQube build-wrapper.
-      # Using the official casing and a specific version tag is more robust.
-      - name: Setup SonarQube Build Wrapper
-        uses: SonarSource/sonar-scanner-cli-action@v2.0.0
+      # Manually download and set up the SonarQube build-wrapper
+      - name: Install SonarQube Build Wrapper
+        run: |
+          curl -sSLo sonar-build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86_64.zip
+          unzip -o sonar-build-wrapper.zip
+          echo "$(pwd)/build-wrapper-macosx-x86_64" >> $GITHUB_PATH
 
       - name: Run Build & Tests with Coverage and Wrapper
         run: |
@@ -45,14 +45,12 @@ jobs:
               -enableCodeCoverage YES \
               CODE_SIGNING_ALLOWED=NO
 
-      # Upload the test results (including coverage data) as an artifact for the Codecov job.
       - name: Upload Test Results Artifact (for Codecov)
         uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: test-results.xcresult
 
-      # Upload the SonarQube build-wrapper output as an artifact for the SonarQube job.
       - name: Upload SonarQube Build Wrapper Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -99,10 +97,12 @@ jobs:
           name: sonar-build-wrapper-output
           path: sonar-build-wrapper-output/
 
-      # This action sets up the sonar-scanner CLI.
-      # Using the official casing and a specific version tag is more robust.
-      - name: Setup SonarQube Scanner
-        uses: SonarSource/sonar-scanner-cli-action@v2.0.0
+      # Manually download and set up the SonarScanner CLI
+      - name: Install SonarScanner CLI
+        run: |
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip -o sonar-scanner.zip
+          echo "$(pwd)/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
 
       - name: Run SonarQube Scanner
         env:
