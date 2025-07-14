@@ -26,17 +26,17 @@ jobs:
         with:
           xcode-version: '16.2'
 
-      # Manually download and set up the SonarQube build-wrapper
+      # Manually download and set up the SonarQube build-wrapper from the official binaries repository.
       - name: Install SonarQube Build Wrapper
         run: |
-          curl -sSLo sonar-build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86_64.zip
+          curl -sSLo sonar-build-wrapper.zip https://binaries.sonarsource.com/Distribution/build-wrapper-macosx-x86/build-wrapper-macosx-x86.zip
           unzip -o sonar-build-wrapper.zip
-          echo "$(pwd)/build-wrapper-macosx-x86_64" >> $GITHUB_PATH
+          echo "$(pwd)/build-wrapper-macosx-x86" >> $GITHUB_PATH
 
       - name: Run Build & Tests with Coverage and Wrapper
         run: |
-          # The build-wrapper intercepts the compiler calls to understand the project structure.
-          build-wrapper-macos-x86-64 --out-dir sonar-build-wrapper-output \
+          # The command name must match the directory name of the unzipped build-wrapper.
+          build-wrapper-macosx-x86 --out-dir sonar-build-wrapper-output \
             xcodebuild clean test \
               -project RelationshipCoach.xcodeproj \
               -scheme "RelationshipCoach" \
