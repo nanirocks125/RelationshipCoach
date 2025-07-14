@@ -33,9 +33,9 @@ jobs:
 
       - name: Run Build & Tests with Coverage and Wrapper
         run: |
-          # Homebrew installs the build-wrapper inside the sonar-scanner cellar directory.
-          # We need to use its full path to execute it reliably.
-          /usr/local/Cellar/sonar-scanner/$(brew --prefix --installed sonar-scanner | cut -d'/' -f5)/libexec/build-wrapper-macos-x86/build-wrapper-macos-x86 --out-dir sonar-build-wrapper-output \
+          # Use `brew --prefix` to get the correct path to the sonar-scanner installation,
+          # then call the build-wrapper from its standard location within the libexec directory.
+          "$(brew --prefix sonar-scanner)/libexec/build-wrapper-macos-x86/build-wrapper-macos-x86" --out-dir sonar-build-wrapper-output \
             xcodebuild clean test \
               -project RelationshipCoach.xcodeproj \
               -scheme "RelationshipCoach" \
