@@ -81,7 +81,7 @@ jobs:
   # Job 3: Run SonarQube analysis.
   sonarqube:
     name: SonarQube Analysis
-    runs-on: ubuntu-latest
+    runs-on: macos-latest # Changed to macOS to use Homebrew
     needs: build-and-test
 
     steps:
@@ -96,12 +96,9 @@ jobs:
           name: sonar-build-wrapper-output
           path: sonar-build-wrapper-output/
 
-      # Manually download and set up the SonarScanner CLI for the Linux runner.
-      - name: Install SonarScanner CLI
-        run: |
-          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-          unzip -o sonar-scanner.zip
-          echo "$(pwd)/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
+      # Replaced manual download with Homebrew for consistency
+      - name: Install SonarScanner via Homebrew
+        run: brew install sonar-scanner
 
       - name: Run SonarQube Scanner
         env:
