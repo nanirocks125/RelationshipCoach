@@ -39,6 +39,11 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
             -enableCodeCoverage YES \
             -resultBundlePath ./build.xcresult
+          
+      # Add this step to grant execute permission
+      - name: Make script executable
+        run: chmod +x ./scripts/xccov-to-sonarqube-generic.sh
+        
       - name: Convert to Sonarcube generic
         run: ./scripts/xccov-to-sonarqube-generic.sh ./build.xcresult > coverage.xml
       - name: Push to SonarQube
