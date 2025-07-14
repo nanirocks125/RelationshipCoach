@@ -40,20 +40,31 @@ jobs:
             -project RelationshipCoach.xcodeproj \
             -scheme "RelationshipCoach" \
             -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
-            -enableCodeCoverage YES 
+            -derivedDataPath Build/
+#            -enableCodeCoverage YES
 
-      # This optional step uploads coverage to Codecov. It can coexist with SonarCloud.
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true # Optional: Fail the build if Codecov upload fails
+#      # This optional step uploads coverage to Codecov. It can coexist with SonarCloud.
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v4
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          fail_ci_if_error: true # Optional: Fail the build if Codecov upload fails
 
-      # The SonarCloud action will use the SONAR_TOKEN from your secrets
-      # and automatically discover the organization and project key if your
-      # repository is properly configured on SonarCloud.
+#      # The SonarCloud action will use the SONAR_TOKEN from your secrets
+#      # and automatically discover the organization and project key if your
+#      # repository is properly configured on SonarCloud.
+#      - name: SonarCloud Scan
+#        uses: SonarSource/sonarcloud-github-action@v2.2.0
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # Run the SonarScanner command-line tool directly
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.cfamily.build-wrapper-output.bypass=true
