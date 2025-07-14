@@ -26,15 +26,15 @@ jobs:
         with:
           xcode-version: '16.2'
 
-      # Reverting to the official action with a known-stable version tag.
-      # This avoids manual download issues.
-      - name: Setup SonarQube Build Wrapper
-        uses: SonarSource/sonar-scanner-cli-action@v1.1
+      # Install SonarScanner (which includes the build-wrapper) using Homebrew.
+      # This is the most reliable method when direct downloads fail.
+      - name: Install SonarScanner via Homebrew
+        run: brew install sonar-scanner
 
       - name: Run Build & Tests with Coverage and Wrapper
         run: |
-          # The command name is provided by the setup action.
-          build-wrapper-macos-x86_64 --out-dir sonar-build-wrapper-output \
+          # The command name is provided by the Homebrew installation.
+          build-wrapper-macos-x86-64 --out-dir sonar-build-wrapper-output \
             xcodebuild clean test \
               -project RelationshipCoach.xcodeproj \
               -scheme "RelationshipCoach" \
@@ -95,9 +95,12 @@ jobs:
           name: sonar-build-wrapper-output
           path: sonar-build-wrapper-output/
 
-      # Reverting to the official action with a known-stable version tag.
-      - name: Setup SonarQube Scanner
-        uses: SonarSource/sonar-scanner-cli-action@v1.1
+      # Manually download and set up the SonarScanner CLI for the Linux runner.
+      - name: Install SonarScanner CLI
+        run: |
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip -o sonar-scanner.zip
+          echo "$(pwd)/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
 
       - name: Run SonarQube Scanner
         env:
