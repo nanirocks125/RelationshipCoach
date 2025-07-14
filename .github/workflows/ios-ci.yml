@@ -24,29 +24,17 @@ jobs:
       with:
         xcode-version: '16.2'     # or any version available on the runner
 
-    # 3️⃣ Tooling (Sonar scanner & wrapper) ------------------------------------
-    - name: Install SonarScanner + Build‑Wrapper
+    - name: Download SonarCloud Build Wrapper
       run: |
-        brew install sonar-scanner        # installs both binaries
-        # Add <brew>/opt/sonar-scanner/libexec/bin to PATH for this job
-        echo "$(brew --prefix sonar-scanner)/libexec/bin" >> "$GITHUB_PATH"
+        curl -sSLo build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
+        unzip -q build-wrapper.zip -d build-wrapper
+        chmod +x build-wrapper/build-wrapper-macosx-x86
 
-    - name: Locate build-wrapper and run xcodebuild
+    - name: Build & Test with Build Wrapper
       run: |
         mkdir -p sonar-build-wrapper-output
-
-        # Locate the wrapper inside sonar-scanner's libexec folder
-        BW_PATH="$(brew --prefix)/opt/sonar-scanner/libexec/bin/build-wrapper-macosx-x86"
-
-        # Sanity check: fail if not found
-        if [ ! -x "$BW_PATH" ]; then
-          echo "❌ Build wrapper not found at: $BW_PATH"
-          ls -l "$(brew --prefix)/opt/sonar-scanner/libexec/bin"
-          exit 1
-        fi
-
-        # Now run the wrapper with xcodebuild
-        "$BW_PATH" --out-dir sonar-build-wrapper-output \
+        ./build-wrapper/build-wrapper-macosx-x86 \
+          --out-dir sonar-build-wrapper-output \
           xcodebuild test \
             -project RelationshipCoach.xcodeproj \
             -scheme RelationshipCoach \
