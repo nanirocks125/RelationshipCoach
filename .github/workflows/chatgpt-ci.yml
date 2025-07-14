@@ -39,7 +39,7 @@ jobs:
       - name: Convert coverage to lcov
         run: |
           gem install slather
-          slather coverage --scheme MyApp --workspace RelationshipCoach.xcodeproj --binary-basename MyApp .
+          slather coverage --scheme RelationshipCoach --workspace RelationshipCoach.xcodeproj --binary-basename RelationshipCoach .
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v4
