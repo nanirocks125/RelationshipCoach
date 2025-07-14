@@ -26,16 +26,23 @@ jobs:
         with:
           xcode-version: '16.2'
 
-      # Install SonarScanner (which includes the build-wrapper) using Homebrew.
-      # This is the most reliable method when direct downloads fail.
+      # Install SonarScanner using Homebrew.
       - name: Install SonarScanner via Homebrew
         run: brew install sonar-scanner
 
+      # This new step finds the exact path to the build-wrapper executable.
+      - name: Find SonarQube Build Wrapper
+        id: find_bw
+        run: |
+          # The build-wrapper is located inside the sonar-scanner libexec directory.
+          # We find the executable and export its full path to an output variable.
+          bw_path=$(find "$(brew --prefix sonar-scanner)/libexec" -name "build-wrapper-macos-x86" | head -n 1)
+          echo "path=$bw_path" >> $GITHUB_OUTPUT
+
       - name: Run Build & Tests with Coverage and Wrapper
         run: |
-          # Use `brew --prefix` to get the correct path to the sonar-scanner installation,
-          # then call the build-wrapper from its standard location within the libexec directory.
-          "$(brew --prefix sonar-scanner)/libexec/build-wrapper-macos-x86/build-wrapper-macos-x86" --out-dir sonar-build-wrapper-output \
+          # We now use the exact path found in the previous step.
+          "${{ steps.find_bw.outputs.path }}" --out-dir sonar-build-wrapper-output \
             xcodebuild clean test \
               -project RelationshipCoach.xcodeproj \
               -scheme "RelationshipCoach" \
@@ -96,7 +103,7 @@ jobs:
           name: sonar-build-wrapper-output
           path: sonar-build-wrapper-output/
 
-      # Replaced manual download with Homebrew for consistency
+      # Install SonarScanner using Homebrew for consistency.
       - name: Install SonarScanner via Homebrew
         run: brew install sonar-scanner
 
