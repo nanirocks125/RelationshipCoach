@@ -42,12 +42,12 @@ jobs:
 #            CODE_SIGN_IDENTITY="" \
 #            CODE_SIGNING_REQUIRED=NO
 
-#      - name: Run Xcode Analyzer
-#        run: |
-#          xcodebuild analyze \
-#            -project RelationshipCoach.xcodeproj \
-#            -scheme "RelationshipCoach" \
-#            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
+      - name: Run Xcode Analyzer
+        run: |
+          xcodebuild analyze \
+            -project RelationshipCoach.xcodeproj \
+            -scheme "RelationshipCoach" \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
 
       # This single action replaces the cache, download, unzip, and path steps
       - name: Install SonarScanner via Homebrew
@@ -75,3 +75,34 @@ jobs:
 #        with:
 #          token: ${{ secrets.CODECOV_TOKEN }}
 #          files: ./test-results.xcresult
+  sonarqube:
+    name: SonarQube Analysis
+    runs-on: ubuntu-latest # Can also run on a cheaper runner
+    needs: build_and_test # Also depends on the build & test job
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # SonarQube needs the full git history
+
+      - name: Download SonarQube Build Wrapper Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sonar-build-wrapper-output
+          path: sonar-build-wrapper-output/
+
+      - name: Setup SonarQube
+        uses: SonarSource/sonar-scanner-cli-action@v2
+        # No 'with:' section needed here as we just need the scanner binary
+
+      - name: Run SonarQube Scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Secret for SonarCloud/SonarQube
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=nanirocks125_RelationshipCoach \
+            -Dsonar.organization=manikanta-nandam \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.cfamily.build-wrapper-output=sonar-build-wrapper-output
