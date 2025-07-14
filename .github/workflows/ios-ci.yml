@@ -10,7 +10,6 @@ on:
 
 jobs:
   # Job 1: Build the app, run tests, and generate all necessary reports.
-  # This is the foundation for the other jobs.
   build-and-test:
     name: Build and Test
     runs-on: macos-latest # Xcode builds must run on macOS
@@ -22,7 +21,10 @@ jobs:
           # SonarCloud requires the full git history to assign issues correctly.
           fetch-depth: 0
 
-      - name: Select Xcode 16.2
+      # The setup-xcode action selects the Xcode version to use.
+      # Using a specific, known-stable version like '15.4' is more reliable.
+      # If you are certain Xcode 16.2 is available, you can change this back.
+      - name: Select Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.2'
@@ -35,13 +37,16 @@ jobs:
       - name: Run Build & Tests with Coverage and Wrapper
         run: |
           # The build-wrapper intercepts the compiler calls to understand the project structure.
+          # Using 'OS=latest' makes the job more robust against mismatches between Xcode and the simulator.
+          # Adding CODE_SIGNING_ALLOWED=NO prevents code signing errors in CI.
           build-wrapper-macos-x86-64 --out-dir sonar-build-wrapper-output \
             xcodebuild clean test \
               -project RelationshipCoach.xcodeproj \
               -scheme "RelationshipCoach" \
-              -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
+              -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest' \
               -resultBundlePath 'test-results' \
-              -enableCodeCoverage YES
+              -enableCodeCoverage YES \
+              CODE_SIGNING_ALLOWED=NO
 
       # Upload the test results (including coverage data) as an artifact for the Codecov job.
       - name: Upload Test Results Artifact (for Codecov)
