@@ -22,7 +22,6 @@ jobs:
       - name: Install Tools via Homebrew
         run: |
           brew install sonar-scanner
-          brew install jq
         
       # Select Xcode version (use latest available)
       - name: Select Xcode
@@ -49,59 +48,8 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       # Create sonar-project.properties file
-      - name: Create SonarCloud Configuration
-        run: |
-          cat <<EOF > sonar-project.properties
-          # SonarCloud configuration
-          sonar.organization=manikanta-nandam
-          sonar.projectKey=nanirocks125_RelationshipCoach
-          sonar.projectName=RelationshipCoach
-          sonar.projectVersion=1.0
-          
-          # Source code settings
-          sonar.sources=RelationshipCoach
-          sonar.inclusions=**/*.swift
-          sonar.exclusions=**/Pods/**,**/DerivedData/**,**/TestResults.xcresult/**,**/*.xcworkspace/**,**/*.xcodeproj/**,**/Tests/**
-          
-          # Test settings
-          sonar.tests=RelationshipCoachTests
-          sonar.test.inclusions=**/*Test*.swift,**/*Tests.swift
-          
-          # Coverage settings
-          sonar.swift.coverage.reportPaths=sonar-generic-coverage.xml
-          sonar.coverageReportPaths=sonar-generic-coverage.xml
-          
-          # Language settings
-          sonar.swift.file.suffixes=.swift
-          EOF
-
-      # Verify SonarCloud configuration
-      - name: Verify SonarCloud Setup
-        run: |
-          echo "=== SonarCloud configuration ==="
-          cat sonar-project.properties
-          echo "=== Checking coverage file size ==="
-          wc -l sonar-generic-coverage.xml || echo "Coverage file not found"
-
-      # Run SonarCloud Analysis
-      - name: Run SonarCloud Analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.verbose=true
-
-      # Upload artifacts for debugging
-      - name: Upload Coverage Artifacts
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: coverage-reports
-          path: |
-            coverage-report.json
-            sonar-generic-coverage.xml
-            TestResults.xcresult
-          retention-days: 5
