@@ -67,3 +67,8 @@ jobs:
           sonar-scanner \
             -Dsonar.organization=manikanta-nandam \
             -Dsonar.projectKey=nanirocks125_RelationshipCoach
+            
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
