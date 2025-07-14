@@ -31,19 +31,22 @@ jobs:
         # Add <brew>/opt/sonar-scanner/libexec/bin to PATH for this job
         echo "$(brew --prefix sonar-scanner)/libexec/bin" >> "$GITHUB_PATH"
 
-    # 4️⃣ Sanity check (makes failures obvious) ---------------------------------
-    - name: Confirm build-wrapper present
+    - name: Locate build-wrapper and run xcodebuild
       run: |
-        which build-wrapper-macosx-x86
-        build-wrapper-macosx-x86 --version
-
-    # 5️⃣ Build, test & collect coverage ---------------------------------------
-    - name: Build & Test with Coverage + Build‑Wrapper
-      run: |
-        # Wrapper creates the dir itself, but mkdir -p is harmless
         mkdir -p sonar-build-wrapper-output
-        build-wrapper-macosx-x86 \
-          --out-dir sonar-build-wrapper-output \
+
+        # Locate the wrapper inside sonar-scanner's libexec folder
+        BW_PATH="$(brew --prefix)/opt/sonar-scanner/libexec/bin/build-wrapper-macosx-x86"
+
+        # Sanity check: fail if not found
+        if [ ! -x "$BW_PATH" ]; then
+          echo "❌ Build wrapper not found at: $BW_PATH"
+          ls -l "$(brew --prefix)/opt/sonar-scanner/libexec/bin"
+          exit 1
+        fi
+
+        # Now run the wrapper with xcodebuild
+        "$BW_PATH" --out-dir sonar-build-wrapper-output \
           xcodebuild test \
             -project RelationshipCoach.xcodeproj \
             -scheme RelationshipCoach \
