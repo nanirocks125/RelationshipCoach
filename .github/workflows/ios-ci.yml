@@ -1,25 +1,31 @@
+# Name of your workflow
+name: iOS CI
+
 on:
   push:
-    branches: [main]
-  schedule:
-    - cron: 0 0 * * *
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  ci:
-    runs-on: macos-15
+  build-and-test:
+    name: Build and Test
+    runs-on: macos-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-      - name: SwiftLint
-        uses: cirruslabs/swiftlint-action@v1
-        with:
-          version: latest
+          fetch-depth: 0 # Required for SonarCloud blame information
+
       - name: Install sonar-scanner
         run: brew install sonar-scanner
-      - name: Test
-        run: xcodebuild test -scheme TicTacToe-Package -enableCodeCoverage YES -resultBundlePath ./build.xcresult -destination "platform=macOS,arch=arm64e,variant=macos" -skipPackagePluginValidation
+      - name: Build and Test with Coverage
+        run: |
+          xcodebuild clean build test \
+            -project RelationshipCoach.xcodeproj \
+            -scheme "RelationshipCoach" \
+            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.5' \
+            -enableCodeCoverage YES
       - name: Convert to Sonarcube generic
         run: ./scripts/xccov-to-sonarqube-generic.sh ./build.xcresult > coverage.xml
       - name: Push to SonarQube
