@@ -67,4 +67,6 @@ jobs:
         run: |
           sonar-scanner \
             -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.organization="manikanta-nandam" \
+            -Dsonar.projectKey="nanirocks125_RelationshipCoach" \
             -Dsonar.cfamily.build-wrapper-output.bypass=true
