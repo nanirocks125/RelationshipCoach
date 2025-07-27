@@ -15,6 +15,7 @@ extension Color {
     static let maleColor = Color(hex: 0x1a60e3)
     static let rowBackgroundColor = Color("rowBackgroundColor")
     static let rowDescriptionColor = Color("rowDescriptionColor")
+    static let themeColor = Color("theme")
 }
 
 extension UIColor {
