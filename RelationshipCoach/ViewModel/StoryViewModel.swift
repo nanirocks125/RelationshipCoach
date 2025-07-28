@@ -84,9 +84,9 @@ class StoryViewModel: ObservableObject {
     func prepareSections(with premiumUser: Bool) {
         storySections = [
             .init(type: .realLifeExamples),
-            .init(type: .steps),
-            .init(type: .conversationStarters),
-            .init(type: .coachingTips),
+            .init(type: .steps, enabled: premiumUser),
+            .init(type: .conversationStarters, enabled: premiumUser),
+            .init(type: .coachingTips, enabled: premiumUser),
             .init(type: .doItYourSelf, enabled: premiumUser)
         ]
     }
