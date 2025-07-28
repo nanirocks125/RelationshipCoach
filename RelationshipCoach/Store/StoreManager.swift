@@ -22,14 +22,10 @@ class StoreManager: ObservableObject {
     }
     
     @Published var premiumUser: Bool = false
-    // The listener for transaction updates.
-    private var transactionListener: Task<Void, Error>? = nil
     
     private var productIDs = [RCSubscription.premium]
 
     init() {
-        transactionListener = listenForTransactions()
-
         refreshData()
     }
     
@@ -56,53 +52,37 @@ class StoreManager: ObservableObject {
                 // This could happen if the product ID is incorrect or not set up in App Store Connect.
                 throw StoreKitError.unknown
             }
-            
+            print("Initing purchase flow")
             // Initiate the purchase flow.
             let result = try await product.purchase()
-
+            
             switch result {
-            case .success(let verification):
-                // The purchase was successful.
-                let transaction = try checkVerified(verification)
-                
-                // Update the user's status with the new transaction.
-                handle(transaction: transaction)
-                
-                // Always finish the transaction after successfully delivering the content.
+            case let .success(.verified(transaction)):
+                print("Successful purchase")
+                // Successful purhcase
                 await transaction.finish()
+                refreshData()
+            case let .success(.unverified(_, error)):
+                print("Successful unverfied purchase")
 
-            case .userCancelled:
-                // The user canceled the purchase. No action needed.
+                // Successful purchase but transaction/receipt can't be verified
+                // Could be a jailbroken phone
+                print("Unverified purchase. Might be jailbroken. Error: \(error)")
                 break
             case .pending:
-                // The purchase is pending and requires action from the user.
-                // The transaction listener will handle the final result.
+                print("Pending")
+                // Transaction waiting on SCA (Strong Customer Authentication) or
+                // approval from Ask to Buy
+                break
+            case .userCancelled:
+                // ^^^
+                print("User Cancelled!")
                 break
             @unknown default:
+                print("Failed to purchase the product!")
                 break
             }
         }
-    
-    /// Creates a long-running task to listen for and handle all transaction updates.
-    private func listenForTransactions() -> Task<Void, Error> {
-        return Task.detached {
-            // Iterate through any transactions that came in while the app was closed or in the background.
-            for await result in Transaction.updates {
-                do {
-                    let transaction = try await self.checkVerified(result)
-                    
-                    // The transaction is valid. Deliver the purchased content.
-                    await self.handle(transaction: transaction)
-                    
-                    // Always finish the transaction.
-                    await transaction.finish()
-                } catch {
-                    // This catch block will handle verification failures.
-                    print("Transaction failed verification: \(error)")
-                }
-            }
-        }
-    }
     
     /// Updates the local state based on a single transaction.
     private func handle(transaction: Transaction) {
