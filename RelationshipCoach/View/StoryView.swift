@@ -113,7 +113,7 @@ struct StoryView: View {
                     .bold()
             }
         }
-        .sheet(isPresented: $isPremiumSubscriptionPresenting) {
+        .fullScreenCover(isPresented: $isPremiumSubscriptionPresenting) {
             PurchasePremium()
         }
     }
