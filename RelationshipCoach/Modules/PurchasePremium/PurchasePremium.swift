@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 @MainActor
 class PurchasePremiumViewModel: ObservableObject {
@@ -16,7 +17,7 @@ class PurchasePremiumViewModel: ObservableObject {
         Task {
             do {
                 isPurchasing = true
-                try await storeManager.purchase(RCSubscription.premium)
+                try await storeManager.purchase()
                 isPurchasing = false
             } catch {
                 print("Purchasing failed: \(error.localizedDescription)")
@@ -29,105 +30,134 @@ class PurchasePremiumViewModel: ObservableObject {
 }
 
 struct PurchasePremium: View {
-    
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: PurchasePremiumViewModel = .init()
     
     var body: some View {
-        VStack {
-            if viewModel.isPurchasing {
-                Text("Purchasing")
-            } else {
-                VStack {
-                    VStack {
-                        Image(.logo)
+        ZStack {
+            VStack {
+                HStack {
+                    if !viewModel.isPurchasing {
+                        Image(systemName: "xmark")
                             .resizable()
-                            .frame(width: 100, height: 100)
-                    }
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(16)
-                    
-                    
-                        
-                    HStack {
-                        Text("Relationship Coach")
+                            .frame(width: 16, height: 16)
                             .foregroundStyle(.white)
-                            .font(.title2)
-                            .bold()
-                        Text("Pro")
-                            .padding(.horizontal)
-                            .foregroundStyle(.theme)
-                            .background(.white)
-                            .cornerRadius(16)
-                    }
-                    .padding(.bottom, 32)
-                    HStack {
-                        VStack {
-                            Text("End Arguments Now")
-                                .font(.caption)
-                                .foregroundStyle(.white)
-                            Image("before_rc")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        }
-                        VStack {
-                            Text("Bring back the love")
-                                .font(.caption)
-                                .foregroundStyle(.white)
-                            Image("after_rc")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        }
-                    }
-                    .padding(.bottom, 16)
-                    .padding(.horizontal)
-                    
-                    Spacer()
-                    
-                    VStack {
-                        ForEach(0..<4) { index in
-                            HStack {
-                                Image(systemName: "checkmark")
-                                    .foregroundStyle(.white)
-                                Text("Feature \(index + 1)")
-                                    .font(.callout)
-                                    .foregroundStyle(.white)
-                                Spacer()
+                            .onTapGesture {
+                                dismiss()
                             }
-                        }
                     }
-                    .padding(.horizontal, 32)
-                    
-                    
                     Spacer()
-                    
-                    
-                    Button {
-                        viewModel.purchase()
-                    } label: {
-                        VStack {
-                            Text("TRY FOR FREE")
-                                .bold()
-                            Text("7 days trial, then $9.99 per month")
-                                .font(.caption)
-//                                .bold()
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(.white)
-                        .foregroundStyle(.theme)
-                        .cornerRadius(8)
-                    }
-                    .padding(.horizontal)
-                    Text("You can cancel at anytime")
-                        .foregroundStyle(.white)
-                        .font(.caption)
-//                        .bold()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.themeColor)
+                .padding()
+                VStack {
+                    Image(.logo)
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
+                .padding()
+                .background(.white)
+                .cornerRadius(16)
+                
+                
+                    
+                HStack {
+                    Text("Relationship Coach")
+                        .foregroundStyle(.white)
+                        .font(.title2)
+                        .bold()
+                    Text("Pro")
+                        .padding(.horizontal)
+                        .foregroundStyle(.theme)
+                        .background(.white)
+                        .cornerRadius(16)
+                }
+                .padding(.bottom, 32)
+                HStack {
+                    VStack {
+                        Text("End Arguments Now")
+                            .font(.caption)
+                            .foregroundStyle(.white)
+                        Image("before_rc")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    VStack {
+                        Text("Bring back the love")
+                            .font(.caption)
+                            .foregroundStyle(.white)
+                        Image("after_rc")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                }
+                .padding(.bottom, 16)
+                .padding(.horizontal)
+                
+                Spacer()
+                
+                VStack {
+                    ForEach(0..<4) { index in
+                        HStack {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(.white)
+                            Text("Feature \(index + 1)")
+                                .font(.callout)
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
+                    }
+                }
+                .padding(.horizontal, 32)
+                
+                
+                Spacer()
+                
+                
+                Button {
+                    viewModel.purchase()
+                } label: {
+                    VStack {
+                        Text("TRY FOR FREE")
+                            .bold()
+                        Text("7 days trial, then $9.99 per month")
+                            .font(.caption)
+//                                .bold()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(.white)
+                    .foregroundStyle(.theme)
+                    .cornerRadius(8)
+                }
+                .padding(.horizontal)
+                Text("You can cancel at anytime")
+                    .foregroundStyle(.white)
+                    .font(.caption)
+//                        .bold()
             }
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.themeColor)
+            .overlay {
+                if viewModel.isPurchasing {
+                    Rectangle()
+                        .fill(Color.black.opacity(0.4))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
+            if viewModel.isPurchasing {
+                VStack {
+                    LottieView(animation: .named("Hearts feedback"))
+                        .playing()
+                        .looping()
+                        .frame(width: 100, height: 100)
+
+
+                    Text("Purchasing")
+                        .font(.body)
+                        .foregroundStyle(.white)
+                }
+                
+            }
         }
     }
 }
