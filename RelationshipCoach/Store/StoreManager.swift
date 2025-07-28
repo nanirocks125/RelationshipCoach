@@ -66,7 +66,7 @@ class StoreManager: ObservableObject {
                 let transaction = try checkVerified(verification)
                 
                 // Update the user's status with the new transaction.
-                await handle(transaction: transaction)
+                handle(transaction: transaction)
                 
                 // Always finish the transaction after successfully delivering the content.
                 await transaction.finish()

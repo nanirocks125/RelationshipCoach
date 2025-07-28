@@ -33,6 +33,16 @@ struct PurchasePremium: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: PurchasePremiumViewModel = .init()
     
+    let proFeatures = [
+        "His Fault/ Her Fault Love Chat",
+        "My Fault Love Chat",
+        "Toxic Chat",
+        "Receiving Talk/ Giving Talk",
+        "Sweet Talk",
+        "Coaching Tips",
+        "Guided DIY"
+    ]
+    
     var body: some View {
         ZStack {
             VStack {
@@ -96,11 +106,11 @@ struct PurchasePremium: View {
                 Spacer()
                 
                 VStack {
-                    ForEach(0..<4) { index in
+                    ForEach(proFeatures, id: \.self) { feature in
                         HStack {
                             Image(systemName: "checkmark")
                                 .foregroundStyle(.white)
-                            Text("Feature \(index + 1)")
+                            Text(feature)
                                 .font(.callout)
                                 .foregroundStyle(.white)
                             Spacer()
