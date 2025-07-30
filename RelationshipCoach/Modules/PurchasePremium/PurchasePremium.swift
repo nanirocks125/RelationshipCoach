@@ -144,7 +144,7 @@ struct PurchasePremium: View {
                     VStack {
                         Text("TRY FOR FREE")
                             .bold()
-                        Text("7 days trial, then $9.99 per month")
+                        Text("3 days trial, then $9.99 per month")
                             .font(.caption)
 //                                .bold()
                     }
