@@ -159,6 +159,9 @@ struct PurchasePremium: View {
                     .foregroundStyle(.white)
                     .font(.caption)
 //                        .bold()
+                Link("Terms & Conditions", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                    .foregroundStyle(.white)
+
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.themeColor)
