@@ -16,6 +16,10 @@ enum RCSubscription {
 class SubscriptionsManager: NSObject {
     
     static let shared = SubscriptionsManager()
+    public var transactionFinished: AnyPublisher<Void, Never> {
+        transactionFinishedSubject.eraseToAnyPublisher()
+    }
+    private let transactionFinishedSubject = PassthroughSubject<Void, Never>()
 
     let productIDs: [String] = [RCSubscription.premium]
     var purchasedProductIDs: Set<String> = [] {
@@ -79,6 +83,7 @@ extension SubscriptionsManager {
                 // Successful purhcase
                 await transaction.finish()
                 await self.updatePurchasedProducts()
+                self.transactionFinishedSubject.send(())
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone

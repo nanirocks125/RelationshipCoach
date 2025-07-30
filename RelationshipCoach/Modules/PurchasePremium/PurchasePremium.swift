@@ -8,11 +8,19 @@
 import SwiftUI
 import Lottie
 import StoreKit
+import Combine
 
 @MainActor
 class PurchasePremiumViewModel: ObservableObject {
     let storeManager = SubscriptionsManager.shared
     @Published var isPurchasing: Bool = false
+    var cancellables = Set<AnyCancellable>()
+    
+    let transactionFinished: AnyPublisher<Void, Never>
+    
+    init() {
+        transactionFinished = storeManager.transactionFinished
+    }
     
     func restore() async {
         print("Restore in vm")
@@ -186,6 +194,11 @@ struct PurchasePremium: View {
                 }
                 
             }
+        }
+        .onAppear {
+            viewModel.transactionFinished.sink { _ in
+                self.dismiss()
+            }.store(in: &viewModel.cancellables)
         }
     }
 }
