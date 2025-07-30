@@ -7,17 +7,30 @@
 
 import SwiftUI
 import Lottie
+import StoreKit
 
 @MainActor
 class PurchasePremiumViewModel: ObservableObject {
-    let storeManager = StoreManager()
+    let storeManager = SubscriptionsManager.shared
     @Published var isPurchasing: Bool = false
+    
+    func restore() async {
+        print("Restore in vm")
+        isPurchasing = true
+        await storeManager.restorePurchases()
+        isPurchasing = false
+    }
     
     func purchase() {
         Task {
             do {
+                guard let product = try await Product.products(for: [RCSubscription.premium]).first else {
+                    // This could happen if the product ID is incorrect or not set up in App Store Connect.
+                    return
+                }
                 isPurchasing = true
-                try await storeManager.purchase()
+                
+                await storeManager.buyProduct(product)
                 isPurchasing = false
             } catch {
                 print("Purchasing failed: \(error.localizedDescription)")
@@ -47,16 +60,18 @@ struct PurchasePremium: View {
         ZStack {
             VStack {
                 HStack {
-                    if !viewModel.isPurchasing {
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .frame(width: 16, height: 16)
-                            .foregroundStyle(.white)
-                            .onTapGesture {
-                                dismiss()
-                            }
-                    }
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(.white)
+                        .onTapGesture {
+                            dismiss()
+                        }
                     Spacer()
+                    Button("Restore") {
+                        viewModel.purchase()
+                    }
+                    .foregroundStyle(.white)
                 }
                 .padding()
                 VStack {
