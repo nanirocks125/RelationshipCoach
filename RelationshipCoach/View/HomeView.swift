@@ -54,9 +54,9 @@ struct HomeView: View {
                                     )
                                     .background(Color.rowBackgroundColor)
                                     Spacer()
-                                    Image(systemName: "arrow.right")
+                                    Image(RCAsset.rightArrow)
                                         .resizable()
-                                        .frame(width: 14, height: 14)
+                                        .frame(width: 40, height: 40)
                                         .aspectRatio(contentMode: .fit)
                                 }
                                 .frame(height: 50)
