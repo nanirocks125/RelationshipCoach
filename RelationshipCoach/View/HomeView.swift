@@ -8,6 +8,22 @@
 import SwiftUI
 import AVKit
 
+struct RCIcon: View {
+    let name: String
+    var body: some View {
+        Image(RCAsset.icBackgroundCircle)
+            .resizable()
+            .frame(width: 48, height: 48)
+            .overlay {
+                Image(name)
+                    .resizable()
+                    .frame(width: 28, height: 28)
+                    .aspectRatio(contentMode: .fit)
+                    .shadow(color: .black.opacity(0.62), radius: 13)
+            }
+    }
+}
+
 struct HomeView: View {
     
     @Environment(\.openURL) var openURL
@@ -34,10 +50,8 @@ struct HomeView: View {
                                 let item = section.items[itemIndex]
                                 
                                 HStack {
-                                    Image(item.icon)
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                        .aspectRatio(contentMode: .fit)
+                                    RCIcon(name: item.icon)
+                                    
                                     VStack {
                                         Text(item.title)
                                             .font(.system(size: uiManager.settings.homePageItemsDescription.cgFloat))
@@ -52,14 +66,19 @@ struct HomeView: View {
                                             .foregroundColor(.white),
                                         alignment: .bottom
                                     )
-                                    .background(Color.rowBackgroundColor)
+//                                    .background(Color.rowBackgroundColor)
                                     Spacer()
-                                    Image(RCAsset.rightArrow)
+                                    Image(RCAsset.icRightArrow)
                                         .resizable()
                                         .frame(width: 40, height: 40)
                                         .aspectRatio(contentMode: .fit)
                                 }
-                                .frame(height: 50)
+                                .frame(height: 72)
+                                .padding(.horizontal, 8)
+                                .background(Color.white)
+                                .cornerRadius(16)
+                                .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 3)
+                                .padding(4)
                                 .padding(.horizontal, 8)
                                 .onTapGesture {
                                     let section = viewModel.sections[sectionIndex]
@@ -86,14 +105,6 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            
-                            VStack(spacing: 2) {
-                                Divider()
-                                    .background(Color.textColor)
-                                Divider()
-                                    .background(Color.textColor)
-                            }
-                            .padding(.top, 8)
                         }
                     }
                 }

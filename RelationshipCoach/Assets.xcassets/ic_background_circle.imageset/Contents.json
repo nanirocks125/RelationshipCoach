@@ -1,12 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "icons8-gift-50 1.png",
+      "filename" : "ic_sweet.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icons8-gift-100 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

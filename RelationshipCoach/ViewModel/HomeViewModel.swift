@@ -147,19 +147,19 @@ extension StoryType {
     var icon: String {
         switch self {
         case .hisFault:
-            return "ic_male"
+            return RCAsset.comment
         case .herFault:
-            return "ic_male"
+            return RCAsset.comment
         case .myFault:
-            return "ic_female"
+            return RCAsset.hug
         case .toxic:
-            return "ic_flask"
+            return RCAsset.messageReceived
         case .giving:
-            return "ic_sms"
+            return RCAsset.giftBox
         case .receiving:
-            return "ic_sms"
+            return RCAsset.giftBox
         case .sweet:
-            return "ic_gift"
+            return RCAsset.chat
         }
     }
     
@@ -197,7 +197,7 @@ extension HomeSectionItemType {
         case .preference:
             return "ic_settings"
         case .share:
-            return "ic_share"
+            return RCAsset.share
         }
     }
     
