@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5343CF452E37E93800CBD75C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5343CF442E37E93800CBD75C /* StoreKit.framework */; };
 		535541992E3687C800B0646F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 535541982E3687C800B0646F /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +22,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5343CF442E37E93800CBD75C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5346C6A62E23B8B800A1D81D /* RelationshipCoachTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelationshipCoachTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		535712442D930CD900E1F7C8 /* RelationshipCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RelationshipCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -51,6 +53,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				535541992E3687C800B0646F /* Lottie in Frameworks */,
+				5343CF452E37E93800CBD75C /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +82,7 @@
 		53BF7B162E3683F900C082FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5343CF442E37E93800CBD75C /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -104,12 +104,12 @@ struct StoryView: View {
             }
             .padding(2)
         }
-        .toolbarBackground(Color.backgroundColor, for: .navigationBar)
+        .toolbarBackground(Color.themeColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(storyType.navigationTitle)
-                    .foregroundColor(Color.textColor)
+                    .foregroundColor(Color.white)
                     .bold()
             }
         }

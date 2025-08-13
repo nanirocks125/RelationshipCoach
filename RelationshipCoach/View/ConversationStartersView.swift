@@ -59,7 +59,7 @@ struct ConversationStartersView: View {
                     }
                 }
             }
-            .toolbarBackground(gender.color, for: .navigationBar)
+            .toolbarBackground(Color.themeColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()

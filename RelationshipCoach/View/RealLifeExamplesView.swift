@@ -54,7 +54,7 @@ struct RealLifeExamplesView: View {
             }
             .padding()
         }
-        .toolbarBackground(gender.color, for: .navigationBar)
+        .toolbarBackground(Color.themeColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -62,6 +62,7 @@ struct RealLifeExamplesView: View {
             ToolbarItem(placement: .principal) {
                 Text("Real Life Examples")
                     .foregroundColor(.white)
+                    .bold()
             }
             
             ToolbarItem(placement: .navigationBarLeading) {

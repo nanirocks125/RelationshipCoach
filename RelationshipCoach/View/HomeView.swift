@@ -155,7 +155,7 @@ struct HomeView: View {
                 }
             }
         }
-        .accentColor(.white)
+        .accentColor(Color.white)
         
     }
     

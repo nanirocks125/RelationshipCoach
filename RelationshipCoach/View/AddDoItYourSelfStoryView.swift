@@ -122,7 +122,7 @@ struct AddDoItYourSelfStoryView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(gender.color, for: .navigationBar)
+        .toolbarBackground(Color.themeColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {
             viewModel.prepareForm(story: story, doItYourSelfStory: doItYourSelfStory, gender: gender)

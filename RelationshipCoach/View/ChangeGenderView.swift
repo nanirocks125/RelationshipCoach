@@ -68,7 +68,7 @@ struct ChangeGenderView: View {
                     .foregroundColor(.white)
             }
         }
-        .toolbarBackground(gender.color, for: .navigationBar)
+        .toolbarBackground(Color.themeColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }

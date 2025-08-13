@@ -7,17 +7,38 @@
 
 import SwiftUI
 import Lottie
+import StoreKit
+import Combine
 
 @MainActor
 class PurchasePremiumViewModel: ObservableObject {
-    let storeManager = StoreManager()
+    let storeManager = SubscriptionsManager.shared
     @Published var isPurchasing: Bool = false
+    var cancellables = Set<AnyCancellable>()
+    
+    let transactionFinished: AnyPublisher<Void, Never>
+    
+    init() {
+        transactionFinished = storeManager.transactionFinished
+    }
+    
+    func restore() async {
+        print("Restore in vm")
+        isPurchasing = true
+        await storeManager.restorePurchases()
+        isPurchasing = false
+    }
     
     func purchase() {
         Task {
             do {
+                guard let product = try await Product.products(for: [RCSubscription.premium]).first else {
+                    // This could happen if the product ID is incorrect or not set up in App Store Connect.
+                    return
+                }
                 isPurchasing = true
-                try await storeManager.purchase()
+                
+                await storeManager.buyProduct(product)
                 isPurchasing = false
             } catch {
                 print("Purchasing failed: \(error.localizedDescription)")
@@ -47,16 +68,18 @@ struct PurchasePremium: View {
         ZStack {
             VStack {
                 HStack {
-                    if !viewModel.isPurchasing {
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .frame(width: 16, height: 16)
-                            .foregroundStyle(.white)
-                            .onTapGesture {
-                                dismiss()
-                            }
-                    }
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(.white)
+                        .onTapGesture {
+                            dismiss()
+                        }
                     Spacer()
+                    Button("Restore") {
+                        viewModel.purchase()
+                    }
+                    .foregroundStyle(.white)
                 }
                 .padding()
                 VStack {
@@ -129,7 +152,7 @@ struct PurchasePremium: View {
                     VStack {
                         Text("TRY FOR FREE")
                             .bold()
-                        Text("7 days trial, then $9.99 per month")
+                        Text("3 days trial, then $9.99 per month")
                             .font(.caption)
 //                                .bold()
                     }
@@ -144,6 +167,9 @@ struct PurchasePremium: View {
                     .foregroundStyle(.white)
                     .font(.caption)
 //                        .bold()
+                Link("Terms & Conditions", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                    .foregroundStyle(.white)
+
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.themeColor)
@@ -168,6 +194,11 @@ struct PurchasePremium: View {
                 }
                 
             }
+        }
+        .onAppear {
+            viewModel.transactionFinished.sink { _ in
+                self.dismiss()
+            }.store(in: &viewModel.cancellables)
         }
     }
 }

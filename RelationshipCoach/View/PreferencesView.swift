@@ -55,16 +55,16 @@ struct PreferencesView: View {
             }
             .background(Color.backgroundColor)
             .padding(.vertical)
-//            .toolbar {
-//                ToolbarItem(placement: .principal) {
-//                    Text("Preferences")
-//                        .foregroundColor(.white)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Preferences")
+                        .foregroundColor(.white)
 //                        .onTapGesture(count: 3) {
 //                            viewModel.showUISettings.toggle()
 //                        }
-//                }
-//            }
-        .toolbarBackground(gender.color, for: .navigationBar)
+                }
+            }
+            .toolbarBackground(Color.themeColor, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }

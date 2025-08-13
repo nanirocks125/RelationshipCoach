@@ -67,13 +67,14 @@ class StoryViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    private let storeManager = StoreManager()
+    private let storeManager = SubscriptionsManager.shared
     
     init() {
         prepareSections(with: false)
         
-        storeManager.$premiumUser
+        storeManager.premiumUser
             .sink { [weak self] premiumUser in
+                print("Premium user is changed \(premiumUser)")
                 self?.prepareSections(with: premiumUser)
             }.store(in: &cancellables)
         

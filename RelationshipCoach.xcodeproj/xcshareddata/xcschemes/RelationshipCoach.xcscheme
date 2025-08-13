@@ -63,6 +63,9 @@
             ReferencedContainer = "container:RelationshipCoach.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../RelationshipCoach/Store/Subscription.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
