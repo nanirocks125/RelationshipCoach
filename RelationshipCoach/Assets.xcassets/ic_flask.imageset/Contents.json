@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ic_flask_dark.png",
+      "filename" : "icons8-flask-30.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "icons8-flask-60.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "icons8-flask-90.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

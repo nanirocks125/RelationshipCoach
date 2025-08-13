@@ -87,6 +87,8 @@ struct PreferencesView: View {
                                 }
                                 .padding(.leading, 8)
                             }
+                        case .copyright:
+                            Text(item.type.title)
                         default:
                             RCCardView(height: 72) {
                                 RelationshipCoachRowView(

@@ -1,16 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icons8-sms-50 1.png",
+      "filename" : "icons8-sms-30.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icons8-sms-100 1.png",
+      "filename" : "icons8-sms-60.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "icons8-sms-90.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
