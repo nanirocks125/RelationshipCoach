@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/*
 struct UIPreferenceSelectView: View {
     
     let title: String
@@ -30,70 +30,4 @@ struct UIPreferenceSelectView: View {
         
     }
 }
-
-
-struct UISettingsPreferenceView: View {
-    @AppStorage("gender") var gender: Gender = .female
-    
-    @State var settings: UIPreferences = UIPreferences()
-    
-    @AppStorage("uiSettings") var uiSettings: Data?
-    
-    var body: some View {
-        VStack {
-            UIPreferenceSelectView(
-                title: "General Text Size",
-                description: "overall text size of the app.",
-                value: $settings.text
-            )
-
-            UIPreferenceSelectView(
-                title: "Headers on Story Screen",
-                description: "Size of header on story screen option like Real life examples, steps, conversation starters, coaching tips, do it yourself",
-                value: $settings.storyHeadersOnStoryScreen
-            )
-            
-            UIPreferenceSelectView(
-                title: "Description on Story Screen",
-                description: "Size of description on story screen option like Real life examples, steps, conversation starters, coaching tips, do it yourself",
-                value: $settings.storyDescriptionOnStoryScreen
-            )
-            
-            UIPreferenceSelectView(title: "Home Page Item Description",
-                                   description: "Size for list of items on the starting screen",
-                                   value: $settings.homePageItemsDescription)
-            
-            Spacer()
-        }
-        .padding()
-        .onAppear {
-            if let data = self.uiSettings {
-                do {
-                    self.settings = try JSONDecoder().decode(UIPreferences.self, from: data)
-                } catch {
-                    print("Error decoding UI settings: \(error)")
-                }
-            } else {
-                self.settings = UIPreferences()
-            }
-        }
-        .onChange(of: settings) {
-            if let data = try? JSONEncoder().encode(self.settings) {
-                self.uiSettings = data
-            }
-        }
-        .toolbarBackground(gender.color, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("UI Settings")
-                    .foregroundColor(.white)
-                    .bold()
-            }
-        }
-    }
-}
-
-#Preview {
-    UISettingsPreferenceView()
-}
+*/

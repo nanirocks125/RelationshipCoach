@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 class UserSettingsPreferenceManager: ObservableObject {
     @Published var settings: UIPreferences = UIPreferences()
     let userDefaults = UserDefaults.standard
@@ -19,3 +19,4 @@ class UserSettingsPreferenceManager: ObservableObject {
         }
     }
 }
+*/

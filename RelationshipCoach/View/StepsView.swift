@@ -11,7 +11,7 @@ struct StepsView: View {
     @ObservedObject var viewModel = StepsViewModel()
     @AppStorage("gender") var gender: Gender = .female
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
+//    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
 
     let story: StoryType
     init(story: StoryType) {
@@ -21,7 +21,7 @@ struct StepsView: View {
         ScrollView {
             VStack {
                 Text(viewModel.header)
-                    .font(.system(size: uiManager.settings.text.cgFloat))
+                    .font(.system(size: UIPreferences.text))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 16)
                     .padding(.trailing, 8)
@@ -30,7 +30,7 @@ struct StepsView: View {
                         let step = viewModel.steps[index].stepDescription
                         Text("\(index + 1). \(step)")
                             .foregroundStyle(gender.color)
-                            .font(.system(size: uiManager.settings.text.cgFloat))
+                            .font(.system(size: UIPreferences.text))
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical, 8)

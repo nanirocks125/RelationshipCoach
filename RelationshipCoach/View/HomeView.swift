@@ -10,14 +10,25 @@ import AVKit
 
 struct RCIcon: View {
     let name: String
+    let size: CGFloat
+    let iconSize: CGFloat
+    
+    init(name: String,
+         size: CGFloat = 48,
+         iconSize: CGFloat = 28) {
+        self.name = name
+        self.size = size
+        self.iconSize = iconSize
+    }
+    
     var body: some View {
         Image(RCAsset.icBackgroundCircle)
             .resizable()
-            .frame(width: 48, height: 48)
+            .frame(width: size, height: size)
             .overlay {
                 Image(name)
                     .resizable()
-                    .frame(width: 28, height: 28)
+                    .frame(width: iconSize, height: iconSize)
                     .aspectRatio(contentMode: .fit)
                     .shadow(color: .black.opacity(0.62), radius: 13)
             }
@@ -28,7 +39,6 @@ struct HomeView: View {
     
     @Environment(\.openURL) var openURL
     @EnvironmentObject var routeManager: RouteManager
-    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
     @ObservedObject var viewModel: HomeViewModel = .init()
     @AppStorage("gender") var gender: Gender = .female
     @State private var isSharing = false
@@ -54,19 +64,12 @@ struct HomeView: View {
                                     
                                     VStack {
                                         Text(item.title)
-                                            .font(.system(size: uiManager.settings.homePageItemsDescription.cgFloat))
+                                            .font(.system(size: UIPreferences.text))
                                             .foregroundStyle(section.type.textColor(for: gender))
                                             .bold()
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
                                     .frame(height: 50)
-                                    .overlay(
-                                        Rectangle()
-                                            .frame(height: 1) // Border thickness
-                                            .foregroundColor(.white),
-                                        alignment: .bottom
-                                    )
-//                                    .background(Color.rowBackgroundColor)
                                     Spacer()
                                     Image(RCAsset.icRightArrow)
                                         .resizable()
@@ -75,7 +78,7 @@ struct HomeView: View {
                                 }
                                 .frame(height: 72)
                                 .padding(.horizontal, 8)
-                                .background(Color.white)
+                                .background(Color.backgroundColor)
                                 .cornerRadius(16)
                                 .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 3)
                                 .padding(4)
@@ -117,7 +120,7 @@ struct HomeView: View {
             .onAppear {
                 viewModel.prepareSections(for: gender)
                 print("Updating the fonts")
-                uiManager.updateSettings()
+//                uiManager.updateSettings()
             }
             .navigationDestination(for: Route.self) { route in
                 switch route {
@@ -147,8 +150,8 @@ struct HomeView: View {
                     AddDoItYourSelfStoryView(story: story)
                 case .updateDoItYourSelfStory(let story):
                     AddDoItYourSelfStoryView(story: story.story, doItYourSelfStory: story)
-                case .uiSettings:
-                    UISettingsPreferenceView()
+//                case .uiSettings:
+//                    UISettingsPreferenceView()
                 }
             }
         }
@@ -183,7 +186,8 @@ extension HomeSectionType {
     func textColor(for gender: Gender) -> Color {
         switch self {
         case .story, .instagram, .preference:
-            return gender.color
+//            return gender.color
+            return Color.textColor
         case .web:
             return Color.textColor
         }

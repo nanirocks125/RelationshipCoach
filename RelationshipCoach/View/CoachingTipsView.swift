@@ -12,7 +12,7 @@ struct CoachingTipsView: View {
     @AppStorage("gender") var gender: Gender = .female
     @State var tips: [AttributedString] = []
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
+//    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
 
     let story: StoryType
     init(story: StoryType) {
@@ -98,7 +98,7 @@ struct CoachingTipsView: View {
                         }
                     }
                 }
-                .font(.system(size: uiManager.settings.text.cgFloat))
+                .font(.system(size: UIPreferences.text))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
             }
@@ -128,9 +128,9 @@ struct CoachingTipsView: View {
         .onAppear {
             switch gender {
             case .male:
-                self.tips = story.coachingTipsForMale(size: uiManager.settings.text)
+                self.tips = story.coachingTipsForMale(size: UIPreferences.text)
             case .female:
-                self.tips = story.coachingTipsForFemale(size: uiManager.settings.text)
+                self.tips = story.coachingTipsForFemale(size: UIPreferences.text)
             case .none:
                 self.tips = []
             }

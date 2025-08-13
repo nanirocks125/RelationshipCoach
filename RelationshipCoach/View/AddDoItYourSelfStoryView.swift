@@ -11,7 +11,7 @@ struct AddDoItYourSelfStoryView: View {
     @ObservedObject var viewModel = AddDoItYourSelfStoryViewModel()
     @EnvironmentObject var routeManager: RouteManager
     @AppStorage("gender") var gender: Gender = .female
-    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
+//    @EnvironmentObject var uiManager: UserSettingsPreferenceManager
     @Environment(\.presentationMode) var presentationMode
 
     let story: StoryType
@@ -22,12 +22,12 @@ struct AddDoItYourSelfStoryView: View {
         self.doItYourSelfStory = doItYourSelfStory
     }
     
-    func getAttributedString(title: String, displayString: String, size: Int) -> AttributedString {
+    func getAttributedString(title: String, displayString: String, size: CGFloat) -> AttributedString {
         var title = AttributedString(title)
-        title.font = .system(size: CGFloat(size))
+        title.font = .system(size: size)
         title.foregroundColor = Color.textColor
         var displayString = AttributedString(" \(displayString)")
-        displayString.font = .system(size: CGFloat(size), weight: .bold)
+        displayString.font = .system(size: size, weight: .bold)
         displayString.foregroundColor = gender.color
         return title + displayString
     }
@@ -36,7 +36,7 @@ struct AddDoItYourSelfStoryView: View {
         ScrollView {
             VStack {
                 Text("\(viewModel.items.count) \(story.navigationTitle) \"Love Chat\" messages")
-                    .font(.system(size: uiManager.settings.text.cgFloat))
+                    .font(.system(size: UIPreferences.text))
                     .padding(32)
                     .foregroundStyle(gender.color)
                 VStack(spacing: 0) {
@@ -46,14 +46,14 @@ struct AddDoItYourSelfStoryView: View {
                             let title = getAttributedString(
                                 title: item.fromGenderTitle,
                                 displayString: item.fromGenderItemType.displayString,
-                                size: uiManager.settings.text
+                                size: UIPreferences.text
                             )
                             
                             Text(title)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.top, 24)
                             TextEditor(text: $viewModel.items[index].fromGenderSaid)
-                                .font(.system(size: uiManager.settings.text.cgFloat))
+                                .font(.system(size: UIPreferences.text))
                                 .frame(height: 80)
                                 .scrollContentBackground(.hidden)
                                 .autocorrectionDisabled(true)
@@ -62,7 +62,7 @@ struct AddDoItYourSelfStoryView: View {
                             let usertitle = getAttributedString(
                                 title: item.userSaidTitle,
                                 displayString: item.userGenderItemType.displayString,
-                                size: uiManager.settings.text
+                                size: UIPreferences.text
                             )
                             
                             Text(usertitle)
@@ -70,7 +70,7 @@ struct AddDoItYourSelfStoryView: View {
                                 .padding(.top, 24)
                             TextEditor(text: $viewModel.items[index].userSaid)
                                 .frame(height: 80)
-                                .font(.system(size: uiManager.settings.text.cgFloat))
+                                .font(.system(size: UIPreferences.text))
                                 .scrollContentBackground(.hidden)
                                 .autocorrectionDisabled(true)
                                 .accentColor(gender.color)

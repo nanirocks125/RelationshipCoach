@@ -36,7 +36,7 @@ enum PrefereneItemType {
     case privacyPolicy
     case termsAndConditions
     case changeGender
-    case uiSettings
+//    case uiSettings
 }
 
 extension PrefereneItemType {
@@ -50,8 +50,8 @@ extension PrefereneItemType {
             return "Terms and Conditions"
         case .changeGender:
             return "CHANGE GENDER"
-        case .uiSettings:
-            return "Change Font Sizes"
+//        case .uiSettings:
+//            return "Change Font Sizes"
         }
     }
 }
@@ -69,11 +69,11 @@ class PreferenceViewModel: ObservableObject {
     
     
     @Published var sections: [PreferenceSection] = []
-    var showUISettings = false {
-        didSet {
-            prepareSection()
-        }
-    }
+//    var showUISettings = false {
+//        didSet {
+//            prepareSection()
+//        }
+//    }
     
     init() {
         prepareSection()
@@ -93,13 +93,13 @@ class PreferenceViewModel: ObservableObject {
             ]),
             .init(type: .copyright, preferenceItem: [])
         ]
-        if showUISettings {
-            _sections.append(
-                .init(type: .uiSettings, preferenceItem: [
-                    .init(type: .uiSettings)
-                ])
-            )
-        }
+//        if showUISettings {
+//            _sections.append(
+//                .init(type: .uiSettings, preferenceItem: [
+//                    .init(type: .uiSettings)
+//                ])
+//            )
+//        }
         
         self.sections = _sections
     }
@@ -116,8 +116,8 @@ extension PrefereneItemType {
             return .termsAndConditions
         case .changeGender:
             return .changeGender
-        case .uiSettings:
-            return .uiSettings
+//        case .uiSettings:
+//            return .uiSettings
         }
     }
 }
