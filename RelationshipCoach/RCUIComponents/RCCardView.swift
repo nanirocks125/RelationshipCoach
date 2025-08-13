@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+struct RCGradientBackgroundView<Content: View>: View {
+    let content: () -> Content
+
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+    var body: some View {
+
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [.maleColor, .theme]),
+                startPoint: .bottomLeading,
+                endPoint: .topTrailing
+            )            
+            content()
+        }
+        
+    }
+}
+
 struct RCCardView<Content: View>: View {
     let height: CGFloat
     let content: () -> Content
