@@ -35,6 +35,17 @@ extension Gender {
             return "none"
         }
     }
+    
+    var arrowAsset: String {
+        switch self {
+        case .male:
+            return RCAsset.icForwardArrowBlue
+        case .female:
+            return RCAsset.icForwardArrowRed
+        case .none:
+            return ""
+        }
+    }
 }
 
 struct ChangeGenderView: View {

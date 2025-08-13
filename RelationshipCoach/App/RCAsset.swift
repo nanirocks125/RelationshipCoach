@@ -8,7 +8,8 @@
 import Foundation
 
 enum RCAsset {
-    static let icRightArrow = "rc_forward_arrow"
+    static let icForwardArrowRed = "rc_forward_arrow_red"
+    static let icForwardArrowBlue = "rc_forward_arrow_blue"
     static let icBackgroundCircle = "ic_background_circle"
     
     // White modern

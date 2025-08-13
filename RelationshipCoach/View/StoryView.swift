@@ -83,7 +83,7 @@ struct StoryView: View {
                         .padding(8)
                         Spacer()
                         if storySection.enabled {
-                            Image(RCAsset.icRightArrow)
+                            Image(gender.arrowAsset)
                                 .resizable()
                                 .frame(width: 48, height: 48)
                                 .aspectRatio(contentMode: .fit)

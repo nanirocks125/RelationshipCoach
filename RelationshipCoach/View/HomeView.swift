@@ -44,7 +44,7 @@ struct HomeView: View {
                                     }
                                     .frame(height: 50)
                                     Spacer()
-                                    Image(RCAsset.icRightArrow)
+                                    Image(gender.arrowAsset)
                                         .resizable()
                                         .frame(width: 40, height: 40)
                                         .aspectRatio(contentMode: .fit)
