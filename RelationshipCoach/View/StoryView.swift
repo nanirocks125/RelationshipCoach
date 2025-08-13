@@ -129,27 +129,6 @@ struct StoryView: View {
     }
 }
 
-extension StoryType {
-    var navigationTitle: String {
-        switch self {
-        case .hisFault:
-            "His Fault"
-        case .herFault:
-            "Her Fault"
-        case .myFault:
-            "My Fault"
-        case .toxic:
-            "Toxic Chat"
-        case .giving:
-            "Giving Talk"
-        case .receiving:
-            "Receiving Talk"
-        case .sweet:
-            "Sweet Talk"
-        }
-    }
-}
-
 extension StorySectionType {
     func route(for story: StoryType) -> Route {
         switch self {

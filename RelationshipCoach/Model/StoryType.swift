@@ -16,3 +16,24 @@ enum StoryType: Codable {
     case receiving
     case sweet
 }
+
+extension StoryType {
+    var navigationTitle: String {
+        switch self {
+        case .hisFault:
+            "His Fault"
+        case .herFault:
+            "Her Fault"
+        case .myFault:
+            "My Fault"
+        case .toxic:
+            "Toxic Chat"
+        case .giving:
+            "Giving Talk"
+        case .receiving:
+            "Receiving Talk"
+        case .sweet:
+            "Sweet Talk"
+        }
+    }
+}
