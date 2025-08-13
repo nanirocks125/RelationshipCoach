@@ -9,8 +9,6 @@ import Foundation
 import Combine
 
 enum PreferenceSectionType {
-    case share
-    case instagram
     case coach
     case legal
     case settings
@@ -26,10 +24,6 @@ enum PreferenceSectionType {
             return "User Settings"
         case .copyright:
             return "Copyright @2024. Relationship Coach Camille. \n All Rights Reserved."
-        case .instagram:
-            return "Instagram"
-        case .share:
-            return "Share"
         }
     }
 }
@@ -69,6 +63,25 @@ struct PreferenceItem {
     var type: PrefereneItemType
 }
 
+extension PrefereneItemType {
+    var asset: String {
+        switch self {
+        case .share:
+            return "share"
+        case .instagram:
+            return "ic_instagram"
+        case .coach:
+            return ""
+        case .privacyPolicy:
+            return ""
+        case .termsAndConditions:
+            return ""
+        case .changeGender:
+            return ""
+        }
+    }
+}
+
 struct PreferenceSection {
     var type: PreferenceSectionType
     var preferenceItem: [PreferenceItem]
@@ -94,12 +107,8 @@ class PreferenceViewModel: ObservableObject {
                 .init(type: .changeGender)
             ]),
             .init(type: .coach, preferenceItem: [
-                .init(type: .coach)
-            ]),
-            .init(type: .instagram, preferenceItem: [
-                .init(type: .instagram)
-            ]),
-            .init(type: .share, preferenceItem: [
+                .init(type: .coach),
+                .init(type: .instagram),
                 .init(type: .share)
             ]),
             .init(type: .copyright, preferenceItem: []),

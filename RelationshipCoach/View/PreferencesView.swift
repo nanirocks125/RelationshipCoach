@@ -62,6 +62,19 @@ struct PreferencesView: View {
                 ForEach(0..<viewModel.sections.count, id: \.self) { sectionIndex in
                     let section = viewModel.sections[sectionIndex]
                     
+                    switch section.type {
+                    case .legal, .coach, .settings:
+                        Rectangle()
+                            .fill(gender.color)
+                            .frame(height: 30)
+                            .overlay {
+                                Text(section.type.title)
+                                    .foregroundStyle(.white)
+                            }
+                    default:
+                        EmptyView()
+                    }
+                    
                     ForEach(0..<section.preferenceItem.count, id: \.self) { itemIndex in
                         let item = section.preferenceItem[itemIndex]
                         switch section.type {
@@ -88,13 +101,13 @@ struct PreferencesView: View {
                             }
                             .onTapGesture {
                                 let section = viewModel.sections[sectionIndex]
-                                switch section.type {
+                                let item = section.preferenceItem[itemIndex]
+                                switch item.type {
                                 case .instagram:
                                     openInstagramProfile(username: "relationshipcoachllc")
                                 case .share :
                                     self.isSharing = true
                                 default:
-                                    let item = section.preferenceItem[itemIndex]
                                     if let preferenceRoute = item.type.preferenceRoute {
                                         routes.append(preferenceRoute)
                                     }

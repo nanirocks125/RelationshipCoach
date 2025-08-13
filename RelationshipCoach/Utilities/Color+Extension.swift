@@ -10,6 +10,7 @@ import SwiftUI
 
 extension Color {
     static let backgroundColor = Color("background")
+    static let secondaryBackgroundColor = Color("secondaryBackgroundColor")
     static let textColor = Color("textColor")
     static let femaleColor = Color(hex: 0xc35a88)
     static let maleColor = Color(hex: 0x1a60e3)

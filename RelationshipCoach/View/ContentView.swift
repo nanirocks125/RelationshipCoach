@@ -8,6 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @AppStorage("gender") var gender: Gender = .female
+    init() {
+        // Change selected tab item color
+        UITabBar.appearance().tintColor = UIColor(gender.color)
+        
+        // Optional: Change unselected tab item color
+        UITabBar.appearance().unselectedItemTintColor = UIColor.gray
+    }
+
+    
     var body: some View {
         TabView {
             HomeView()
@@ -17,10 +28,10 @@ struct ContentView: View {
             
             PreferencesView()
                 .tabItem {
-                    Label("Preferences", systemImage: "house")
+                    Label("Settings", systemImage: "gearshape")
                 }
-
         }
+        .tint(gender.color)
     }
 }
 
