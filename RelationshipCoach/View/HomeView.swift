@@ -10,11 +10,9 @@ import AVKit
 
 struct HomeView: View {
     
-    @Environment(\.openURL) var openURL
     @EnvironmentObject var routeManager: RouteManager
     @ObservedObject var viewModel: HomeViewModel = .init()
     @AppStorage("gender") var gender: Gender = .female
-    @State private var isSharing = false
 
     var body: some View {
         NavigationStack(path: $routeManager.routes) {
@@ -54,32 +52,30 @@ struct HomeView: View {
                                     if section.type == .story {
                                         if let story = item.story {
                                             routeManager.routes.append(.story(story))
-                                        } else if item.isSharing {
-                                            self.isSharing = true
                                         }
+//                                        else if item.isSharing {
+//                                            self.isSharing = true
+//                                        }
                                     }
                                     
-                                    if section.type == .preference {
-                                        routeManager.routes.append(.preference)
-                                    }
-                                    
-                                    if section.type == .instagram {
-                                        openInstagramProfile(username: "relationshipcoachllc")
-                                    }
-                                    
-                                    if section.type == .web {
-                                        if let url = item.url {
-                                            openURL(url)
-                                        }
-                                    }
+//                                    if section.type == .preference {
+//                                        routeManager.routes.append(.preference)
+//                                    }
+//                                    
+//                                    if section.type == .instagram {
+//                                        openInstagramProfile(username: "relationshipcoachllc")
+//                                    }
+//                                    
+//                                    if section.type == .web {
+//                                        if let url = item.url {
+//                                            openURL(url)
+//                                        }
+//                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            .sheet(isPresented: $isSharing) {
-                ShareSheet(activityItems: [appURL, appImage!])
             }
 
             .background(Color.backgroundColor)
@@ -90,16 +86,16 @@ struct HomeView: View {
                 switch route {
                 case .story(let story):
                     StoryView(storyType: story)
-                case .preference:
-                    PreferencesView()
-                case .coach:
-                    AboutCoachView()
-                case .privacyPolicy:
-                    PrivacyPolicyView()
-                case .termsAndConditions:
-                    TermsAndConditionsView()
-                case .changeGender:
-                    ChangeGenderView()
+//                case .preference:
+//                    PreferencesView()
+//                case .coach:
+//                    AboutCoachView()
+//                case .privacyPolicy:
+//                    PrivacyPolicyView()
+//                case .termsAndConditions:
+//                    TermsAndConditionsView()
+//                case .changeGender:
+//                    ChangeGenderView()
                 case .realLifeExamples(let story):
                     RealLifeExamplesView(story: story)
                 case .steps(let story):
@@ -118,17 +114,6 @@ struct HomeView: View {
             }
         }
         .accentColor(Color.white)
-    }
-    
-    func openInstagramProfile(username: String) {
-        let appURL = URL(string: "instagram://user?username=\(username)")!
-        let webURL = URL(string: "https://www.instagram.com/\(username)/")!
-        
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
-        }
     }
 }
 

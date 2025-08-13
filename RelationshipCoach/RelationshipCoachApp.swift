@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+enum PreferenceRoute: Hashable {
+    case preference
+    case coach
+    case privacyPolicy
+    case termsAndConditions
+    case changeGender
+}
+
 enum Route: Hashable {
     case story(StoryType)
     case realLifeExamples(StoryType)
@@ -16,12 +24,6 @@ enum Route: Hashable {
     case doItYourSelf(StoryType)
     case addDoItYourSelfStory(StoryType)
     case updateDoItYourSelfStory(DoItYourSelfStory)
-    case preference
-    case coach
-    case privacyPolicy
-    case termsAndConditions
-    case changeGender
-//    case uiSettings
 }
 
 class RouteManager: ObservableObject {
@@ -37,7 +39,7 @@ struct RelationshipCoachApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            ContentView()
                 .environmentObject(RouteManager())
         }
     }

@@ -20,4 +20,11 @@ enum RCAsset {
     static let messageReceived = "message_received"
     static let share = "share"
     static let lock = "lock"
+    
+    static let ic_female = "ic_female"
+    static let ic_flask = "ic_flask"
+    static let ic_gift = "ic_gift"
+    static let ic_male = "ic_male"
+    static let ic_settings = "ic_settings"
+    static let ic_sms = "ic_sms"
 }

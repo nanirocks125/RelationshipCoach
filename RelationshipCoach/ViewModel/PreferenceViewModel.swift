@@ -9,11 +9,12 @@ import Foundation
 import Combine
 
 enum PreferenceSectionType {
+    case share
+    case instagram
     case coach
     case legal
     case settings
     case copyright
-    case uiSettings
     
     var title: String {
         switch self {
@@ -25,13 +26,17 @@ enum PreferenceSectionType {
             return "User Settings"
         case .copyright:
             return "Copyright @2024. Relationship Coach Camille. \n All Rights Reserved."
-        case .uiSettings:
-            return "UI Settings"
+        case .instagram:
+            return "Instagram"
+        case .share:
+            return "Share"
         }
     }
 }
 
 enum PrefereneItemType {
+    case share
+    case instagram
     case coach
     case privacyPolicy
     case termsAndConditions
@@ -49,7 +54,11 @@ extension PrefereneItemType {
         case .termsAndConditions:
             return "Terms and Conditions"
         case .changeGender:
-            return "CHANGE GENDER"
+            return "Change Gender"
+        case .instagram:
+            return "Instagram"
+        case .share:
+            return "Share"
 //        case .uiSettings:
 //            return "Change Font Sizes"
         }
@@ -80,18 +89,24 @@ class PreferenceViewModel: ObservableObject {
     }
     
     func prepareSection() {
-        var _sections: [PreferenceSection] = [
-            .init(type: .coach, preferenceItem: [
-                .init(type: .coach)
-            ]),
-            .init(type: .legal, preferenceItem: [
-                .init(type: .privacyPolicy),
-                .init(type: .termsAndConditions)
-            ]),
+        let _sections: [PreferenceSection] = [
             .init(type: .settings, preferenceItem: [
                 .init(type: .changeGender)
             ]),
-            .init(type: .copyright, preferenceItem: [])
+            .init(type: .coach, preferenceItem: [
+                .init(type: .coach)
+            ]),
+            .init(type: .instagram, preferenceItem: [
+                .init(type: .instagram)
+            ]),
+            .init(type: .share, preferenceItem: [
+                .init(type: .share)
+            ]),
+            .init(type: .copyright, preferenceItem: []),
+            .init(type: .legal, preferenceItem: [
+                .init(type: .privacyPolicy),
+                .init(type: .termsAndConditions)
+            ])
         ]
 //        if showUISettings {
 //            _sections.append(
@@ -106,7 +121,7 @@ class PreferenceViewModel: ObservableObject {
 }
 
 extension PrefereneItemType {
-    var preferenceRoute: Route {
+    var preferenceRoute: PreferenceRoute? {
         switch self {
         case .coach:
             return .coach
@@ -118,6 +133,8 @@ extension PrefereneItemType {
             return .changeGender
 //        case .uiSettings:
 //            return .uiSettings
+        case .share, .instagram:
+            return nil
         }
     }
 }

@@ -46,6 +46,17 @@ extension Gender {
             return ""
         }
     }
+    
+    var segmentTitle: String {
+        switch self {
+        case .male:
+            return "Male"
+        case .female:
+            return "Female"
+        case .none:
+            return ""
+        }
+    }
 }
 
 struct ChangeGenderView: View {

@@ -7,33 +7,99 @@
 
 import SwiftUI
 
+import SwiftUI
+
+struct CustomGenderPickerView: View {
+    @AppStorage("gender") var gender: Gender = .female
+    var genders: [Gender] = [.male, .female]
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(genders, id: \.self) { genderOption in
+                Button(action: {
+                    gender = genderOption
+                }) {
+                    Text(genderOption.segmentTitle)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical)
+                        .background(gender == genderOption ? gender.color : Color.white)
+                        .foregroundColor(gender == genderOption ? .white : .black)
+                        .font(.system(size: 14))
+                        .frame(height: 40)
+                }
+                .cornerRadius(8)
+            }
+        }
+        .frame(width: 160, height: 40)
+//        .background(Color.gray.opacity(0.5))
+//        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.gray, lineWidth: 1)
+        )
+        .padding(.vertical)
+    }
+}
+
+struct CustomGenderPickerView_Previews: PreviewProvider {
+    static var previews: some View {
+        CustomGenderPickerView()
+    }
+}
+
+
 struct PreferencesView: View {
-    @EnvironmentObject var routeManager: RouteManager
+    @Environment(\.openURL) var openURL
+    @State var routes: [PreferenceRoute] = []
     @ObservedObject var viewModel = PreferenceViewModel()
     @AppStorage("gender") var gender: Gender = .female
+    @State private var isSharing = false
     
+
     var body: some View {
+        NavigationStack(path: $routes) {
             VStack {
                 ForEach(0..<viewModel.sections.count, id: \.self) { sectionIndex in
                     let section = viewModel.sections[sectionIndex]
                     
                     ForEach(0..<section.preferenceItem.count, id: \.self) { itemIndex in
                         let item = section.preferenceItem[itemIndex]
-                        RCCardView(height: 72) {
-                            RelationshipCoachRowView(
-                                title: item.type.title,
-                                titleFontSize: UIPreferences.text,
-                                theme: Color.textColor
-                            )
-                            Image(gender.arrowAsset)
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .aspectRatio(contentMode: .fit)
-                        }
-                        .onTapGesture {
-                            let section = viewModel.sections[sectionIndex]
-                            let item = section.preferenceItem[itemIndex]
-                            routeManager.routes.append(item.type.preferenceRoute)
+                        switch section.type {
+                        case .settings:
+                            RCCardView(height: 72) {
+                                HStack {
+                                    Text(item.type.title)
+                                    Spacer()
+                                    CustomGenderPickerView()
+                                }
+                                .padding(.leading, 8)
+                            }
+                        default:
+                            RCCardView(height: 72) {
+                                RelationshipCoachRowView(
+                                    title: item.type.title,
+                                    titleFontSize: UIPreferences.text,
+                                    theme: Color.textColor
+                                )
+                                Image(gender.arrowAsset)
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .aspectRatio(contentMode: .fit)
+                            }
+                            .onTapGesture {
+                                let section = viewModel.sections[sectionIndex]
+                                switch section.type {
+                                case .instagram:
+                                    openInstagramProfile(username: "relationshipcoachllc")
+                                case .share :
+                                    self.isSharing = true
+                                default:
+                                    let item = section.preferenceItem[itemIndex]
+                                    if let preferenceRoute = item.type.preferenceRoute {
+                                        routes.append(preferenceRoute)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -41,17 +107,37 @@ struct PreferencesView: View {
             }
             .background(Color.backgroundColor)
             .padding(.vertical)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Preferences")
-                        .foregroundColor(.white)
-//                        .onTapGesture(count: 3) {
-//                            viewModel.showUISettings.toggle()
-//                        }
+            .navigationDestination(for: PreferenceRoute.self) { route in
+                switch route {
+                case .preference:
+                    PreferencesView()
+                case .coach:
+                    AboutCoachView()
+                case .privacyPolicy:
+                    PrivacyPolicyView()
+                case .termsAndConditions:
+                    TermsAndConditionsView()
+                case .changeGender:
+                    ChangeGenderView()
                 }
             }
-            .toolbarBackground(gender.color, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+            .sheet(isPresented: $isSharing) {
+                ShareSheet(activityItems: [appURL, appImage!])
+            }
+        }
+        .accentColor(Color.white)
+            
+    }
+    
+    func openInstagramProfile(username: String) {
+        let appURL = URL(string: "instagram://user?username=\(username)")!
+        let webURL = URL(string: "https://www.instagram.com/\(username)/")!
+        
+        if UIApplication.shared.canOpenURL(appURL) {
+            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
+        }
     }
 }
 

@@ -99,7 +99,8 @@ public extension HomeViewModel {
         sections = [
             .init(
                 type: .story,
-                items: gender.items + [.share]
+                items: gender.items
+//                + [.share]
             ),
 //            .init(
 //                type: .web,
@@ -109,18 +110,18 @@ public extension HomeViewModel {
 //                    .relationshipMomentsAudio
 //                ]
 //            ),
-            .init(
-                type: .instagram,
-                items: [
-                    .instagram("")
-                ]
-            ),
-            .init(
-                type: .preference,
-                items: [
-                    .preference
-                ]
-            )
+//            .init(
+//                type: .instagram,
+//                items: [
+//                    .instagram("")
+//                ]
+//            ),
+//            .init(
+//                type: .preference,
+//                items: [
+//                    .preference
+//                ]
+//            )
         ]
     }
 }
@@ -147,19 +148,19 @@ extension StoryType {
     var icon: String {
         switch self {
         case .hisFault:
-            return RCAsset.comment
+            return RCAsset.ic_male
         case .herFault:
-            return RCAsset.comment
+            return RCAsset.ic_male
         case .myFault:
-            return RCAsset.hug
+            return RCAsset.ic_female
         case .toxic:
-            return RCAsset.messageReceived
+            return RCAsset.ic_flask
         case .giving:
-            return RCAsset.giftBox
+            return RCAsset.ic_sms
         case .receiving:
-            return RCAsset.giftBox
+            return RCAsset.ic_sms
         case .sweet:
-            return RCAsset.chat
+            return RCAsset.ic_gift
         }
     }
     
