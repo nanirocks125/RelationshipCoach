@@ -22,26 +22,28 @@ struct ConversationStartersView: View {
             VStack {
                 ForEach(0..<viewModel.conversationStarters.count, id: \.self) { index in
                     let starter = viewModel.conversationStarters[index]
-                    Text("\(index+1). \(starter.title)")
-                        .font(.system(size: UIPreferences.title))
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(8)
-                    Divider()
-                    ForEach(0..<starter.statements.count, id:\.self) { statementIndex in
-                        let statement = starter.statements[statementIndex]
-                        
-                        Text(statement.attributedStringForItems(with: UIPreferences.text))
+                    VStack {
+                        Text("\(index+1). \(starter.title)")
+                            .font(.system(size: UIPreferences.title))
+                            .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(8)
-                            .padding(.trailing, 32)
-                        Divider()
+                        ForEach(0..<starter.statements.count, id:\.self) { statementIndex in
+                            let statement = starter.statements[statementIndex]
+                            
+                            RCCardView(height: 100) {
+                                Text(statement.attributedStringForItems(with: UIPreferences.text))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(8)
+                                    .padding(.trailing, 32)
+                            }
+                        }
                     }
                 }
             }
             .padding(8)
             .background(Color.rowBackgroundColor)
-            .padding(16)
+//            .padding(16)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Conversation Starters")

@@ -72,7 +72,7 @@ struct StoryView: View {
                             Group {
                                 Text(section.title)
                                     .font(.system(size: UIPreferences.title))
-                                    .foregroundStyle(Color.textColor)
+                                    .foregroundStyle(gender.color)
                                 Text(section.description)
                                     .font(.system(size: UIPreferences.text))
                                     .padding(.vertical, 2)
@@ -89,8 +89,12 @@ struct StoryView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .padding(.horizontal, 8)
                         } else {
-                            RCIconView(name: RCAsset.lock, size: 24, iconSize: 28)
-                                .padding(.horizontal, 20)
+                            RCIconView(name: RCAsset.lock,
+                                       backgroundColor: gender.color,
+                                       radius: 24,
+                                       iconSize: 28
+                            )
+                            .padding(.horizontal, 20)
                         }
                     }
                     .onTapGesture {

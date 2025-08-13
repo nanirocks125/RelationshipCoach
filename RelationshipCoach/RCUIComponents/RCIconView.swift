@@ -9,21 +9,25 @@ import SwiftUI
 
 struct RCIconView: View {
     let name: String
-    let size: CGFloat
+    let backgroundColor: Color
+    let radius: CGFloat
     let iconSize: CGFloat
     
     init(name: String,
-         size: CGFloat = 48,
+         backgroundColor: Color,
+         radius: CGFloat = 48,
          iconSize: CGFloat = 28) {
         self.name = name
-        self.size = size
+        self.backgroundColor = backgroundColor
+        self.radius = radius
         self.iconSize = iconSize
     }
     
     var body: some View {
-        Image(RCAsset.icBackgroundCircle)
-            .resizable()
-            .frame(width: size, height: size)
+        Circle()
+            .fill(backgroundColor)
+            .stroke(Color.white, lineWidth: 2)
+            .frame(width: radius, height: radius)
             .overlay {
                 Image(name)
                     .resizable()

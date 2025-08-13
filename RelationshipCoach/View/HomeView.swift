@@ -33,7 +33,7 @@ struct HomeView: View {
                                 let item = section.items[itemIndex]
                                 
                                 RCCardView(height: 72) {
-                                    RCIconView(name: item.icon)
+                                    RCIconView(name: item.icon, backgroundColor: gender.color)
                                     
                                     VStack {
                                         Text(item.title)

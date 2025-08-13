@@ -25,25 +25,18 @@ struct StepsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 16)
                     .padding(.trailing, 8)
-                VStack(alignment: .leading) {
-                    ForEach(0..<viewModel.steps.count, id: \.self) { index in
-                        let step = viewModel.steps[index].stepDescription
+                ForEach(0..<viewModel.steps.count, id: \.self) { index in
+                    let step = viewModel.steps[index].stepDescription
+                    RCCardView(height: 72) {
                         Text("\(index + 1). \(step)")
                             .foregroundStyle(gender.color)
                             .font(.system(size: UIPreferences.text))
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical, 8)
-                        if index < viewModel.steps.count - 1 {
-                            Divider()
-                        }
+                            .padding(.leading, 8)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(16)
-                .background(Color.rowBackgroundColor)
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
                 Spacer()
             }
         }
