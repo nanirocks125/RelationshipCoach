@@ -68,14 +68,21 @@ struct StoryView: View {
                     let section = storySection.type
                     
                     HStack {
-                        RelationshipCoachRowView(
-                            title: section.title,
-                            titleFontSize: UIPreferences.title,
-                            description: section.description,
-                            descriptionFontSize: UIPreferences.text,
-                            theme: gender.color
-                        )
                         
+                        VStack(alignment: .center, spacing: 8) {
+                            Group {
+                                Text(section.title)
+                                    .font(.system(size: UIPreferences.title))
+                                    .foregroundStyle(Color.textColor)
+                                Text(section.description)
+                                    .font(.system(size: UIPreferences.text))
+                                    .padding(.vertical, 2)
+                                    .foregroundStyle(Color.rowDescriptionColor)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding(8)
+                        Spacer()
                         if storySection.enabled {
                             Image(RCAsset.icRightArrow)
                                 .resizable()
@@ -86,11 +93,14 @@ struct StoryView: View {
                             RCIcon(name: RCAsset.lock, size: 24, iconSize: 28)
                                 .padding(.horizontal, 20)
                         }
-                        
-                        
                     }
-                    
-                    .padding(.vertical, 2)
+                    .frame(height: 100)
+                    .padding(.horizontal, 8)
+                    .background(Color.backgroundColor)
+                    .cornerRadius(16)
+                    .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 3)
+                    .padding(4)
+                    .padding(.horizontal, 8)
                     .onTapGesture {
                         if storySection.enabled {
                             routeManager.routes.append(section.route(for: storyType))
