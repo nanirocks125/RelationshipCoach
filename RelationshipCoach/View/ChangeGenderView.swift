@@ -19,7 +19,7 @@ extension Gender {
         case .male:
             return Color.maleColor
         case .female:
-            return Color.femaleColor
+            return Color.themeColor
         case .none:
             return Color.textColor
         }
@@ -68,7 +68,7 @@ struct ChangeGenderView: View {
                     .foregroundColor(.white)
             }
         }
-        .toolbarBackground(Color.themeColor, for: .navigationBar)
+        .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }

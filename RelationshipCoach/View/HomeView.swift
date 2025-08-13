@@ -8,33 +8,6 @@
 import SwiftUI
 import AVKit
 
-struct RCIcon: View {
-    let name: String
-    let size: CGFloat
-    let iconSize: CGFloat
-    
-    init(name: String,
-         size: CGFloat = 48,
-         iconSize: CGFloat = 28) {
-        self.name = name
-        self.size = size
-        self.iconSize = iconSize
-    }
-    
-    var body: some View {
-        Image(RCAsset.icBackgroundCircle)
-            .resizable()
-            .frame(width: size, height: size)
-            .overlay {
-                Image(name)
-                    .resizable()
-                    .frame(width: iconSize, height: iconSize)
-                    .aspectRatio(contentMode: .fit)
-                    .shadow(color: .black.opacity(0.62), radius: 13)
-            }
-    }
-}
-
 struct HomeView: View {
     
     @Environment(\.openURL) var openURL
@@ -59,8 +32,8 @@ struct HomeView: View {
                             ForEach(0..<section.items.count, id: \.self) { itemIndex in
                                 let item = section.items[itemIndex]
                                 
-                                HStack {
-                                    RCIcon(name: item.icon)
+                                RCCardView(height: 72) {
+                                    RCIconView(name: item.icon)
                                     
                                     VStack {
                                         Text(item.title)
@@ -76,13 +49,6 @@ struct HomeView: View {
                                         .frame(width: 40, height: 40)
                                         .aspectRatio(contentMode: .fit)
                                 }
-                                .frame(height: 72)
-                                .padding(.horizontal, 8)
-                                .background(Color.backgroundColor)
-                                .cornerRadius(16)
-                                .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 3)
-                                .padding(4)
-                                .padding(.horizontal, 8)
                                 .onTapGesture {
                                     let section = viewModel.sections[sectionIndex]
                                     if section.type == .story {

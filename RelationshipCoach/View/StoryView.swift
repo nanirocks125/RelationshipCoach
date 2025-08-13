@@ -67,8 +67,7 @@ struct StoryView: View {
                     let storySection = viewModel.storySections[index]
                     let section = storySection.type
                     
-                    HStack {
-                        
+                    RCCardView(height: 100) {
                         VStack(alignment: .center, spacing: 8) {
                             Group {
                                 Text(section.title)
@@ -90,17 +89,10 @@ struct StoryView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .padding(.horizontal, 8)
                         } else {
-                            RCIcon(name: RCAsset.lock, size: 24, iconSize: 28)
+                            RCIconView(name: RCAsset.lock, size: 24, iconSize: 28)
                                 .padding(.horizontal, 20)
                         }
                     }
-                    .frame(height: 100)
-                    .padding(.horizontal, 8)
-                    .background(Color.backgroundColor)
-                    .cornerRadius(16)
-                    .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 3)
-                    .padding(4)
-                    .padding(.horizontal, 8)
                     .onTapGesture {
                         if storySection.enabled {
                             routeManager.routes.append(section.route(for: storyType))
@@ -114,7 +106,7 @@ struct StoryView: View {
             }
             .padding(2)
         }
-        .toolbarBackground(Color.themeColor, for: .navigationBar)
+        .toolbarBackground(gender.color, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .principal) {

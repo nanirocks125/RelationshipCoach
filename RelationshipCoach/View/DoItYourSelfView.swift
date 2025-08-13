@@ -94,7 +94,7 @@ struct DoItYourSelfView: View {
                     }
                 }
             }
-            .toolbarBackground(Color.themeColor, for: .navigationBar)
+            .toolbarBackground(gender.color, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
