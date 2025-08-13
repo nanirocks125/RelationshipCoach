@@ -13,6 +13,7 @@ extension Color {
     static let secondaryBackgroundColor = Color("secondaryBackgroundColor")
     static let textColor = Color("textColor")
     static let femaleColor = Color(hex: 0xc35a88)
+//    static let maleColor = Color(hex: 0x742691)
     static let maleColor = Color(hex: 0x1a60e3)
     static let rowBackgroundColor = Color("rowBackgroundColor")
     static let rowDescriptionColor = Color("rowDescriptionColor")
@@ -22,8 +23,10 @@ extension Color {
 extension UIColor {
     static let femaleColor = UIColor(hex: 0xc35a88)
     static let maleColor = UIColor(hex: 0x1a60e3)
+//    static let maleColor = UIColor(hex: 0x742691)
+    
 }
-
+//116 38 145
 extension Color {
     init(hex: Int, opacity: Double = 1) {
         self.init(

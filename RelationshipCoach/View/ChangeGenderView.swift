@@ -39,7 +39,8 @@ extension Gender {
     var arrowAsset: String {
         switch self {
         case .male:
-            return RCAsset.icForwardArrowBlue
+//            return RCAsset.icForwardArrowBlue
+            return RCAsset.icForwardArrowPurple
         case .female:
             return RCAsset.icForwardArrowRed
         case .none:

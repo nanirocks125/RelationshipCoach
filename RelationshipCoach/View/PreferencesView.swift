@@ -139,8 +139,8 @@ struct PreferencesView: View {
             .sheet(isPresented: $isSharing) {
                 ShareSheet(activityItems: [appURL, appImage!])
             }
-            .accentColor(Color.white)
         }
+        .tint(Color.white)
     }
     
     func openInstagramProfile(username: String) {

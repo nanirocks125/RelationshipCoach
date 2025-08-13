@@ -113,7 +113,7 @@ struct HomeView: View {
                 }
             }
         }
-        .accentColor(Color.white)
+        .tint(Color.white)
     }
 }
 
