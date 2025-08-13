@@ -39,11 +39,6 @@ struct RelationshipCoachApp: App {
         WindowGroup {
             HomeView()
                 .environmentObject(RouteManager())
-//                .environmentObject(UserSettingsPreferenceManager())
-//                .environmentObject(StoreManager())
-//=======
-//                .environmentObject(UserSettingsPreferenceManager())
-//>>>>>>> storemanager
         }
     }
 }

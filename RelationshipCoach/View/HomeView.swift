@@ -38,7 +38,7 @@ struct HomeView: View {
                                     VStack {
                                         Text(item.title)
                                             .font(.system(size: UIPreferences.text))
-                                            .foregroundStyle(section.type.textColor(for: gender))
+                                            .foregroundStyle(Color.textColor)
                                             .bold()
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
@@ -85,8 +85,6 @@ struct HomeView: View {
             .background(Color.backgroundColor)
             .onAppear {
                 viewModel.prepareSections(for: gender)
-                print("Updating the fonts")
-//                uiManager.updateSettings()
             }
             .navigationDestination(for: Route.self) { route in
                 switch route {
@@ -116,13 +114,10 @@ struct HomeView: View {
                     AddDoItYourSelfStoryView(story: story)
                 case .updateDoItYourSelfStory(let story):
                     AddDoItYourSelfStoryView(story: story.story, doItYourSelfStory: story)
-//                case .uiSettings:
-//                    UISettingsPreferenceView()
                 }
             }
         }
         .accentColor(Color.white)
-        
     }
     
     func openInstagramProfile(username: String) {
@@ -146,16 +141,4 @@ func navigationTitleView(_ title: String) -> Text {
     Text(title)
         .font(.system(size: 20, weight: .bold, design: .default))
         .foregroundColor(Color.white)
-}
-
-extension HomeSectionType {
-    func textColor(for gender: Gender) -> Color {
-        switch self {
-        case .story, .instagram, .preference:
-//            return gender.color
-            return Color.textColor
-        case .web:
-            return Color.textColor
-        }
-    }
 }
