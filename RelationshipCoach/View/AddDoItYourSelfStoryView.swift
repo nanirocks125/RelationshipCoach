@@ -81,25 +81,21 @@ struct AddDoItYourSelfStoryView: View {
                 }
                 .background(Color.rowBackgroundColor)
                 .padding()
-
-                Button {
-                    Task {
-                        if let doItYourSelfStory = doItYourSelfStory {
-                            await viewModel.updateData(for: doItYourSelfStory, gender: gender)
-                        } else {
-                            await viewModel.saveData(gender: gender)
-                        }
-                        
-                        routeManager.pop()
+                
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(gender.color)
+                    .overlay {
+                        Text("Save")
+                            .foregroundStyle(.white)
                     }
-                } label: {
-                    Text("SAVE")
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 40)
-                        .background(gender.color)
-                        .foregroundStyle(.white)
-                        .padding()
-                }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 64)
+                    .padding()
+                    .onTapGesture {
+                        Task {
+                            await save()
+                        }
+                    }
             }
         }
         .toolbar {
@@ -119,6 +115,18 @@ struct AddDoItYourSelfStoryView: View {
                     }
                 }
             }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    Task {
+                        await save()
+                    }
+                }) {
+                    HStack {
+                        Text("Save") // Custom text
+                    }
+                }
+            }
         }
         .navigationBarBackButtonHidden()
         .navigationBarTitleDisplayMode(.inline)
@@ -127,6 +135,16 @@ struct AddDoItYourSelfStoryView: View {
         .onAppear {
             viewModel.prepareForm(story: story, doItYourSelfStory: doItYourSelfStory, gender: gender)
         }
+    }
+    
+    func save() async {
+        if let doItYourSelfStory = doItYourSelfStory {
+            await viewModel.updateData(for: doItYourSelfStory, gender: gender)
+        } else {
+            await viewModel.saveData(gender: gender)
+        }
+        
+        routeManager.pop()
     }
 }
 
