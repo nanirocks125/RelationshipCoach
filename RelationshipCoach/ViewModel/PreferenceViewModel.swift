@@ -108,8 +108,8 @@ class PreferenceViewModel: ObservableObject {
             ]),
             .init(type: .coach, preferenceItem: [
                 .init(type: .coach),
-                .init(type: .instagram),
-                .init(type: .share)
+//                .init(type: .instagram),
+//                .init(type: .share)
             ]),
             .init(type: .copyright, preferenceItem: []),
             .init(type: .legal, preferenceItem: [

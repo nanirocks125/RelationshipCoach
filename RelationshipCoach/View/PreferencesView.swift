@@ -142,16 +142,16 @@ struct PreferencesView: View {
         }
         .tint(Color.white)
     }
+}
+
+func openInstagramProfile(username: String) {
+    let appURL = URL(string: "instagram://user?username=\(username)")!
+    let webURL = URL(string: "https://www.instagram.com/\(username)/")!
     
-    func openInstagramProfile(username: String) {
-        let appURL = URL(string: "instagram://user?username=\(username)")!
-        let webURL = URL(string: "https://www.instagram.com/\(username)/")!
-        
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
-        }
+    if UIApplication.shared.canOpenURL(appURL) {
+        UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+    } else {
+        UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
     }
 }
 

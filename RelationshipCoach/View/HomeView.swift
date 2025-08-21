@@ -13,6 +13,7 @@ struct HomeView: View {
     @EnvironmentObject var routeManager: RouteManager
     @ObservedObject var viewModel: HomeViewModel = .init()
     @AppStorage("gender") var gender: Gender = .female
+    @State private var isSharing = false
 
     var body: some View {
         NavigationStack(path: $routeManager.routes) {
@@ -30,8 +31,16 @@ struct HomeView: View {
                             ForEach(0..<section.items.count, id: \.self) { itemIndex in
                                 let item = section.items[itemIndex]
                                 
+//                                if item.isInstagram {
+//                                    Rectangle()
+//                                        .fill(gender.color)
+//                                        .frame(height: 30)
+//                                        .padding(.vertical, 8)
+//                                }
+                                
                                 RCCardView(height: 72) {
-                                    RCIconView(name: item.icon, backgroundColor: gender.color)
+                                    RCIconView(name: item.icon,
+                                               backgroundColor: iconBackgroundColor(item: item))
                                     
                                     VStack {
                                         Text(item.title)
@@ -53,18 +62,20 @@ struct HomeView: View {
                                         if let story = item.story {
                                             routeManager.routes.append(.story(story))
                                         }
-//                                        else if item.isSharing {
-//                                            self.isSharing = true
-//                                        }
                                     }
+                                    
+                                    if section.type == .share {
+                                        self.isSharing = true
+                                    }
+
                                     
 //                                    if section.type == .preference {
 //                                        routeManager.routes.append(.preference)
 //                                    }
 //                                    
-//                                    if section.type == .instagram {
-//                                        openInstagramProfile(username: "relationshipcoachllc")
-//                                    }
+                                    if section.type == .instagram {
+                                        openInstagramProfile(username: "relationshipcoachllc")
+                                    }
 //                                    
 //                                    if section.type == .web {
 //                                        if let url = item.url {
@@ -112,8 +123,22 @@ struct HomeView: View {
                     AddDoItYourSelfStoryView(story: story.story, doItYourSelfStory: story)
                 }
             }
+            .sheet(isPresented: $isSharing) {
+                ShareSheet(activityItems: [appURL, appImage!])
+            }
         }
         .tint(Color.white)
+    }
+    
+    func iconBackgroundColor(item: HomeSectionItemType) -> Color {
+        switch item {
+        case .instagram(_):
+            return Color.backgroundColor
+        case .share:
+            return Color.green
+        default:
+            return gender.color
+        }
     }
 }
 

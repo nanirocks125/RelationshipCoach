@@ -35,6 +35,14 @@ extension HomeSectionItemType {
         }
     }
     
+    var isInstagram: Bool {
+        if case .instagram(_) = self {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     var url: URL? {
         switch self {
         case .becomeRelationshipCoach:
@@ -54,6 +62,7 @@ enum HomeSectionType {
     case web
     case instagram
     case preference
+    case share
 }
 
 public struct HomeSection {
@@ -110,12 +119,18 @@ public extension HomeViewModel {
 //                    .relationshipMomentsAudio
 //                ]
 //            ),
-//            .init(
-//                type: .instagram,
-//                items: [
-//                    .instagram("")
-//                ]
-//            ),
+            .init(
+                type: .instagram,
+                items: [
+                    .instagram(""),
+                ]
+            ),
+            .init(
+                type: .share,
+                items: [
+                    .share
+                ]
+            )
 //            .init(
 //                type: .preference,
 //                items: [
