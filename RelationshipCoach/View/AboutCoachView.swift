@@ -114,7 +114,7 @@ extension AboutCoachView {
         
         var text2 = AttributedString("RelationshipCoachLLC.com")
         let linkRange = text2.range(of: "RelationshipCoachLLC.com")!
-        text2[linkRange].link = URL(string: "https://relationshipcoachllc.com/")
+        text2[linkRange].link = URL(string: "https://relationshipcoachcamille.com/")
         text2.underlineColor = UIColor(gender.color)
         text2.underlineStyle = .single
         text2.foregroundColor = gender.color
@@ -161,7 +161,7 @@ extension AboutCoachView {
         var text4 = AttributedString("www.relationshipcoachllc.com")
         
         let linkRange = text4.range(of: "www.relationshipcoachllc.com")!
-        text4[linkRange].link = URL(string: "https://relationshipcoachllc.com/")
+        text4[linkRange].link = URL(string: "https://relationshipcoachcamille.com/")
         text4.underlineColor = UIColor(gender.color)
         text4.underlineStyle = .single
         text4.foregroundColor = gender.color
@@ -181,3 +181,13 @@ extension AboutCoachView {
 #Preview {
     AboutCoachView()
 }
+
+/// Camille is a professionally trained and certified “Relationship Coach” through the Hendricks Institute, Ojai, California.
+///
+/// After experiencing an unexpected divorce from a long marriage, she searched for answers to help her heal and to create the great love she has with her new husband today.
+///
+/// Her vision is for each one of YOU to have a great relationship, whether it’s a partner, family member, friend, coworker, neighbor, etc. Sometimes, it isn’t easy, but with these tools, you really can create and sustain great relationships that last a lifetime.
+///
+/// Even though this is focused on partner relationships, the tools apply to all relationships. She’s used it in many situations, and you can too.
+///
+/// You’re invited to study it, practice the Do-It-Yourself with her guiding prompts and see the magic happen, one relationship at a time!
