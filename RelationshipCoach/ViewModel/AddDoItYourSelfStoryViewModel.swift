@@ -15,6 +15,7 @@ enum DoItYourSelfStoryFormItemType: Codable {
     // His Fault
     case heartFeelingOrFact
     case negativeSelfFeelingStatement
+    case bodyFeeling_NegativeSelfFeelingStatement_CallToAction
     case callToAction
     case appreciation
     
@@ -63,6 +64,11 @@ enum DoItYourSelfStoryFormItemType: Codable {
     
     case makePlans
     case showSincereInterestInHerFamily
+    
+    // Extraordinary
+    case admit_apologize_appreciation_commitToChange_askForgiveness
+    case bodyFeeling_negativeSelfFeelingStatement
+    case givePermission_takeYourFeelingsForAWalk
     
     case none
 }
@@ -153,6 +159,14 @@ extension DoItYourSelfStoryFormItemType {
             return "(make plans)"
         case .showSincereInterestInHerFamily:
             return "(show sincere interest in her family)"
+        case .bodyFeeling_NegativeSelfFeelingStatement_CallToAction:
+            return "(body feeling, negative self-feeling statement, call-to-action)"
+        case .admit_apologize_appreciation_commitToChange_askForgiveness:
+            return "(admit, apologize, appreciation, commit-to-change, ask forgiveness)"
+        case .bodyFeeling_negativeSelfFeelingStatement:
+            return "(body feeling, negative-self-feeling statement)"
+        case .givePermission_takeYourFeelingsForAWalk:
+            return "(give permission, take your feelings for a walk)"
         }
     }
 }
@@ -257,21 +271,21 @@ extension StoryType {
     var herFaultItems: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                userGenderItemType: .heartFeelingOrFact,
+                userGenderItemType: .heartFeeling,
                 fromGenderTitle: "She did or said something wrong:"
             ),
             .init(
-                userGenderItemType: .bodyFeeling,
+                userGenderItemType: .bodyFeeling_NegativeSelfFeelingStatement_CallToAction,
                 fromGenderTitle: "She did or said something wrong:"
             ),
-            .init(
-                userGenderItemType: .negativeSelfFeelingStatement,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .callToAction,
-                fromGenderTitle: "She said:"
-            ),
+//            .init(
+//                userGenderItemType: .negativeSelfFeelingStatement,
+//                fromGenderTitle: "She said:"
+//            ),
+//            .init(
+//                userGenderItemType: .callToAction,
+//                fromGenderTitle: "She said:"
+//            ),
             .init(
                 userGenderItemType: .clarification,
                 fromGenderTitle: "She said:"
@@ -286,25 +300,25 @@ extension StoryType {
     var myFaultItemsForMale: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                userGenderItemType: .admit,
-                fromGenderTitle: "She complained:"
-            ),
-            .init(
-                userGenderItemType: .apologize,
+                userGenderItemType: .admit_apologize_appreciation_commitToChange_askForgiveness,
                 fromGenderTitle: "She said:"
             ),
-            .init(
-                userGenderItemType: .firstAppreciation,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .commitToChange,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .askForgiveness,
-                fromGenderTitle: "She said:"
-            ),
+//            .init(
+//                userGenderItemType: .apologize,
+//                fromGenderTitle: "She said:"
+//            ),
+//            .init(
+//                userGenderItemType: .firstAppreciation,
+//                fromGenderTitle: "She said:"
+//            ),
+//            .init(
+//                userGenderItemType: .commitToChange,
+//                fromGenderTitle: "She said:"
+//            ),
+//            .init(
+//                userGenderItemType: .askForgiveness,
+//                fromGenderTitle: "She said:"
+//            ),
             .init(
                 userGenderItemType: .clarification,
                 fromGenderTitle: "She said:"
@@ -331,45 +345,45 @@ extension StoryType {
     var toxicChatItemsForMale: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                userGenderItemType: .admit,
+                userGenderItemType: .admit_apologize_appreciation_commitToChange_askForgiveness,
                 fromGenderTitle: "She said:"
             ),
-            .init(
-                userGenderItemType: .apologize,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .firstAppreciation,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .commitToChange,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .askForgiveness,
-                fromGenderTitle: "She said:"
-            ),
+//            .init(
+//                userGenderItemType: .apologize,
+//                fromGenderTitle: "She said:"
+//            ),
+//            .init(
+//                userGenderItemType: .firstAppreciation,
+//                fromGenderTitle: "She said:"
+//            ),
+//            .init(
+//                userGenderItemType: .commitToChange,
+//                fromGenderTitle: "She said:"
+//            ),
+//            .init(
+//                userGenderItemType: .askForgiveness,
+//                fromGenderTitle: "She said:"
+//            ),
             .init(
                 userGenderItemType: .heartFeeling,
                 fromGenderTitle: "She said:"
             ),
             .init(
-                userGenderItemType: .bodyFeeling,
+                userGenderItemType: .bodyFeeling_negativeSelfFeelingStatement,
                 fromGenderTitle: "She said:"
             ),
+//            .init(
+//                userGenderItemType: .negativeSelfFeelingStatement,
+//                fromGenderTitle: "She said:"
+//            ),
             .init(
-                userGenderItemType: .negativeSelfFeelingStatement,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .givePermission,
-                fromGenderTitle: "She said:"
-            ),
-            .init(
-                userGenderItemType: .takeYourFeelingsForAWalk,
+                userGenderItemType: .givePermission_takeYourFeelingsForAWalk,
                 fromGenderTitle: "She said:"
             )
+//            .init(
+//                userGenderItemType: .takeYourFeelingsForAWalk,
+//                fromGenderTitle: "She said:"
+//            )
         ]
     }
     
@@ -473,25 +487,25 @@ extension StoryType {
     var myFaultItemsForFemale: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                userGenderItemType: .admit,
-                fromGenderTitle: "He complained:"
-            ),
-            .init(
-                userGenderItemType: .apologize,
+                userGenderItemType: .admit_apologize_appreciation_commitToChange_askForgiveness,
                 fromGenderTitle: "He said:"
             ),
-            .init(
-                userGenderItemType: .firstAppreciation,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .commitToChange,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .askForgiveness,
-                fromGenderTitle: "He said:"
-            ),
+//            .init(
+//                userGenderItemType: .apologize,
+//                fromGenderTitle: "He said:"
+//            ),
+//            .init(
+//                userGenderItemType: .firstAppreciation,
+//                fromGenderTitle: "He said:"
+//            ),
+//            .init(
+//                userGenderItemType: .commitToChange,
+//                fromGenderTitle: "He said:"
+//            ),
+//            .init(
+//                userGenderItemType: .askForgiveness,
+//                fromGenderTitle: "He said:"
+//            ),
             .init(
                 userGenderItemType: .clarification,
                 fromGenderTitle: "He said:"
@@ -518,21 +532,21 @@ extension StoryType {
     var hisFaultItems: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                userGenderItemType: .heartFeelingOrFact,
+                userGenderItemType: .heartFeeling,
                 fromGenderTitle: "He did or said something wrong:"
             ),
             .init(
-                userGenderItemType: .bodyFeeling,
+                userGenderItemType: .bodyFeeling_NegativeSelfFeelingStatement_CallToAction,
                 fromGenderTitle: "He did or said something wrong:"
             ),
-            .init(
-                userGenderItemType: .negativeSelfFeelingStatement,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .callToAction,
-                fromGenderTitle: "He said:"
-            ),
+//            .init(
+//                userGenderItemType: .negativeSelfFeelingStatement,
+//                fromGenderTitle: "He said:"
+//            ),
+//            .init(
+//                userGenderItemType: .callToAction,
+//                fromGenderTitle: "He said:"
+//            ),
             .init(
                 userGenderItemType: .clarification,
                 fromGenderTitle: "He said:"
@@ -547,45 +561,45 @@ extension StoryType {
     var toxicChatItemsForFemale: [DoItYourSelfStoryFormItem] {
         return [
             .init(
-                userGenderItemType: .admit,
+                userGenderItemType: .admit_apologize_appreciation_commitToChange_askForgiveness,
                 fromGenderTitle: "He said:"
             ),
-            .init(
-                userGenderItemType: .apologize,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .firstAppreciation,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .commitToChange,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .askForgiveness,
-                fromGenderTitle: "He said:"
-            ),
+//            .init(
+//                userGenderItemType: .apologize,
+//                fromGenderTitle: "He said:"
+//            ),
+//            .init(
+//                userGenderItemType: .firstAppreciation,
+//                fromGenderTitle: "He said:"
+//            ),
+//            .init(
+//                userGenderItemType: .commitToChange,
+//                fromGenderTitle: "He said:"
+//            ),
+//            .init(
+//                userGenderItemType: .askForgiveness,
+//                fromGenderTitle: "He said:"
+//            ),
             .init(
                 userGenderItemType: .heartFeeling,
                 fromGenderTitle: "He said:"
             ),
             .init(
-                userGenderItemType: .bodyFeeling,
+                userGenderItemType: .bodyFeeling_negativeSelfFeelingStatement,
                 fromGenderTitle: "He said:"
             ),
+//            .init(
+//                userGenderItemType: .negativeSelfFeelingStatement,
+//                fromGenderTitle: "He said:"
+//            ),
             .init(
-                userGenderItemType: .negativeSelfFeelingStatement,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .givePermission,
-                fromGenderTitle: "He said:"
-            ),
-            .init(
-                userGenderItemType: .takeYourFeelingsForAWalk,
+                userGenderItemType: .givePermission_takeYourFeelingsForAWalk,
                 fromGenderTitle: "He said:"
             )
+//            .init(
+//                userGenderItemType: .takeYourFeelingsForAWalk,
+//                fromGenderTitle: "He said:"
+//            )
         ]
     }
     

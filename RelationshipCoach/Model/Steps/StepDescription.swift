@@ -92,6 +92,14 @@ extension DoItYourSelfStoryFormItemType {
             return "Show sincere interest in her family"
         case .none:
             return ""
+        case .bodyFeeling_NegativeSelfFeelingStatement_CallToAction:
+            return ""
+        case .admit_apologize_appreciation_commitToChange_askForgiveness:
+            return ""
+        case .bodyFeeling_negativeSelfFeelingStatement:
+            return ""
+        case .givePermission_takeYourFeelingsForAWalk:
+            return ""
         }
     }
 }
