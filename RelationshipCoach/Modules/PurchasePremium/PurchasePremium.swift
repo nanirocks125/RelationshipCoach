@@ -67,117 +67,124 @@ struct PurchasePremium: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                HStack {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                        .foregroundStyle(.white)
-                        .onTapGesture {
-                            dismiss()
-                        }
-                    Spacer()
-                    Button("Restore") {
-                        viewModel.purchase()
-                    }
-                    .foregroundStyle(.white)
-                }
-                .padding()
+            ScrollView {
                 VStack {
-                    Image(.logo)
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .opacity(opacity)
-                    Text("\(opacity)")
-                }
-                .padding()
-                .background(.white)
-                .cornerRadius(16)
-                
-                Slider(value: $opacity)
-                    .frame(maxWidth: .infinity)
+                    HStack {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                            .foregroundStyle(.white)
+                            .onTapGesture {
+                                dismiss()
+                            }
+                        Spacer()
+                        Button("Restore") {
+                            viewModel.purchase()
+                        }
+                        .foregroundStyle(.white)
+                    }
                     .padding()
+                    VStack {
+                        Image(.logo)
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .opacity(opacity)
+                        Text("\(opacity)")
+                    }
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(16)
                     
-                HStack {
-                    Text("Relationship Coach")
-                        .foregroundStyle(.white)
-                        .font(.title2)
-                        .bold()
-                    Text("Pro")
-                        .padding(.horizontal)
-                        .foregroundStyle(.theme)
-                        .background(.white)
-                        .cornerRadius(16)
-                }
-                .padding(.bottom, 32)
-                HStack {
-                    VStack {
-                        Text("End Arguments Now")
-                            .font(.caption)
+                    Slider(value: $opacity)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        
+                    HStack {
+                        Text("Relationship Coach")
                             .foregroundStyle(.white)
-                        Image("before_rc")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .font(.title2)
+                            .bold()
+                        Text("Pro")
+                            .padding(.horizontal)
+                            .foregroundStyle(.theme)
+                            .background(.white)
+                            .cornerRadius(16)
                     }
-                    VStack {
-                        Text("Bring back the love")
-                            .font(.caption)
-                            .foregroundStyle(.white)
-                        Image("after_rc")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    }
-                }
-                .padding(.bottom, 16)
-                .padding(.horizontal)
-                
-                Spacer()
-                
-                VStack {
-                    ForEach(proFeatures, id: \.self) { feature in
-                        HStack {
-                            Image(systemName: "checkmark")
+                    .padding(.bottom, 32)
+                    HStack {
+                        VStack {
+                            Text("End Arguments Now")
+                                .font(.caption)
                                 .foregroundStyle(.white)
-                            Text(feature)
-                                .font(.callout)
+                            Image("before_rc")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 100)
+                                .border(Color.white, width: 5)
+                        }
+                        VStack {
+                            Text("Bring back the love")
+                                .font(.caption)
                                 .foregroundStyle(.white)
-                            Spacer()
+                            Image("after_rc")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 100)
+                                .border(Color.white, width: 5)
                         }
                     }
-                }
-                .padding(.horizontal, 32)
-                
-                
-                Spacer()
-                
-                
-                Button {
-                    viewModel.purchase()
-                } label: {
+                    .padding(.bottom, 16)
+                    .padding(.horizontal)
+                    
+                    Spacer()
+                    
                     VStack {
-                        Text("TRY FOR FREE")
-                            .bold()
-                        Text("3 days trial, then $9.99 per month")
-                            .font(.caption)
-//                                .bold()
+                        ForEach(proFeatures, id: \.self) { feature in
+                            HStack {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.white)
+                                Text(feature)
+                                    .font(.callout)
+                                    .foregroundStyle(.white)
+                                Spacer()
+                            }
+                        }
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .background(.white)
-                    .foregroundStyle(.theme)
-                    .cornerRadius(8)
-                }
-                .padding(.horizontal)
-                Text("You can cancel at anytime")
-                    .foregroundStyle(.white)
-                    .font(.caption)
-//                        .bold()
-                Link("Terms & Conditions", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
-                    .foregroundStyle(.white)
+                    .padding(.horizontal, 32)
+                    
+                    
+                    Spacer()
+                    
+                    
+                    Button {
+                        viewModel.purchase()
+                    } label: {
+                        VStack {
+                            Text("TRY FOR FREE")
+                                .bold()
+                            Text("3 days trial, then $9.99 per month")
+                                .font(.caption)
+    //                                .bold()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(.white)
+                        .foregroundStyle(.theme)
+                        .cornerRadius(8)
+                    }
+                    .padding(.horizontal)
+                    Text("You can cancel at anytime")
+                        .foregroundStyle(.white)
+                        .font(.caption)
+    //                        .bold()
+                    Link("Terms & Conditions", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                        .foregroundStyle(.white)
 
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.femaleColor)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay {
                 if viewModel.isPurchasing {
                     Rectangle()
