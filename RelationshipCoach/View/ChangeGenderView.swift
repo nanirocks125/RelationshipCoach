@@ -19,7 +19,7 @@ extension Gender {
         case .male:
             return Color.maleColor
         case .female:
-            return Color.themeColor
+            return Color.femaleColor
         case .none:
             return Color.textColor
         }

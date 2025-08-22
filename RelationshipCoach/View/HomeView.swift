@@ -38,9 +38,10 @@ struct HomeView: View {
 //                                        .padding(.vertical, 8)
 //                                }
                                 
-                                RCCardView(height: 72) {
+                                RCCardView(height: 50) {
                                     RCIconView(name: item.icon,
-                                               backgroundColor: iconBackgroundColor(item: item))
+                                               backgroundColor: iconBackgroundColor(item: item),
+                                               dropShadowColor: dropShadowColor(item: item))
                                     
                                     VStack {
                                         Text(item.title)
@@ -133,11 +134,20 @@ struct HomeView: View {
     func iconBackgroundColor(item: HomeSectionItemType) -> Color {
         switch item {
         case .instagram(_):
-            return Color.backgroundColor
+            return Color.white
         case .share:
             return Color.green
         default:
             return gender.color
+        }
+    }
+    
+    func dropShadowColor(item: HomeSectionItemType) -> Color {
+        switch item {
+        case .instagram(_):
+            return Color.white
+        default:
+            return Color.black
         }
     }
 }

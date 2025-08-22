@@ -28,4 +28,6 @@ enum RCAsset {
     static let ic_male = "ic_male"
     static let ic_settings = "ic_settings"
     static let ic_sms = "ic_sms"
+    
+    static let logo = "logo2"
 }
