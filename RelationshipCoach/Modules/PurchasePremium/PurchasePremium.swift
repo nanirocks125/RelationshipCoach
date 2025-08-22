@@ -53,7 +53,6 @@ class PurchasePremiumViewModel: ObservableObject {
 struct PurchasePremium: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: PurchasePremiumViewModel = .init()
-    @State var opacity: Double = 1
     
     let proFeatures = [
         "His Fault/ Her Fault Love Chat",
@@ -88,16 +87,11 @@ struct PurchasePremium: View {
                         Image(.logo)
                             .resizable()
                             .frame(width: 100, height: 100)
-                            .opacity(opacity)
-                        Text("\(opacity)")
+                            .opacity(0.903827)
                     }
                     .padding()
                     .background(.white)
                     .cornerRadius(16)
-                    
-                    Slider(value: $opacity)
-                        .frame(maxWidth: .infinity)
-                        .padding()
                         
                     HStack {
                         Text("Relationship Coach")
