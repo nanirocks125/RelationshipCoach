@@ -41,7 +41,9 @@ struct HomeView: View {
                                 RCCardView(height: 50) {
                                     RCIconView(name: item.icon,
                                                backgroundColor: iconBackgroundColor(item: item),
-                                               dropShadowColor: dropShadowColor(item: item))
+                                               dropShadowColor: dropShadowColor(item: item),
+                                               radius: 36,
+                                               iconSize: 24)
                                     
                                     VStack {
                                         Text(item.title)
