@@ -57,7 +57,8 @@ struct AddDoItYourSelfStoryView: View {
                                 .frame(height: 80)
                                 .scrollContentBackground(.hidden)
                                 .autocorrectionDisabled(true)
-                                .accentColor(gender.color)
+//                                .accentColor(gender.color)
+//                                .accentColor(.red)
                             Divider()
                             let usertitle = getAttributedString(
                                 title: item.userSaidTitle,
