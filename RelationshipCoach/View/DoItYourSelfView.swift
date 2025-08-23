@@ -79,7 +79,7 @@ struct DoItYourSelfView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Do it yourself add")
+                    Text("Do It Yourself add")
                         .foregroundColor(.white)
                         .bold()
                 }
