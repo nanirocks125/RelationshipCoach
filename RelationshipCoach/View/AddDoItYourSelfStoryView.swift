@@ -35,7 +35,7 @@ struct AddDoItYourSelfStoryView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text("\(viewModel.items.count) \(story.navigationTitle) \"Love Chat\" messages")
+                Text("\(viewModel.messagesCount) \(story.navigationTitle) \"Love Chat\" messages")
                     .font(.system(size: UIPreferences.text))
                     .padding(32)
                     .foregroundStyle(gender.color)

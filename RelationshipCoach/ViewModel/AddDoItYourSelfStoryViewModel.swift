@@ -208,6 +208,28 @@ extension DoItYourSelfStory: Equatable, Hashable {
 
 class AddDoItYourSelfStoryViewModel: ObservableObject {
     @Published var items: [DoItYourSelfStoryFormItem] = []
+    
+    var messagesCount: Int {
+        switch story {
+        case .hisFault:
+            return 6
+        case .herFault:
+            return 6
+        case .myFault:
+            return 10
+        case .toxic:
+            return 10
+        case .giving:
+            return 10
+        case .receiving:
+            return 6
+        case .sweet:
+            return 7
+        case nil:
+            return 0
+        }
+    }
+    
     let userDefaultsManager = UserDefaultsManager()
     var story: StoryType?
     
