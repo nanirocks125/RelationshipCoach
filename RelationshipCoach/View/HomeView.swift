@@ -77,7 +77,7 @@ struct HomeView: View {
 //                                    }
 //                                    
                                     if section.type == .instagram {
-                                        openInstagramProfile(username: "relationshipcoachllc")
+                                        openInstagramProfile(username: "relationshipcoachcamille")
                                     }
 //                                    
 //                                    if section.type == .web {
